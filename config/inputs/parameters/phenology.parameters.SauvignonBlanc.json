@@ -1,0 +1,24 @@
+{
+  "name": "phenology.parameters.SauvignonBlanc",
+  "class": "phenology.parameters",
+  "metaclass": "document-category-name",
+  "category": {
+    "parameters": {
+      "DORMANCY_DAY_LENGTH": 13.1,
+      "ENDODORMANCY_TARGET": 52.64,
+      "ECODORMANCY_TARGET": 1011.25,
+      "YMAX": 1,
+      "X0": 12.42,
+      "B": -3.865,
+      "BASE_TEMP": 0.008,
+      "FLOWERING_TARGET": 21.105,
+      "FRUIT_SET_TARGET": 10,
+      "VERAISON_TARGET": 23.063,
+      "MAX_TEMP": 37.934329,
+      "MIN_TEMP": 3.961847,
+      "OPT_TEMP": 29.046383,
+      "REF_TEMP": 25,
+      "BUDBURST_CANE_DIFF": [0.582726444010425,-0.201495056990568,0.649526325523313,0.353258594402463,0.63027452671527,-0.0429079570507831,-0.169185592637081,-0.275400787478332,-0.615576207609358,-0.853347439396649]
+    }
+  }
+}
