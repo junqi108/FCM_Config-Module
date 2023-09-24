@@ -1,4 +1,4 @@
-package fspm.test;
+package fspm.config;
 
 import static org.junit.Assert.assertTrue;
 
