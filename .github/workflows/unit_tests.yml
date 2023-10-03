@@ -30,8 +30,8 @@ jobs:
         cache: maven
     - name: Build with Maven
       run: |
-      cd ${{ github.workspace }}
-      bash scripts/run_unit_tests.sh
+        cd ${{ github.workspace }}
+        bash scripts/run_unit_tests.sh
     - name: Test Report
       uses: dorny/test-reporter@v1
       if: success()
