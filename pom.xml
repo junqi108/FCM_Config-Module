@@ -22,7 +22,7 @@
   <repositories>
     <repository>
       <id>fspm-modules.local</id>
-      <name>fspm-modules</name>
+      <!-- <name>fspm-modules</name> -->
       <url>file:${project.basedir}/repo</url>
     </repository>
   </repositories>

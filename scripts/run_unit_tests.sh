@@ -4,6 +4,6 @@
 # Main
 ###################################################################
 
-mvn -B validate -X -e 
-mvn -B verify -X -e   
-mvn -B test -X -e 
+mvn -B validate -e 
+mvn -B verify -e   
+mvn -B test -e 
