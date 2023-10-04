@@ -8,7 +8,7 @@
   <groupId>fspm</groupId>
   <artifactId>config</artifactId>
   <version>0.0.1-SNAPSHOT</version>
-  <packaging>pom</packaging>
+  <packaging>jar</packaging>
 
   <name>config</name>
   <url>http://maven.apache.org</url>
