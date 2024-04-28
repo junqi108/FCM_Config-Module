@@ -146,7 +146,8 @@ public class ConfigTest {
 		CONFIG.setGroupContext("soilParams_pot_1");
 		CONFIG.useFlattenedCategories = true;
 		
-		println(CONFIG.getIntegerArray("layerThickness"));
+		println(CONFIG.getIntegerArray("layerThickness")[0]);
+		println(CONFIG.getIntegerArray("layerThickness").length);
 	}
 	
 	

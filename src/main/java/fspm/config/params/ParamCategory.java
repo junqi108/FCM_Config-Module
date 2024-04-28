@@ -155,11 +155,20 @@ public class ParamCategory implements ParamAccessor {
 	}
 	
 	@Override
+	public Integer[] getIntegerArray(String key) {
+		if (isNull(key)) {{ return null; }}
+		
+		return ((ArrayParam<Integer>) getIfInstanceOf(key, ArrayParam.class)).getValue();
+	}
+	
+	
+	@Override
 	public Double[] getDoubleArray(String key) {
 		if (isNull(key)) {{ return null; }}
 		
 		return ((ArrayParam<Double>) getIfInstanceOf(key, ArrayParam.class)).getValue();
 	}
+	
 	
 	
 	/**

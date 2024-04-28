@@ -41,9 +41,11 @@ public class ParamFactory {
 	        } else if (node.isArray()) {
 	        	ObjectMapper objectMapper = new ObjectMapper();
 	        	// Check type of array. TODO: generalize ArrayParam for multiple types.
-	    		if (node.get(0).isDouble()) {
+	        	if (node.get(0).isInt()) {
+	    			return new ArrayParam<Integer>(name, objectMapper.treeToValue(node, Integer[].class));
+	    		} else if (node.get(0).isDouble()) {
 					return new ArrayParam<Double>(name, objectMapper.treeToValue(node, Double[].class));
-	    		}
+	    		} 
 	        }
     	} catch (Exception e) {
     		throw new RuntimeException(String.format("An error occured while parsing parameter: %s.\n%s", name, e));

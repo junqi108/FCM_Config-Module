@@ -8,6 +8,7 @@ public interface ParamAccessor {
 	String getString(String key);
 	Integer getInteger(String key);
 	Double getDouble(String key);
+	Integer[] getIntegerArray(String key);
 	Double[] getDoubleArray(String key);
 
 	void set(String key, boolean value);

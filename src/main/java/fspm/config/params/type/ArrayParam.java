@@ -21,6 +21,10 @@ public class ArrayParam<T> extends Parameter {
 	
 	@Override
     public String toString() {
-        return super.getKey() + ": " + value;
+		String out = super.getKey() + ": ";
+		for (T item : value) {
+			out += "[" + item + "]";
+		}
+		return out;
     }
 }
