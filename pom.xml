@@ -87,13 +87,21 @@
   </reporting>
 
   <build>
+	  <!-- Need to define maven shade here so that execution occurs -->
+	  <plugins>
+	  	<plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-shade-plugin</artifactId>
+      </plugin>
+    </plugins>
+    
     <pluginManagement><!-- lock down plugins versions to avoid using Maven defaults (may be moved to
       parent pom) -->
       <plugins>
-        <plugin>
-          <groupId>org.apache.maven.plugins</groupId>
-          <artifactId>maven-shade-plugin</artifactId>
-          <version>3.5.0</version>
+		  	<plugin>
+	      	<groupId>org.apache.maven.plugins</groupId>
+	        <artifactId>maven-shade-plugin</artifactId>
+	        <version>3.5.0</version>
           <executions>
             <execution>
               <phase>package</phase>
