@@ -7,7 +7,7 @@ import java.util.Map;
 import fspm.config.adapters.ConfigAdapter;
 import fspm.config.params.ParamAccessor;
 import fspm.config.params.ParamCategory;
-import fspm.config.params.ParamGroup;
+import fspm.config.params.group.ParamGroup;
 import fspm.util.exceptions.KeyConflictException;
 import fspm.util.exceptions.KeyNotFoundException;
 
@@ -16,7 +16,7 @@ import fspm.util.exceptions.KeyNotFoundException;
  * 
  * @author Ou-An Chuang
  */
-public class Config implements ParamAccessor {
+public class Config {
     /**
      * Singleton instance for the global config. 
      * Set to null by default until instance is first retrieved with {@link #getInstance()}.
@@ -100,15 +100,20 @@ public class Config implements ParamAccessor {
      * Gets the parameter group with the given key.
      * @return Parameter group
      */
-    public ParamGroup getGroup(String key) {
-    	ParamGroup group = paramGroups.get(key);
-    	
-    	if (group == null) {
-    		throw new KeyNotFoundException(key);
-    	}
-    	return group;
-    }
     
+	public <T extends ParamGroup> T getGroup(String key, Class<T> groupClass) {
+		ParamGroup group = paramGroups.get(key);
+	
+		if (group == null) {
+			throw new KeyNotFoundException(key);
+		}
+		if (!groupClass.isInstance(group)) {
+			throw new IllegalArgumentException("Group is not of the expected type: " + groupClass.getSimpleName());
+		}
+	
+		return groupClass.cast(group);
+	}	
+
     /**
      * Remove the parameter group with the given key.
      * @param key
@@ -127,181 +132,181 @@ public class Config implements ParamAccessor {
     
     
     
-    public Config setGroupContext(String key) {
-    	try {
-    		groupContext = getGroup(key);
-    	} catch (KeyNotFoundException e) {
-    		throw new KeyNotFoundException(key, "Could not set group context as group with key does not exist.");
-    	}
-    	return this;
-    }
+    // public Config setGroupContext(String key) {
+    // 	try {
+    // 		groupContext = getGroup(key);
+    // 	} catch (KeyNotFoundException e) {
+    // 		throw new KeyNotFoundException(key, "Could not set group context as group with key does not exist.");
+    // 	}
+    // 	return this;
+    // }
     
-    public Config setCategoryContext(String key) {
-    	checkGroupContextExists();
+    // public Config setCategoryContext(String key) {
+    // 	checkGroupContextExists();
 		
-    	try {
-    		categoryContext = groupContext.getCategory(key);
-    	} catch (KeyNotFoundException e) {
-    		throw new KeyNotFoundException(key, "Could not set category context as category with key does not exist.");
-    	}
-    	return this;
-    }
+    // 	try {
+    // 		categoryContext = groupContext.getCategory(key);
+    // 	} catch (KeyNotFoundException e) {
+    // 		throw new KeyNotFoundException(key, "Could not set category context as category with key does not exist.");
+    // 	}
+    // 	return this;
+    // }
     
     
     
     
     
-    private void checkGroupContextExists() {
-    	if (groupContext == null) {
-    		throw new NullPointerException("Please set a group context to access parameter categories.");
-    	}
-    }
+    // private void checkGroupContextExists() {
+    // 	if (groupContext == null) {
+    // 		throw new NullPointerException("Please set a group context to access parameter categories.");
+    // 	}
+    // }
     
-    private boolean isCategoryContextExists() {
-    	return categoryContext != null;
-    }
+    // private boolean isCategoryContextExists() {
+    // 	return categoryContext != null;
+    // }
     
-    private void checkContextsExists(String key) {
-    	checkGroupContextExists();
+    // private void checkContextsExists(String key) {
+    // 	checkGroupContextExists();
 
 
-    	// Check: if using flattened categories, then check if key exists in current category. Else, find category and set as context
-    	// If not using flattened categories, check if categorycontext exists
+    // 	// Check: if using flattened categories, then check if key exists in current category. Else, find category and set as context
+    // 	// If not using flattened categories, check if categorycontext exists
     	
-    	if (useFlattenedCategories) {
-        	// Check if current category contains key.
-    		if (isCategoryContextExists()) {
-    			try {
-        			categoryContext.get(key);
-        			// No exception; found key; continue as normal
-        			return;
-        		} catch (KeyNotFoundException e) {
-        			// Cannot find key; search other categories.
-        		}
-    		}
+    // 	if (useFlattenedCategories) {
+    //     	// Check if current category contains key.
+    // 		if (isCategoryContextExists()) {
+    // 			try {
+    //     			categoryContext.get(key);
+    //     			// No exception; found key; continue as normal
+    //     			return;
+    //     		} catch (KeyNotFoundException e) {
+    //     			// Cannot find key; search other categories.
+    //     		}
+    // 		}
     		
-    		/** 
-        	 * Directly set category context, as no need to search again with {@link #setCategoryContext(String)}.
-        	 * FIXME: getCategoryWithParam(key) may be acting as a middle-man
-        	 * 
-        	 * Purpose: to find the category containing the key and set as the categoryContext, such that getters can
-        	 * utilise type specific getBoolean (etc) methods to get the parameter.
-        	 * 
-        	 * Could be improved using Java Generics.
-        	 */
-    		categoryContext = groupContext.getCategoryWithParam(key);
-    		return;
-    	}
-    }
+    // 		/** 
+    //     	 * Directly set category context, as no need to search again with {@link #setCategoryContext(String)}.
+    //     	 * FIXME: getCategoryWithParam(key) may be acting as a middle-man
+    //     	 * 
+    //     	 * Purpose: to find the category containing the key and set as the categoryContext, such that getters can
+    //     	 * utilise type specific getBoolean (etc) methods to get the parameter.
+    //     	 * 
+    //     	 * Could be improved using Java Generics.
+    //     	 */
+    // 		categoryContext = groupContext.getCategoryWithParam(key);
+    // 		return;
+    // 	}
+    // }
     
 
-	@Override
-	public Boolean getBoolean(String key) {
-		checkContextsExists(key);
-		return categoryContext.getBoolean(key);
-	}
+	// @Override
+	// public Boolean getBoolean(String key) {
+	// 	checkContextsExists(key);
+	// 	return categoryContext.getBoolean(key);
+	// }
 
-	@Override
-	public String getString(String key) {
-		checkContextsExists(key);
-		return categoryContext.getString(key);
-	}
+	// @Override
+	// public String getString(String key) {
+	// 	checkContextsExists(key);
+	// 	return categoryContext.getString(key);
+	// }
 
-	@Override
-	public Integer getInteger(String key) {
-		checkContextsExists(key);
-		return categoryContext.getInteger(key);
-	}
+	// @Override
+	// public Integer getInteger(String key) {
+	// 	checkContextsExists(key);
+	// 	return categoryContext.getInteger(key);
+	// }
 
-	@Override
-	public Double getDouble(String key) {
-		checkContextsExists(key);
-		return categoryContext.getDouble(key);
-	}
+	// @Override
+	// public Double getDouble(String key) {
+	// 	checkContextsExists(key);
+	// 	return categoryContext.getDouble(key);
+	// }
 	
-	@Override
-	public Integer[] getIntegerArray(String key) {
-		checkContextsExists(key);
-		return categoryContext.getIntegerArray(key);
-	}
+	// @Override
+	// public Integer[] getIntegerArray(String key) {
+	// 	checkContextsExists(key);
+	// 	return categoryContext.getIntegerArray(key);
+	// }
 
-	@Override
-	public Double[] getDoubleArray(String key) {
-		checkContextsExists(key);
-		return categoryContext.getDoubleArray(key);
-	}
+	// @Override
+	// public Double[] getDoubleArray(String key) {
+	// 	checkContextsExists(key);
+	// 	return categoryContext.getDoubleArray(key);
+	// }
 	
 	
 	
-	public boolean getBoolean(String key, boolean defaultValue) {
-		Boolean value = getBoolean(key);
-		return value != null ? value : defaultValue;
-	}
+	// public boolean getBoolean(String key, boolean defaultValue) {
+	// 	Boolean value = getBoolean(key);
+	// 	return value != null ? value : defaultValue;
+	// }
 	
-	public String getString(String key, String defaultValue) {
-		String value = getString(key);
-		return value != null ? value : defaultValue;
-	}
+	// public String getString(String key, String defaultValue) {
+	// 	String value = getString(key);
+	// 	return value != null ? value : defaultValue;
+	// }
 	
-	public int getInteger(String key, int defaultValue) {
-		Integer value = getInteger(key);
-		return value != null ? value : defaultValue;
-	}
+	// public int getInteger(String key, int defaultValue) {
+	// 	Integer value = getInteger(key);
+	// 	return value != null ? value : defaultValue;
+	// }
 	
-	public double getDouble(String key, double defaultValue) {
-		Double value = getDouble(key);
-		return value != null ? value : defaultValue;
-	}
+	// public double getDouble(String key, double defaultValue) {
+	// 	Double value = getDouble(key);
+	// 	return value != null ? value : defaultValue;
+	// }
 	
-	public double[] getDoubleArray(String key, double[] defaultValue) {
-		Double[] storedValue = getDoubleArray(key);
+	// public double[] getDoubleArray(String key, double[] defaultValue) {
+	// 	Double[] storedValue = getDoubleArray(key);
 		
-		// Convert from Double[] to double[]
-		double[] value = new double[storedValue.length];
-		for (int i = 0; i < storedValue.length; i++) {
-			value[i] = storedValue[i];
-		}
+	// 	// Convert from Double[] to double[]
+	// 	double[] value = new double[storedValue.length];
+	// 	for (int i = 0; i < storedValue.length; i++) {
+	// 		value[i] = storedValue[i];
+	// 	}
 		
-		return value != null ? value : defaultValue;
-	}
+	// 	return value != null ? value : defaultValue;
+	// }
 	
 
 	
 	
-	@Override
-	public void set(String key, boolean value) {
-		checkContextsExists(key);
-		categoryContext.set(key, value);
-	}
+	// @Override
+	// public void set(String key, boolean value) {
+	// 	checkContextsExists(key);
+	// 	categoryContext.set(key, value);
+	// }
 
-	@Override
-	public void set(String key, String value) {
-		checkContextsExists(key);
-		categoryContext.set(key, value);
-	}
+	// @Override
+	// public void set(String key, String value) {
+	// 	checkContextsExists(key);
+	// 	categoryContext.set(key, value);
+	// }
 
-	@Override
-	public void set(String key, int value) {
-		checkContextsExists(key);
-		categoryContext.set(key, value);
-	}
+	// @Override
+	// public void set(String key, int value) {
+	// 	checkContextsExists(key);
+	// 	categoryContext.set(key, value);
+	// }
 
-	@Override
-	public void set(String key, double value) {
-		checkContextsExists(key);
-		categoryContext.set(key, value);
-	}
+	// @Override
+	// public void set(String key, double value) {
+	// 	checkContextsExists(key);
+	// 	categoryContext.set(key, value);
+	// }
 	
 
-	@Override
-	public void set(String key, Double[] value) {
-		checkContextsExists(key);
-		categoryContext.set(key, value);
-	}
+	// @Override
+	// public void set(String key, Double[] value) {
+	// 	checkContextsExists(key);
+	// 	categoryContext.set(key, value);
+	// }
 	
-	@Override
-	public boolean isNull(String key) {
-		checkContextsExists(key);
-		return categoryContext.isNull(key);
-	}
+	// @Override
+	// public boolean isNull(String key) {
+	// 	checkContextsExists(key);
+	// 	return categoryContext.isNull(key);
+	// }
 }

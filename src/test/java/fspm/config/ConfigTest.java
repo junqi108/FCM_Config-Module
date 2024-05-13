@@ -1,19 +1,17 @@
 package fspm.config;
 
-import static org.junit.Assert.assertTrue;
-
 import org.junit.Test;
 import org.junit.Before;
-import org.junit.BeforeClass;
 import org.junit.Ignore;
 
 import java.io.FileNotFoundException;
 import java.util.Arrays;
 
-import fspm.config.Config;
 import fspm.config.adapters.JsonFileReader;
 import fspm.config.params.ParamCategory;
-import fspm.config.params.ParamGroup;
+import fspm.config.params.group.DocumentCategoryNameGroup;
+import fspm.config.params.group.DocumentHybridCategoryNameGroup;
+import fspm.config.params.group.ParamGroup;
 import fspm.config.params.type.*;
 
 public class ConfigTest {
@@ -26,129 +24,136 @@ public class ConfigTest {
 	}
 	
 	
-	
-	
 	@Test
-	@Ignore
-	public void testAccessExamples() {
-		// Full descriptive access of hierarchy
-//		println(" ===== Full descriptive access ");
+	// @Ignore
+	public void testMain() {
+		DocumentCategoryNameGroup group = CONFIG.getGroup("model.input.data.default", DocumentCategoryNameGroup.class);
+		println(group);
+		DocumentHybridCategoryNameGroup hybridGroup = CONFIG.getGroup("hybrid-format", DocumentHybridCategoryNameGroup.class);
+		println(hybridGroup);
+	}
+	
+// 	@Test
+// 	@Ignore
+// 	public void testAccessExamples() {
+// 		// Full descriptive access of hierarchy
+// //		println(" ===== Full descriptive access ");
 		
-		println(CONFIG.getGroup("model.input.data.name"));
-//		
-//		println(CONFIG.getGroup("model.input.data.name").getCategory("Boolean_variables").getBoolean("useStaticArc"));
-//		println(CONFIG.getGroup("model.input.data.name").getCategory("Boolean_variables").getBoolean("inputLeafN"));
-//		
-//		println(CONFIG.getGroup("model.input.data.name").getCategory("simulation_location").getString("location_name"));
+// 		println(CONFIG.getGroup("model.input.data.name"));
+// //		
+// //		println(CONFIG.getGroup("model.input.data.name").getCategory("Boolean_variables").getBoolean("useStaticArc"));
+// //		println(CONFIG.getGroup("model.input.data.name").getCategory("Boolean_variables").getBoolean("inputLeafN"));
+// //		
+// //		println(CONFIG.getGroup("model.input.data.name").getCategory("simulation_location").getString("location_name"));
 		
 		
 		
-		// Contextual access
+// 		// Contextual access
 
-		println(" ===== Contextual access ");
+// 		println(" ===== Contextual access ");
 		
-		CONFIG.setGroupContext("model.input.data.name")
-			.setCategoryContext("Boolean_variables");
+// 		CONFIG.setGroupContext("model.input.data.name")
+// 			.setCategoryContext("Boolean_variables");
 		
-		println(CONFIG.getBoolean("useStaticArc"));
-		println(CONFIG.getBoolean("inputLeafN"));
+// 		println(CONFIG.getBoolean("useStaticArc"));
+// 		println(CONFIG.getBoolean("inputLeafN"));
 		
-		CONFIG.setCategoryContext("simulation_location");
+// 		CONFIG.setCategoryContext("simulation_location");
 		
-		println(CONFIG.getString("location_name"));
+// 		println(CONFIG.getString("location_name"));
 
 		
 		
-		// Access via aliasing
+// 		// Access via aliasing
 		
-//		println(" ===== Aliasing ");
-//		
-//		ParamCategory booleans = CONFIG.getGroup("model.input.data.name").getCategory("Boolean_variables");
-//		
-//		println(booleans.getBoolean("useStaticArc"));
-//		println(booleans.getBoolean("inputLeafN"));
-//		
-//		ParamCategory simulationLocation = CONFIG.getGroup("model.input.data.name").getCategory("simulation_location");
-//		
-//		println(simulationLocation.getString("location_name"));
+// //		println(" ===== Aliasing ");
+// //		
+// //		ParamCategory booleans = CONFIG.getGroup("model.input.data.name").getCategory("Boolean_variables");
+// //		
+// //		println(booleans.getBoolean("useStaticArc"));
+// //		println(booleans.getBoolean("inputLeafN"));
+// //		
+// //		ParamCategory simulationLocation = CONFIG.getGroup("model.input.data.name").getCategory("simulation_location");
+// //		
+// //		println(simulationLocation.getString("location_name"));
 		
 		
 		
-		// Direct access; not compatible with contextual access
+// 		// Direct access; not compatible with contextual access
 		
-//		println(" ===== Direct access");
-//		println(CONFIG.getBoolean("useStaticArc"));
-	}
+// //		println(" ===== Direct access");
+// //		println(CONFIG.getBoolean("useStaticArc"));
+// 	}
 	
-	@Test
-	@Ignore
-	public void testTypes() {
-		CONFIG.setGroupContext("group");
-		CONFIG.setCategoryContext("category");
+// 	@Test
+// 	@Ignore
+// 	public void testTypes() {
+// 		CONFIG.setGroupContext("group");
+// 		CONFIG.setCategoryContext("category");
 		
-		println(CONFIG.getDouble("doubleParam"));
-		println(CONFIG.getDouble("floatParam"));
+// 		println(CONFIG.getDouble("doubleParam"));
+// 		println(CONFIG.getDouble("floatParam"));
 		
-		println(CONFIG.getDouble("nullParam") == null);
-		println(CONFIG.getString("nullParam") == null);
-		println(CONFIG.getInteger("nullParam") == null);
-		println(CONFIG.getDouble("nullParam") == null);
+// 		println(CONFIG.getDouble("nullParam") == null);
+// 		println(CONFIG.getString("nullParam") == null);
+// 		println(CONFIG.getInteger("nullParam") == null);
+// 		println(CONFIG.getDouble("nullParam") == null);
 		
-		println(CONFIG.isNull("nullParam"));
-	}
+// 		println(CONFIG.isNull("nullParam"));
+// 	}
 	
-	@Test
-	@Ignore
-	public void testDefault() {
-		println(CONFIG.getGroup("model.input.data.default"));
+// 	@Test
+// 	@Ignore
+// 	public void testDefault() {
+// 		println(CONFIG.getGroup("model.input.data.default"));
 		
-		CONFIG.setGroupContext("model.input.data.default");
-		CONFIG.setCategoryContext("initial_condition_biomass");
+// 		CONFIG.setGroupContext("model.input.data.default");
+// 		CONFIG.setCategoryContext("initial_condition_biomass");
 		
-		Double d = CONFIG.getDouble("BIOMASS_LEAF");
+// 		Double d = CONFIG.getDouble("BIOMASS_LEAF");
 
-		println(CONFIG.getDouble("BIOMASS_LEAF") == null);
-	}
+// 		println(CONFIG.getDouble("BIOMASS_LEAF") == null);
+// 	}
 	
-	@Test
-	@Ignore
-	public void testPhenology() {
-		CONFIG.setGroupContext("phenology.parameters.SauvignonBlanc");
-		CONFIG.setCategoryContext("parameters");
+// 	@Test
+// 	@Ignore
+// 	public void testPhenology() {
+// 		CONFIG.setGroupContext("phenology.parameters.SauvignonBlanc");
+// 		CONFIG.setCategoryContext("parameters");
 		
-		println(Arrays.toString(CONFIG.getDoubleArray("BUDBURST_CANE_DIFF")));
-	}
+// 		println(Arrays.toString(CONFIG.getDoubleArray("BUDBURST_CANE_DIFF")));
+// 	}
 	
-	@Test
-	@Ignore
-	public void testFlatCategories() {
-		CONFIG.useFlattenedCategories = true;
+// 	@Test
+// 	@Ignore
+// 	public void testFlatCategories() {
+// 		CONFIG.useFlattenedCategories = true;
 		
-		String group = "model.input.data.default";
+// 		String group = "model.input.data.default";
 		
-		CONFIG.setGroupContext(group);
+// 		CONFIG.setGroupContext(group);
 		
 		
-		println(CONFIG.getGroup(group));
+// 		println(CONFIG.getGroup(group));
 		
-		println(CONFIG.getBoolean("useStaticArc"));
-		println(CONFIG.getDouble("FractionDiffuseLightDaily"));
+// 		println(CONFIG.getBoolean("useStaticArc"));
+// 		println(CONFIG.getDouble("FractionDiffuseLightDaily"));
 
-		println(CONFIG.getDouble("radiationControl"));
-		println(CONFIG.getDouble("REFTMP"));
+// 		println(CONFIG.getDouble("radiationControl"));
+// 		println(CONFIG.getDouble("REFTMP"));
 		
-		println(CONFIG.getString("rootArchitecture_file"));
-	}
+// 		println(CONFIG.getString("rootArchitecture_file"));
+// 	}
 	
-	@Test
-//	@Ignore
-	public void testArrays() {
-		CONFIG.setGroupContext("soilParams_pot_1");
-		CONFIG.useFlattenedCategories = true;
+// 	@Test
+// 	@Ignore
+// 	public void testArrays() {
+// 		CONFIG.setGroupContext("soilParams_pot_1");
+// 		CONFIG.useFlattenedCategories = true;
 		
-		println(CONFIG.getIntegerArray("layerThickness")[0]);
-		println(CONFIG.getIntegerArray("layerThickness").length);
-	}
+// 		println(CONFIG.getIntegerArray("layerThickness")[0]);
+// 		println(CONFIG.getIntegerArray("layerThickness").length);
+// 	}
 	
 	
 	
@@ -167,7 +172,7 @@ public class ConfigTest {
 		category.add(new StringParam("floatParam", "1.0f"));
 		category.add(new NullParam("nullParam"));
 		
-		ParamGroup group = new ParamGroup("group");
+		DocumentCategoryNameGroup group = new DocumentCategoryNameGroup("group");
 		group.addCategory(category);
 		
 		CONFIG.addGroup(group);
@@ -183,6 +188,9 @@ public class ConfigTest {
 			
 			CONFIG.addGroup("soilParams_pot_1", 
 					new JsonFileReader("./inputs/parameters/soilParams_pot_1.json"));
+
+			CONFIG.addGroup("hybrid-format",
+					new JsonFileReader("./inputs/parameters/hybrid-format.json"));
 			
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();

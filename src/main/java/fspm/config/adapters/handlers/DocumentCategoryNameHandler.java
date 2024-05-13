@@ -8,14 +8,15 @@ import com.fasterxml.jackson.databind.JsonNode;
 import fspm.config.adapters.JsonFileReader;
 import fspm.config.params.ParamCategory;
 import fspm.config.params.ParamFactory;
-import fspm.config.params.ParamGroup;
 import fspm.config.params.Parameter;
+import fspm.config.params.group.DocumentCategoryNameGroup;
+import fspm.config.params.group.ParamGroup;
 
 public class DocumentCategoryNameHandler extends MetaclassHandler {
-	public ParamGroup parse(String path) throws FileNotFoundException {
+	public DocumentCategoryNameGroup parse(String path) throws FileNotFoundException {
 		JsonNode tree = JsonFileReader.getTreeFromFile(path);
 		
-		ParamGroup config = new ParamGroup(path);
+		DocumentCategoryNameGroup config = new DocumentCategoryNameGroup(path);
 		ParamFactory paramFactory = new ParamFactory();
         
         JsonNode categoriesNode = tree.get("category");

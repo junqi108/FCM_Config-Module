@@ -8,7 +8,10 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 
 import fspm.config.adapters.handlers.DictionaryHandler;
 import fspm.config.adapters.handlers.DocumentCategoryNameHandler;
-import fspm.config.params.ParamGroup;
+import fspm.config.adapters.handlers.DocumentHybridCategoryNameHandler;
+import fspm.config.params.group.DocumentHybridCategoryNameGroup;
+import fspm.config.params.group.ParamGroup;
+import fspm.util.exceptions.UnsupportedException;
 
 /**
  * File reader to parse JSON config files to {@link Config}.
@@ -29,11 +32,12 @@ public class JsonFileReader extends ConfigAdapter {
         switch (metaclass) {
         	case "document-category-name":
         		return new DocumentCategoryNameHandler().parse(path);
+            case "document-hybrid-category-name":
+                return new DocumentHybridCategoryNameHandler().parse(path);
         	case "dictionary":
         		return new DictionaryHandler().parse(path);
         }
-        
-        return null;
+        throw new UnsupportedException(metaclass);
     }
 	
 	/**
