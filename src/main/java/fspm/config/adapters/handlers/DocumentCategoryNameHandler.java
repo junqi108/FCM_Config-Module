@@ -10,7 +10,6 @@ import fspm.config.params.ParamCategory;
 import fspm.config.params.ParamFactory;
 import fspm.config.params.Parameter;
 import fspm.config.params.group.DocumentCategoryNameGroup;
-import fspm.config.params.group.ParamGroup;
 
 public class DocumentCategoryNameHandler extends MetaclassHandler {
 	public DocumentCategoryNameGroup parse(String path) throws FileNotFoundException {
