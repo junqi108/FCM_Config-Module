@@ -21,13 +21,13 @@ public class ConfigTest {
 		CONFIG.reset();
 		addGroups();
 	}
-	
-	
+
 	@Test
 	// @Ignore
-	public void testMain() {
+	public void testGroupTypes() {
 		DocumentCategoryNameGroup group = CONFIG.getGroup("model.input.data.default", DocumentCategoryNameGroup.class);
 		println(group);
+		
 		DocumentHybridCategoryNameGroup hybridGroup = CONFIG.getGroup("hybrid-format", DocumentHybridCategoryNameGroup.class);
 		println(hybridGroup);
 	}
@@ -47,17 +47,21 @@ public class ConfigTest {
 		
 		
 		
-		// Contextual access
+		/**
+		 * Contextual access
+		 * 
+		 * - Localises the selected category context to a local ParamGroup variable
+		 */
 
 		println(" ===== Contextual access ");
 		
 		DocumentCategoryNameGroup group = CONFIG.getGroup("model.input.data.name", DocumentCategoryNameGroup.class)
-			.getCategoryContext("Boolean_variables");
+			.getWithCategoryContext("Boolean_variables");
 		
 		println(group.getBoolean("useStaticArc"));
 		println(group.getBoolean("inputLeafN"));
 		
-		group.getCategoryContext("simulation_location");
+		group.getWithCategoryContext("simulation_location");
 		
 		println(group.getString("location_name"));
 
@@ -80,7 +84,7 @@ public class ConfigTest {
 	@Test
 	// @Ignore
 	public void testTypes() {
-		DocumentCategoryNameGroup group = CONFIG.getGroup("group", DocumentCategoryNameGroup.class).getCategoryContext("category");
+		DocumentCategoryNameGroup group = CONFIG.getGroup("group", DocumentCategoryNameGroup.class).getWithCategoryContext("category");
 		
 		println(group.getDouble("doubleParam"));
 		println(group.getDouble("floatParam"));
@@ -98,7 +102,7 @@ public class ConfigTest {
 	public void testDefault() {
 		println(CONFIG.getGroup("model.input.data.default", DocumentCategoryNameGroup.class));
 		
-		DocumentCategoryNameGroup group = CONFIG.getGroup("model.input.data.default", DocumentCategoryNameGroup.class).getCategoryContext("initial_condition_biomass");
+		DocumentCategoryNameGroup group = CONFIG.getGroup("model.input.data.default", DocumentCategoryNameGroup.class).getWithCategoryContext("initial_condition_biomass");
 		
 		Double d = group.getDouble("BIOMASS_LEAF");
 
@@ -108,7 +112,7 @@ public class ConfigTest {
 	@Test
 	// @Ignore
 	public void testPhenology() {
-		DocumentCategoryNameGroup group = CONFIG.getGroup("phenology.parameters.SauvignonBlanc", DocumentCategoryNameGroup.class).getCategoryContext("parameters");
+		DocumentCategoryNameGroup group = CONFIG.getGroup("phenology.parameters.SauvignonBlanc", DocumentCategoryNameGroup.class).getWithCategoryContext("parameters");
 		
 		println(Arrays.toString(group.getDoubleArray("BUDBURST_CANE_DIFF")));
 	}
