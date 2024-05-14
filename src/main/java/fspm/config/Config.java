@@ -5,8 +5,6 @@ import java.util.HashMap;
 import java.util.Map;
 
 import fspm.config.adapters.ConfigAdapter;
-import fspm.config.params.ParamAccessor;
-import fspm.config.params.ParamCategory;
 import fspm.config.params.group.ParamGroup;
 import fspm.util.exceptions.KeyConflictException;
 import fspm.util.exceptions.KeyNotFoundException;

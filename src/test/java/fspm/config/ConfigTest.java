@@ -9,6 +9,7 @@ import java.util.Arrays;
 
 import fspm.config.adapters.JsonFileReader;
 import fspm.config.params.ParamCategory;
+import fspm.config.params.ParamTable;
 import fspm.config.params.group.DocumentCategoryNameGroup;
 import fspm.config.params.group.DocumentHybridCategoryNameGroup;
 import fspm.config.params.hierarchy.CategoryHierarchy;
@@ -31,6 +32,9 @@ public class ConfigTest {
 		
 		DocumentHybridCategoryNameGroup hybridGroup = CONFIG.getGroup("hybrid-format", DocumentHybridCategoryNameGroup.class);
 		println(hybridGroup);
+
+		// ParamTable soilPhysicalProperties = hybridGroup.getTableHierarchy().getTable("soilPhysicalProperties");
+		// println(soilPhysicalProperties.getValue("layer_1", "layerThickness"));
 	}
 	
 	@Test
@@ -62,7 +66,7 @@ public class ConfigTest {
 		println(hierarchy.getBoolean("useStaticArc"));
 		println(hierarchy.getBoolean("inputLeafN"));
 		
-		hierarchy.setCategoryContext("simulation_location");
+		hierarchy.setCategoryContext("simulation_location"); // FIXME: this has no effect on access
 		
 		println(hierarchy.getString("location_name"));
 

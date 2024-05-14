@@ -61,7 +61,7 @@ public class CategoryHierarchy extends Hierarchy implements ParamAccessor {
                 Parameter param = paramFactory.getParam(paramNames.next().toString(), paramNode);
 
                 // null if paramNode type is unsupported
-                // TODO: use checked exception for UnsupportedException
+                // TODO: use checked exception for UnsupportedOperationException
                 if (param != null) {
                     category.add(param);
                 }

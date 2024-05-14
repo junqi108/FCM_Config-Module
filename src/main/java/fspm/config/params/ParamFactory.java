@@ -1,11 +1,9 @@
 package fspm.config.params;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import fspm.config.params.type.*;
-import fspm.util.exceptions.UnsupportedException;
 
 /**
  * ParamFactory creates instances of concrete {@link Parameter Parameter}
@@ -23,7 +21,7 @@ public class ParamFactory {
      * @param node The JsonNode containing the parameter value and data type.
      * @return  Concrete {@link Parameter Parameter} instance of the
      *          corresponding data type.
-     * @throws UnsupportedException If the JsonNode data type does not correspond
+     * @throws UnsupportedOperationException If the JsonNode data type does not correspond
      *                              to any concrete {@link Parameter} implementation.
      */
     public Parameter getParam(String name, JsonNode node) {
@@ -51,6 +49,6 @@ public class ParamFactory {
     		throw new RuntimeException(String.format("An error occured while parsing parameter: %s.\n%s", name, e));
     	}
 
-        throw new UnsupportedException(name + " uses an unsupported type.");
+        throw new UnsupportedOperationException(name + " uses an unsupported type.");
     }
 }
