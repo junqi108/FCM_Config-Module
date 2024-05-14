@@ -1,4 +1,4 @@
-package fspm.config;
+package fspm.config.tests;
 
 import org.junit.Test;
 import org.junit.Before;
@@ -7,6 +7,7 @@ import org.junit.Ignore;
 import java.io.FileNotFoundException;
 import java.util.Arrays;
 
+import fspm.config.Config;
 import fspm.config.adapters.JsonFileReader;
 import fspm.config.params.ParamCategory;
 import fspm.config.params.ParamTable;
@@ -15,26 +16,13 @@ import fspm.config.params.group.DocumentHybridCategoryNameGroup;
 import fspm.config.params.hierarchy.CategoryHierarchy;
 import fspm.config.params.type.*;
 
-public class ConfigTest {
+public class ParamAccessTest {
 	static final Config CONFIG = Config.getInstance();
 	
 	@Before
 	public void reset() {
 		CONFIG.reset();
 		addGroups();
-	}
-
-	@Test
-	// @Ignore
-	public void testGroupTypes() {
-		DocumentCategoryNameGroup group = CONFIG.getGroup("model.input.data.default", DocumentCategoryNameGroup.class);
-		println(group);
-		
-		DocumentHybridCategoryNameGroup hybridGroup = CONFIG.getGroup("hybrid-format", DocumentHybridCategoryNameGroup.class);
-		println(hybridGroup);
-
-		// ParamTable soilPhysicalProperties = hybridGroup.getTableHierarchy().getTable("soilPhysicalProperties");
-		// println(soilPhysicalProperties.getValue("layer_1", "layerThickness"));
 	}
 	
 	@Test
