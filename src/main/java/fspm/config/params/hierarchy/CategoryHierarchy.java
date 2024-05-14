@@ -121,7 +121,7 @@ public class CategoryHierarchy extends Hierarchy implements ParamAccessor {
 				String.format("Could not find parameter '%s' in any category within group '%s'", paramKey, super.getGroupKey()));
     }
 
-    public CategoryHierarchy getWithCategoryContext(String key) {
+    public CategoryHierarchy setCategoryContext(String key) {
     	try {
     		categoryContext = getCategory(key);
     	} catch (KeyNotFoundException e) {
@@ -148,7 +148,7 @@ public class CategoryHierarchy extends Hierarchy implements ParamAccessor {
         }
         
         /** 
-         * Directly set category context, as no need to search again with {@link #getWithCategoryContext(String)}.
+         * Directly set category context, as no need to search again with {@link #setCategoryContext(String)}.
          * FIXME: getCategoryWithParam(key) may be acting as a middle-man
          * 
          * Purpose: to find the category containing the key and set as the categoryContext, such that getters can

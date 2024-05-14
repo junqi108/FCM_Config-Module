@@ -11,6 +11,7 @@ import fspm.config.adapters.JsonFileReader;
 import fspm.config.params.ParamCategory;
 import fspm.config.params.group.DocumentCategoryNameGroup;
 import fspm.config.params.group.DocumentHybridCategoryNameGroup;
+import fspm.config.params.hierarchy.CategoryHierarchy;
 import fspm.config.params.type.*;
 
 public class ConfigTest {
@@ -40,10 +41,10 @@ public class ConfigTest {
 		
 		println(CONFIG.getGroup("model.input.data.name", DocumentCategoryNameGroup.class));
 
-		println(CONFIG.getGroup("model.input.data.name", DocumentCategoryNameGroup.class).getCategory("Boolean_variables").getBoolean("useStaticArc"));
-		println(CONFIG.getGroup("model.input.data.name", DocumentCategoryNameGroup.class).getCategory("Boolean_variables").getBoolean("inputLeafN"));
+		println(CONFIG.getGroup("model.input.data.name", DocumentCategoryNameGroup.class).getCategoryHierarchy().getCategory("Boolean_variables").getBoolean("useStaticArc"));
+		println(CONFIG.getGroup("model.input.data.name", DocumentCategoryNameGroup.class).getCategoryHierarchy().getCategory("Boolean_variables").getBoolean("inputLeafN"));
 		
-		println(CONFIG.getGroup("model.input.data.name", DocumentCategoryNameGroup.class).getCategory("simulation_location").getString("location_name"));
+		println(CONFIG.getGroup("model.input.data.name", DocumentCategoryNameGroup.class).getCategoryHierarchy().getCategory("simulation_location").getString("location_name"));
 		
 		
 		
@@ -55,15 +56,15 @@ public class ConfigTest {
 
 		println(" ===== Contextual access ");
 		
-		DocumentCategoryNameGroup group = CONFIG.getGroup("model.input.data.name", DocumentCategoryNameGroup.class)
-			.getWithCategoryContext("Boolean_variables");
+		CategoryHierarchy hierarchy = CONFIG.getGroup("model.input.data.name", DocumentCategoryNameGroup.class)
+			.getCategoryHierarchy().setCategoryContext("Boolean_variables");
 		
-		println(group.getBoolean("useStaticArc"));
-		println(group.getBoolean("inputLeafN"));
+		println(hierarchy.getBoolean("useStaticArc"));
+		println(hierarchy.getBoolean("inputLeafN"));
 		
-		group.getWithCategoryContext("simulation_location");
+		hierarchy.setCategoryContext("simulation_location");
 		
-		println(group.getString("location_name"));
+		println(hierarchy.getString("location_name"));
 
 		
 		
@@ -71,12 +72,12 @@ public class ConfigTest {
 		
 		println(" ===== Aliasing ");
 		
-		ParamCategory booleans = CONFIG.getGroup("model.input.data.name", DocumentCategoryNameGroup.class).getCategory("Boolean_variables");
+		ParamCategory booleans = CONFIG.getGroup("model.input.data.name", DocumentCategoryNameGroup.class).getCategoryHierarchy().getCategory("Boolean_variables");
 		
 		println(booleans.getBoolean("useStaticArc"));
 		println(booleans.getBoolean("inputLeafN"));
 		
-		ParamCategory simulationLocation = CONFIG.getGroup("model.input.data.name", DocumentCategoryNameGroup.class).getCategory("simulation_location");
+		ParamCategory simulationLocation = CONFIG.getGroup("model.input.data.name", DocumentCategoryNameGroup.class).getCategoryHierarchy().getCategory("simulation_location");
 		
 		println(simulationLocation.getString("location_name"));
 	}
@@ -84,17 +85,17 @@ public class ConfigTest {
 	@Test
 	// @Ignore
 	public void testTypes() {
-		DocumentCategoryNameGroup group = CONFIG.getGroup("group", DocumentCategoryNameGroup.class).getWithCategoryContext("category");
+		CategoryHierarchy hierarchy = CONFIG.getGroup("group", DocumentCategoryNameGroup.class).getCategoryHierarchy().setCategoryContext("category");
 		
-		println(group.getDouble("doubleParam"));
-		println(group.getDouble("floatParam"));
+		println(hierarchy.getDouble("doubleParam"));
+		println(hierarchy.getDouble("floatParam"));
 		
-		println(group.getDouble("nullParam") == null);
-		println(group.getString("nullParam") == null);
-		println(group.getInteger("nullParam") == null);
-		println(group.getDouble("nullParam") == null);
+		println(hierarchy.getDouble("nullParam") == null);
+		println(hierarchy.getString("nullParam") == null);
+		println(hierarchy.getInteger("nullParam") == null);
+		println(hierarchy.getDouble("nullParam") == null);
 		
-		println(group.isNull("nullParam"));
+		println(hierarchy.isNull("nullParam"));
 	}
 	
 	@Test
@@ -102,42 +103,42 @@ public class ConfigTest {
 	public void testDefault() {
 		println(CONFIG.getGroup("model.input.data.default", DocumentCategoryNameGroup.class));
 		
-		DocumentCategoryNameGroup group = CONFIG.getGroup("model.input.data.default", DocumentCategoryNameGroup.class).getWithCategoryContext("initial_condition_biomass");
+		CategoryHierarchy hierarchy = CONFIG.getGroup("model.input.data.default", DocumentCategoryNameGroup.class).getCategoryHierarchy().setCategoryContext("initial_condition_biomass");
 		
-		Double d = group.getDouble("BIOMASS_LEAF");
+		Double d = hierarchy.getDouble("BIOMASS_LEAF");
 
-		println(group.getDouble("BIOMASS_LEAF") == null);
+		println(hierarchy.getDouble("BIOMASS_LEAF") == null);
 	}
 	
 	@Test
 	// @Ignore
 	public void testPhenology() {
-		DocumentCategoryNameGroup group = CONFIG.getGroup("phenology.parameters.SauvignonBlanc", DocumentCategoryNameGroup.class).getWithCategoryContext("parameters");
+		CategoryHierarchy hierarchy = CONFIG.getGroup("phenology.parameters.SauvignonBlanc", DocumentCategoryNameGroup.class).getCategoryHierarchy().setCategoryContext("parameters");
 		
-		println(Arrays.toString(group.getDoubleArray("BUDBURST_CANE_DIFF")));
+		println(Arrays.toString(hierarchy.getDoubleArray("BUDBURST_CANE_DIFF")));
 	}
 	
 	@Test
 	// @Ignore
 	public void testFlatCategories() {
-		DocumentCategoryNameGroup group = CONFIG.getGroup("model.input.data.default", DocumentCategoryNameGroup.class);
+		CategoryHierarchy hierarchy = CONFIG.getGroup("model.input.data.default", DocumentCategoryNameGroup.class).getCategoryHierarchy();
 
-		println(group.getBoolean("useStaticArc"));
-		println(group.getDouble("FractionDiffuseLightDaily"));
+		println(hierarchy.getBoolean("useStaticArc"));
+		println(hierarchy.getDouble("FractionDiffuseLightDaily"));
 
-		println(group.getDouble("radiationControl"));
-		println(group.getDouble("REFTMP"));
+		println(hierarchy.getDouble("radiationControl"));
+		println(hierarchy.getDouble("REFTMP"));
 		
-		println(group.getString("rootArchitecture_file"));
+		println(hierarchy.getString("rootArchitecture_file"));
 	}
 	
 	@Test
 	// @Ignore
 	public void testArrays() {
-		DocumentCategoryNameGroup group = CONFIG.getGroup("soilParams_pot_1", DocumentCategoryNameGroup.class);
+		CategoryHierarchy hierarchy = CONFIG.getGroup("soilParams_pot_1", DocumentCategoryNameGroup.class).getCategoryHierarchy();
 		
-		println(group.getIntegerArray("layerThickness")[0]);
-		println(group.getIntegerArray("layerThickness").length);
+		println(hierarchy.getIntegerArray("layerThickness")[0]);
+		println(hierarchy.getIntegerArray("layerThickness").length);
 	}
 	
 	
@@ -156,9 +157,13 @@ public class ConfigTest {
 		category.add(new IntegerParam("doubleParam", 1));
 		category.add(new StringParam("floatParam", "1.0f"));
 		category.add(new NullParam("nullParam"));
+
+		String groupKey = "group";
+
+		CategoryHierarchy categoryHierarchy = new CategoryHierarchy(groupKey);
+		categoryHierarchy.addCategory(category);
 		
-		DocumentCategoryNameGroup group = new DocumentCategoryNameGroup("group");
-		group.addCategory(category);
+		DocumentCategoryNameGroup group = new DocumentCategoryNameGroup(groupKey, categoryHierarchy);
 		
 		CONFIG.addGroup(group);
 		

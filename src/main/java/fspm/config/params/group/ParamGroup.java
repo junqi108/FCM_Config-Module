@@ -14,7 +14,7 @@ import fspm.util.exceptions.KeyNotFoundException;
  * 
  * @author Ou-An Chuang
  */
-public class ParamGroup {
+public abstract class ParamGroup {
 	private String key;
 	
     /**
