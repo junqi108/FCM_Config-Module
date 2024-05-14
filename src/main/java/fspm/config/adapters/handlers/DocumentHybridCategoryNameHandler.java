@@ -11,11 +11,12 @@ import fspm.config.params.hierarchy.TableHierarchy;
 
 public class DocumentHybridCategoryNameHandler extends MetaclassHandler {
 	public DocumentHybridCategoryNameGroup parse(String path) throws FileNotFoundException {
-		
+
 		CategoryHierarchy categoryHierarchy = CategoryHierarchy.parse(path);
 		TableHierarchy tableHierarchy = TableHierarchy.parse(path);
 
-		DocumentHybridCategoryNameGroup group = new DocumentHybridCategoryNameGroup(path, categoryHierarchy, tableHierarchy);
+		DocumentHybridCategoryNameGroup group = new DocumentHybridCategoryNameGroup(path, categoryHierarchy,
+				tableHierarchy);
 		return group;
 	}
 }

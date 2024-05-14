@@ -1,23 +1,19 @@
 package fspm.config.params.group;
 
+import fspm.util.KeyElement;
+
 /**
  * Parameter configuration class for storing parameter categories.
  * 
  * @author Ou-An Chuang
  */
-public abstract class ParamGroup {
-	private String key;
-	
+public abstract class ParamGroup extends KeyElement {
     /**
      * Class constructor.
      * <p>
      * All initialisations go here.
      */
-    public ParamGroup(String key) {
-    	this.key = key;
-    }
-    
-    public String getKey() {
-    	return key;
+    protected ParamGroup(String key) {
+    	super(key);
     }
 }

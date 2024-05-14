@@ -20,4 +20,14 @@ public class DocumentHybridCategoryNameGroup extends ParamGroup {
 	public TableHierarchy getTableHierarchy() {
 		return tableHierarchy;
 	}
+
+	@Override
+	public String toString() {
+		StringBuilder string = new StringBuilder();
+		string.append("Group: " + getKey() + "\n");
+		string.append("Categories: " + categoryHierarchy);
+		string.append("Tables: " + tableHierarchy);
+
+		return string.toString();
+	}
 }

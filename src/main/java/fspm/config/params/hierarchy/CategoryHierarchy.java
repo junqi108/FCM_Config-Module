@@ -55,11 +55,11 @@ public class CategoryHierarchy extends Hierarchy implements ParamAccessor {
             String categoryName = categoryNames.next().toString();
             ParamCategory category = new ParamCategory(categoryName);
 
-            Iterator paramNames = categoryNode.fieldNames();
+            Iterator paramKeys = categoryNode.fieldNames();
 
             // Parse each parameter node
             for (JsonNode paramNode : categoryNode) {
-                Parameter param = paramFactory.getParam(paramNames.next().toString(), paramNode);
+                Parameter param = paramFactory.getParam(paramKeys.next().toString(), paramNode);
 
                 // null if paramNode type is unsupported
                 // TODO: use checked exception for UnsupportedOperationException

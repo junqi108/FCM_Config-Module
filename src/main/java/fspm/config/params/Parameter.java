@@ -1,5 +1,7 @@
 package fspm.config.params;
 
+import fspm.util.KeyElement;
+
 /**
  * Parameter represents variables that can be stored using Java data types
  * or other user-defined types.
@@ -9,19 +11,13 @@ package fspm.config.params;
  * 
  * @author Ou-An Chuang
  */
-public abstract class Parameter {
-    private String key;
-
+public abstract class Parameter extends KeyElement {
     /**
      * Protected constructor as Parameter is an abstract class and
      * should not be used for instantiation.
      * @param key The parameter key.
      */
     protected Parameter(String key) {
-        this.key = key;
-    }
-
-    public String getKey() {
-        return key;
+        super(key);
     }
 }
