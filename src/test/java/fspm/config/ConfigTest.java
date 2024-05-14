@@ -66,7 +66,7 @@ public class ConfigTest {
 		println(hierarchy.getBoolean("useStaticArc"));
 		println(hierarchy.getBoolean("inputLeafN"));
 		
-		hierarchy.setCategoryContext("simulation_location"); // FIXME: this has no effect on access
+		hierarchy.setCategoryContext("simulation_location");
 		
 		println(hierarchy.getString("location_name"));
 
@@ -126,6 +126,7 @@ public class ConfigTest {
 	// @Ignore
 	public void testFlatCategories() {
 		CategoryHierarchy hierarchy = CONFIG.getGroup("model.input.data.default", DocumentCategoryNameGroup.class).getCategoryHierarchy();
+		hierarchy.useFlattenedCategories = true;
 
 		println(hierarchy.getBoolean("useStaticArc"));
 		println(hierarchy.getDouble("FractionDiffuseLightDaily"));
@@ -140,6 +141,7 @@ public class ConfigTest {
 	// @Ignore
 	public void testArrays() {
 		CategoryHierarchy hierarchy = CONFIG.getGroup("soilParams_pot_1", DocumentCategoryNameGroup.class).getCategoryHierarchy();
+		hierarchy.useFlattenedCategories = true;
 		
 		println(hierarchy.getIntegerArray("layerThickness")[0]);
 		println(hierarchy.getIntegerArray("layerThickness").length);
