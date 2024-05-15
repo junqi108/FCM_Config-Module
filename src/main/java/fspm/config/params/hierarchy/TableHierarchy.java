@@ -66,7 +66,7 @@ public class TableHierarchy extends Hierarchy {
                     for (JsonNode paramNode : layerNode) {
                         String paramKey = paramKeys.next().toString();
 
-                        Parameter param = paramFactory.getParam(paramKey, paramNode);
+                        Parameter param = paramFactory.parseParameter(paramKey, paramNode);
 
                         // null if paramNode type is unsupported
                         // TODO: use checked exception for UnsupportedOperationException

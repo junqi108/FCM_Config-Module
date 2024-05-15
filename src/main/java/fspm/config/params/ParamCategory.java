@@ -1,5 +1,6 @@
 package fspm.config.params;
 
+import java.rmi.UnexpectedException;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -37,12 +38,12 @@ public class ParamCategory extends KeyElement {
 	 * @throws KeyConflictException If there is already a parameter with
 	 *                              the same key in the category.
 	 */
-	public void add(Parameter param) {
+	public void addParameter(Parameter param) {
 		// Use parameter key as unique identifier
 		if (params.containsKey(param.getKey())) {
 			throw new KeyConflictException(param.getKey());
 		} else {
-			set(param.getKey(), param);
+			params.put(param.getKey(), param);
 		}
 	}
 
@@ -50,14 +51,15 @@ public class ParamCategory extends KeyElement {
 	 * Set parameter with the given key to the provided {@link Parameter}.
 	 * The parameter is added if there was not an existing key to replace.
 	 * <p>
-	 * Private method as parameters should not be directly accessed (set)
-	 * from outside this class; prevents overriding parameters with a mismatching
-	 * type.
 	 * 
 	 * @param key   The parameter key.
 	 * @param param {@link Parameter} to replace or add to the category.
 	 */
-	private void set(String key, Parameter param) {
+	public void setParameter(String key, Parameter param) {
+		if (param.getType() != getParameter(key).getType()) {
+			// Prevent overriding parameters with a mismatching type.
+			throw new TypeNotFoundException(key, param.getType().toString());
+		}
 		params.put(key, param);
 	}
 
@@ -107,58 +109,23 @@ public class ParamCategory extends KeyElement {
 	// }
 
 	public Boolean getBoolean(String key) {
-		return get(key).asBoolean();
-		// if (isNull(key)) {
-		// return null;
-		// }
-
-		// return ((BooleanParam) getIfInstanceOf(key, BooleanParam.class)).getValue();
+		return getParameter(key).asBoolean();
 	}
 
 	public String getString(String key) {
-		return get(key).asString();
-		// if (isNull(key)) {
-		// return null;
-		// }
-
-		// return ((StringParam) getIfInstanceOf(key, StringParam.class)).getValue();
+		return getParameter(key).asString();
 	}
 
 	public Integer getInteger(String key) {
-		return get(key).asInteger();
-		// if (isNull(key)) {
-		// return null;
-		// }
-
-		// return ((IntegerParam) getIfInstanceOf(key, IntegerParam.class)).getValue();
+		return getParameter(key).asInteger();
 	}
 
 	public Double getDouble(String key) {
-		return get(key).asDouble();
-		// if (isNull(key)) {
-		// return null;
-		// }
-
-		// try {
-		// return ((DoubleParam) getIfInstanceOf(key, DoubleParam.class)).getValue();
-		// } catch (TypeNotFoundException e) {
-		// }
-
-		// // Safeguard case where 1.0 (double) is formatted as 1 (integer)
-		// try {
-		// return Double.valueOf(((IntegerParam) getIfInstanceOf(key,
-		// IntegerParam.class)).getValue());
-		// } catch (TypeNotFoundException e) {
-		// }
-
-		// // Safeguard case where 1.0 (float) is formatted as "1.0f" (float string)
-		// String value = ((StringParam) getIfInstanceOf(key,
-		// StringParam.class)).getValue();
-		// return Double.valueOf(value); // Convert "1.0f" to 1.0
+		return getParameter(key).asDouble();
 	}
 
 	public <T> T[] getArray(String key, Class<T[]> type) {
-		return get(key).asArray(type);
+		return getParameter(key).asArray(type);
 	}
 
 	/**
@@ -177,26 +144,6 @@ public class ParamCategory extends KeyElement {
 	}
 
 	/**
-	 * Helper method to get the parameter of a given key, if it is an
-	 * instance of the {@link Parameter} type class provided.
-	 * 
-	 * @param key            The parameter key.
-	 * @param paramTypeClass Concrete class type of {@link Parameter}.
-	 * @return Generic {@link Parameter} if found matching parameter.
-	 * @throws TypeNotFoundException If the provided parameter is not an
-	 *                               instance of the {@link Parameter} type.
-	 */
-	private <T extends Parameter> Parameter getIfInstanceOf(String key, Class<T> paramTypeClass) {
-		Parameter param = get(key);
-
-		if (paramTypeClass.isInstance(param)) {
-			return param;
-		} else {
-			throw new TypeNotFoundException(key, paramTypeClass.toString());
-		}
-	}
-
-	/**
 	 * Get generic {@link Parameter} with the given key.
 	 * Use this method to check whether a parameter exists in this category.
 	 * 
@@ -204,14 +151,15 @@ public class ParamCategory extends KeyElement {
 	 * @return Generic {@link Parameter}.
 	 * @throws KeyNotFoundException If the given key could not be found.
 	 */
-	public Parameter get(String key) {
+	public Parameter getParameter(String key) {
 		Parameter param = params.get(key);
 
-		if (param != null) {
-			return param;
+		if (param == null) {
+			throw new KeyNotFoundException(key,
+					String.format("Could not find parameter '%s' in category '%s'", key, getKey()));
 		}
-		throw new KeyNotFoundException(key,
-				String.format("Could not find parameter '%s' in category '%s'", key, getKey()));
+		return param;
+
 	}
 
 	@Override

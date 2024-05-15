@@ -2,6 +2,7 @@ package fspm.config.params;
 
 import java.io.PrintWriter;
 import java.io.StringWriter;
+import java.rmi.UnexpectedException;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -30,7 +31,7 @@ public class ParamFactory {
 	 *                                       to any concrete {@link Parameter}
 	 *                                       implementation.
 	 */
-	public Parameter getParam(String name, JsonNode node) {
+	public Parameter parseParameter(String name, JsonNode node) {
 		JsonNodeFactory factory = new JsonNodeFactory(false);
 
 		try {
@@ -46,5 +47,16 @@ public class ParamFactory {
 		}
 
 		// throw new UnsupportedOperationException(name + " uses an unsupported type.");
+	}
+
+	public <T> Parameter createParameter(String name, T value) {
+		ObjectMapper mapper = new ObjectMapper();
+		JsonNode node = mapper.convertValue(value, JsonNode.class);
+		try {
+			return new Parameter(name, node);
+		} catch (UnexpectedException e) {
+			e.printStackTrace();
+		}
+		return null;
 	}
 }

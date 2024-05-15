@@ -4,6 +4,8 @@ import java.rmi.UnexpectedException;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.node.JsonNodeType;
+
 import fspm.util.KeyElement;
 import fspm.util.exceptions.KeyNotFoundException;
 import fspm.util.exceptions.TypeNotFoundException;
@@ -62,6 +64,10 @@ public class Parameter extends KeyElement {
     // unsupported type.");
     // }
 
+    public JsonNodeType getType() {
+        return node.getNodeType();
+    }
+
     public Boolean asBoolean() {
         if (node.isBoolean()) {
             return node.asBoolean();
@@ -95,6 +101,9 @@ public class Parameter extends KeyElement {
     }
 
     public <T> T[] asArray(Class<T[]> type) {
+        if (type == null) {
+            throw new RuntimeException("Array type should not be null");
+        }
         if (node.isArray()) {
             try {
                 ObjectMapper objectMapper = new ObjectMapper();

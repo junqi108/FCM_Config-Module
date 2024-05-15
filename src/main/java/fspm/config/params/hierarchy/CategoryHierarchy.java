@@ -1,6 +1,7 @@
 package fspm.config.params.hierarchy;
 
 import java.io.FileNotFoundException;
+import java.rmi.UnexpectedException;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
@@ -59,12 +60,12 @@ public class CategoryHierarchy extends Hierarchy {
 
 			// Parse each parameter node
 			for (JsonNode paramNode : categoryNode) {
-				Parameter param = paramFactory.getParam(paramKeys.next().toString(), paramNode);
+				Parameter param = paramFactory.parseParameter(paramKeys.next().toString(), paramNode);
 
 				// null if paramNode type is unsupported
 				// TODO: use checked exception for UnsupportedOperationException
 				if (param != null) {
-					category.add(param);
+					category.addParameter(param);
 				}
 			}
 			hierarchy.addCategory(category);
@@ -111,7 +112,7 @@ public class CategoryHierarchy extends Hierarchy {
 	public ParamCategory getCategoryWithParam(String paramKey) {
 		for (ParamCategory category : categories.values()) {
 			try {
-				category.get(paramKey);
+				category.getParameter(paramKey);
 				return category;
 			} catch (KeyNotFoundException e) {
 				// This category does not contain the key
@@ -141,7 +142,7 @@ public class CategoryHierarchy extends Hierarchy {
 			// Check if current category contains key.
 			if (categoryContext != null) {
 				try {
-					categoryContext.get(key);
+					categoryContext.getParameter(key);
 					// No exception; found key; continue as normal
 					return;
 				} catch (KeyNotFoundException e) {
@@ -173,7 +174,10 @@ public class CategoryHierarchy extends Hierarchy {
 	// return categoryContext.getValue(key);
 	// }
 
-	// TODO: replace with generic method <T extends Parameter>
+	// public <T> T getValue(String key, T defaultValue) {
+	// T value = getValue(key);
+	// return value != null ? value : defaultValue;
+	// }
 
 	public Boolean getBoolean(String key) {
 		validateFlattenedAccess(key);
@@ -195,17 +199,6 @@ public class CategoryHierarchy extends Hierarchy {
 		return categoryContext.getDouble(key);
 	}
 
-	// @Override
-	// public Integer[] getIntegerArray(String key) {
-	// validateFlattenedAccess(key);
-	// return categoryContext.getIntegerArray(key);
-	// }
-
-	// @Override
-	// public Double[] getDoubleArray(String key) {
-	// validateFlattenedAccess(key);
-	// return categoryContext.getDoubleArray(key);
-	// }
 	public <T> T[] getArray(String key, Class<T[]> type) {
 		validateFlattenedAccess(key);
 		return categoryContext.getArray(key, type);
@@ -231,47 +224,46 @@ public class CategoryHierarchy extends Hierarchy {
 		return value != null ? value : defaultValue;
 	}
 
-	// public double[] getDoubleArray(String key, double[] defaultValue) {
-	// Double[] storedValue = getDoubleArray(key);
+	public <T> T[] getArray(String key, Class<T[]> type, T[] defaultValue) throws UnexpectedException {
+		T[] value = getArray(key, type);
+		return value != null ? value : defaultValue;
+	}
 
-	// // Convert from Double[] to double[]
-	// double[] value = new double[storedValue.length];
-	// for (int i = 0; i < storedValue.length; i++) {
-	// value[i] = storedValue[i];
-	// }
+	public void set(String key, boolean value) {
+		validateFlattenedAccess(key);
+		categoryContext.setParameter(key, new ParamFactory().createParameter(key, value));
+	}
 
-	// return value != null ? value : defaultValue;
-	// }
+	public void set(String key, String value) {
+		validateFlattenedAccess(key);
+		categoryContext.setParameter(key, new ParamFactory().createParameter(key, value));
+	}
 
-	// public void set(String key, boolean value) {
+	public void set(String key, int value) {
+		validateFlattenedAccess(key);
+		categoryContext.setParameter(key, new ParamFactory().createParameter(key, value));
+	}
+
+	public void set(String key, double value) {
+		validateFlattenedAccess(key);
+		categoryContext.setParameter(key, new ParamFactory().createParameter(key, value));
+	}
+
+	public void set(String key, Double[] value) {
+		validateFlattenedAccess(key);
+		categoryContext.setParameter(key, new ParamFactory().createParameter(key, value));
+	}
+
+	// public <T> void set(String key, T value) {
 	// validateFlattenedAccess(key);
-	// categoryContext.set(key, value);
+	// categoryContext.setParameter(key, new ParamFactory().createParameter(key,
+	// value));
 	// }
 
-	// public void set(String key, String value) {
-	// validateFlattenedAccess(key);
-	// categoryContext.set(key, value);
-	// }
-
-	// public void set(String key, int value) {
-	// validateFlattenedAccess(key);
-	// categoryContext.set(key, value);
-	// }
-
-	// public void set(String key, double value) {
-	// validateFlattenedAccess(key);
-	// categoryContext.set(key, value);
-	// }
-
-	// public void set(String key, Double[] value) {
-	// validateFlattenedAccess(key);
-	// categoryContext.set(key, value);
-	// }
-
-	// public boolean isNull(String key) {
-	// validateFlattenedAccess(key);
-	// return categoryContext.isNull(key);
-	// }
+	public boolean isNull(String key) {
+		validateFlattenedAccess(key);
+		return categoryContext.isNull(key);
+	}
 
 	public String toString() {
 		StringBuilder string = new StringBuilder();
