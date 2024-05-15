@@ -198,6 +198,26 @@ public class CategoryHierarchy extends Hierarchy {
 		return categoryContext.getDouble(key);
 	}
 
+	public Boolean[] getBooleanArray(String key) {
+		validateFlattenedAccess(key);
+		return categoryContext.getBooleanArray(key);
+	}
+
+	public String[] getStringArray(String key) {
+		validateFlattenedAccess(key);
+		return categoryContext.getStringArray(key);
+	}
+
+	public Integer[] getIntegerArray(String key) {
+		validateFlattenedAccess(key);
+		return categoryContext.getIntegerArray(key);
+	}
+
+	public Double[] getDoubleArray(String key) {
+		validateFlattenedAccess(key);
+		return categoryContext.getDoubleArray(key);
+	}
+
 	public <T> T[] getArray(String key, Class<T[]> type) {
 		validateFlattenedAccess(key);
 		return categoryContext.getArray(key, type);

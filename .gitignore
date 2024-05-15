@@ -2,7 +2,10 @@
 target/**
 *.war
 *.ear
-*.class
+*.
+
+# VS Code
+.vscode
 
 # eclipse specific
 *.pydevproject

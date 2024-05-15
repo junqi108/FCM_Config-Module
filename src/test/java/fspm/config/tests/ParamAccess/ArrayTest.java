@@ -30,6 +30,7 @@ public class ArrayTest {
         hierarchy.useFlattenedCategories = true;
 
         println(hierarchy.getArray("layerThickness", Integer[].class)[0]);
+        println(hierarchy.getIntegerArray("layerThickness")[0]);
     }
 
     @Test
@@ -42,6 +43,13 @@ public class ArrayTest {
 
         try {
             println(hierarchy.getArray("layerThickness", Double[].class)[0]);
+        } catch (TypeNotFoundException e) {
+            return;
+        }
+        fail("Should have thrown TypeNotFoundException as layerThickness is an Integer[]");
+
+        try {
+            println(hierarchy.getDoubleArray("layerThickness")[0]);
         } catch (TypeNotFoundException e) {
             return;
         }

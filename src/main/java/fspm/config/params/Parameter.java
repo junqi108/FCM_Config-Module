@@ -112,6 +112,22 @@ public class Parameter extends KeyElement {
         throw new KeyNotFoundException(super.getKey());
     }
 
+    public Boolean[] asBooleanArray() {
+        return asArray(Boolean[].class);
+    }
+
+    public String[] asStringArray() {
+        return asArray(String[].class);
+    }
+
+    public Integer[] asIntegerArray() {
+        return asArray(Integer[].class);
+    }
+
+    public Double[] asDoubleArray() {
+        return asArray(Double[].class);
+    }
+
     public <T> T[] asArray(Class<T[]> type) {
         if (isNull()) {
             return null;

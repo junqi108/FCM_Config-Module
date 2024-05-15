@@ -83,6 +83,22 @@ public class ParamCategory extends KeyElement {
 		return getParameter(key).asDouble();
 	}
 
+	public Boolean[] getBooleanArray(String key) {
+		return getParameter(key).asBooleanArray();
+	}
+
+	public String[] getStringArray(String key) {
+		return getParameter(key).asStringArray();
+	}
+
+	public Integer[] getIntegerArray(String key) {
+		return getParameter(key).asIntegerArray();
+	}
+
+	public Double[] getDoubleArray(String key) {
+		return getParameter(key).asDoubleArray();
+	}
+
 	public <T> T[] getArray(String key, Class<T[]> type) {
 		return getParameter(key).asArray(type);
 	}
