@@ -1,7 +1,6 @@
 package fspm.config.adapters.handlers;
 
 import java.io.FileNotFoundException;
-import com.fasterxml.jackson.databind.JsonNode;
 
 import fspm.config.params.group.ParamGroup;
 

@@ -6,11 +6,10 @@ import org.junit.runners.Suite.SuiteClasses;
 
 import fspm.config.tests.HierarchyTestSuite;
 import fspm.config.tests.ParamAccessTestSuite;
-import fspm.config.tests.ParamAccess.ArrayTest;
 
 @RunWith(Suite.class)
 @SuiteClasses({
-        ParamAccessTestSuite.class })
+        ParamAccessTestSuite.class, HierarchyTestSuite.class })
 
 public class ConfigTestSuite {
     public static final Config CONFIG = Config.getInstance();

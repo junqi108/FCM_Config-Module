@@ -1,17 +1,9 @@
 package fspm.config.tests.ParamAccess;
 
-import static org.junit.Assert.fail;
-
-import java.io.FileNotFoundException;
-import java.util.Arrays;
-
 import org.junit.Before;
 import org.junit.Test;
 
-import fspm.config.Config;
-import fspm.config.adapters.JsonFileReader;
 import fspm.config.params.ParamCategory;
-import fspm.config.params.ParamFactory;
 import fspm.config.params.group.DocumentCategoryNameGroup;
 import fspm.config.params.hierarchy.CategoryHierarchy;
 import fspm.config.tests.ParamAccessTestSuite;
@@ -109,8 +101,6 @@ public class SimpleTest {
         CategoryHierarchy hierarchy = CONFIG.getGroup("model.input.data.default",
                 DocumentCategoryNameGroup.class)
                 .getCategoryHierarchy().setCategoryContext("initial_condition_biomass");
-
-        Double d = hierarchy.getDouble("BIOMASS_LEAF");
 
         println(hierarchy.getDouble("BIOMASS_LEAF") == null);
     }

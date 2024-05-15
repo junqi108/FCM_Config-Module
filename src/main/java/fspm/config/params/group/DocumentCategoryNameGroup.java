@@ -1,7 +1,5 @@
 package fspm.config.params.group;
 
-import java.util.List;
-
 import fspm.config.params.hierarchy.CategoryHierarchy;
 
 public class DocumentCategoryNameGroup extends ParamGroup {

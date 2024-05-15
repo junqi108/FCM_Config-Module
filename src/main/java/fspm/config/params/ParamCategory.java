@@ -1,6 +1,5 @@
 package fspm.config.params;
 
-import java.rmi.UnexpectedException;
 import java.util.HashMap;
 import java.util.Map;
 

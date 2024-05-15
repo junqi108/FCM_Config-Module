@@ -8,7 +8,6 @@ import java.util.Map.Entry;
 import fspm.util.KeyElement;
 import fspm.util.exceptions.KeyConflictException;
 import fspm.util.exceptions.KeyNotFoundException;
-import fspm.util.exceptions.TypeNotFoundException;
 
 public class ParamTable extends KeyElement {
     /**
