@@ -13,10 +13,11 @@ import fspm.config.params.ParamFactory;
 import fspm.config.params.group.DocumentCategoryNameGroup;
 import fspm.config.params.hierarchy.CategoryHierarchy;
 import fspm.config.tests.ParamAccess.ArrayTest;
+import fspm.config.tests.ParamAccess.SimpleTest;
 
 @RunWith(Suite.class)
 @SuiteClasses({
-        ArrayTest.class, HierarchyTestSuite.class })
+        ArrayTest.class, SimpleTest.class })
 
 public class ParamAccessTestSuite {
     public static void addGroups(Config CONFIG) {
@@ -24,7 +25,7 @@ public class ParamAccessTestSuite {
         ParamFactory factory = new ParamFactory();
 
         ParamCategory category = new ParamCategory("category");
-        category.addParameter(factory.createParameter("doubleParam", 1));
+        category.addParameter(factory.createParameter("doubleParam", 1.5));
         category.addParameter(factory.createParameter("floatParam", "1.0f"));
         category.addParameter(factory.createParameter("nullParam", null));
 

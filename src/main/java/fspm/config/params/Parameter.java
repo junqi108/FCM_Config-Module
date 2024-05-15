@@ -69,6 +69,9 @@ public class Parameter extends KeyElement {
     }
 
     public Boolean asBoolean() {
+        if (isNull()) {
+            return null;
+        }
         if (node.isBoolean()) {
             return node.asBoolean();
         }
@@ -76,6 +79,9 @@ public class Parameter extends KeyElement {
     }
 
     public String asString() {
+        if (isNull()) {
+            return null;
+        }
         if (node.isTextual()) {
             return node.asText();
         }
@@ -83,6 +89,9 @@ public class Parameter extends KeyElement {
     }
 
     public Integer asInteger() {
+        if (isNull()) {
+            return null;
+        }
         if (node.isInt()) {
             return node.asInt();
         }
@@ -90,6 +99,9 @@ public class Parameter extends KeyElement {
     }
 
     public Double asDouble() {
+        if (isNull()) {
+            return null;
+        }
         if (node.isDouble()) {
             return node.asDouble();
         } else if (node.isTextual()) {
@@ -101,6 +113,9 @@ public class Parameter extends KeyElement {
     }
 
     public <T> T[] asArray(Class<T[]> type) {
+        if (isNull()) {
+            return null;
+        }
         if (type == null) {
             throw new RuntimeException("Array type should not be null");
         }

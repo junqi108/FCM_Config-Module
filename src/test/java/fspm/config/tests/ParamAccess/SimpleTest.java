@@ -1,5 +1,6 @@
 package fspm.config.tests.ParamAccess;
 
+import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -76,6 +77,27 @@ public class SimpleTest {
 
     @Test
     // @Ignore
+    public void testNull() {
+        CategoryHierarchy hierarchy = CONFIG.getGroup("model.input.data.default",
+                DocumentCategoryNameGroup.class).getCategoryHierarchy()
+                .setCategoryContext("initial_condition_biomass");
+
+        Assert.assertEquals(null, hierarchy.getDouble("BIOMASS_BERRY"));
+        Assert.assertEquals(null, hierarchy.getString("BIOMASS_WOOD"));
+    }
+
+    @Test
+    // @Ignore
+    public void testNullWithDefaultValue() {
+        CategoryHierarchy hierarchy = CONFIG.getGroup("model.input.data.default",
+                DocumentCategoryNameGroup.class).getCategoryHierarchy()
+                .setCategoryContext("initial_condition_biomass");
+
+        Assert.assertEquals(1, hierarchy.getDouble("BIOMASS_BERRY", 1), 0);
+    }
+
+    @Test
+    // @Ignore
     public void testTypes() {
         CategoryHierarchy hierarchy = CONFIG.getGroup("group",
                 DocumentCategoryNameGroup.class).getCategoryHierarchy()
@@ -103,12 +125,6 @@ public class SimpleTest {
                 .getCategoryHierarchy().setCategoryContext("initial_condition_biomass");
 
         println(hierarchy.getDouble("BIOMASS_LEAF") == null);
-    }
-
-    @Test
-    // @Ignore
-    public void testNull() {
-
     }
 
     @Test
