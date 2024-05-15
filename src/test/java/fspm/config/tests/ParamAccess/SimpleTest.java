@@ -8,6 +8,8 @@ import fspm.config.params.ParamCategory;
 import fspm.config.params.group.DocumentCategoryNameGroup;
 import fspm.config.params.hierarchy.CategoryHierarchy;
 import fspm.config.tests.ParamAccessTestSuite;
+import fspm.util.exceptions.KeyNotFoundException;
+
 import static fspm.config.ConfigTestSuite.*;
 
 public class SimpleTest {
@@ -125,6 +127,28 @@ public class SimpleTest {
                 .getCategoryHierarchy().setCategoryContext("initial_condition_biomass");
 
         println(hierarchy.getDouble("BIOMASS_LEAF") == null);
+    }
+
+    @Test
+    // @Ignore
+    public void testCrossCategoryAccess() {
+        CategoryHierarchy hierarchy = CONFIG.getGroup("model.input.data.default", DocumentCategoryNameGroup.class)
+                .getCategoryHierarchy();
+
+        hierarchy.setCategoryContext("module_configuration");
+
+        Assert.assertEquals(null, hierarchy.getBoolean("special_scenario"));
+
+        hierarchy.setCategoryContext("model_functionality");
+
+        Assert.assertTrue(hierarchy.getBoolean("calcLightInterception"));
+
+        try {
+            Assert.assertEquals(0, hierarchy.getInteger("trainingSystem").intValue());
+            Assert.fail(
+                    "Should have thrown KeyNotFoundException as trainingSystem is not in the model_functionality category");
+        } catch (KeyNotFoundException e) {
+        }
     }
 
     @Test
