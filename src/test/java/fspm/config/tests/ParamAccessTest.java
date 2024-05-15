@@ -4,6 +4,9 @@ import org.junit.Test;
 import org.junit.Before;
 import org.junit.Ignore;
 
+import static org.junit.Assert.assertThrows;
+import static org.junit.Assert.fail;
+
 import java.io.FileNotFoundException;
 import java.util.Arrays;
 
@@ -14,6 +17,7 @@ import fspm.config.params.ParamTable;
 import fspm.config.params.group.DocumentCategoryNameGroup;
 import fspm.config.params.group.DocumentHybridCategoryNameGroup;
 import fspm.config.params.hierarchy.CategoryHierarchy;
+import fspm.util.exceptions.TypeNotFoundException;
 
 public class ParamAccessTest {
 	static final Config CONFIG = Config.getInstance();
@@ -143,14 +147,29 @@ public class ParamAccessTest {
 
 	@Test
 	// @Ignore
-	public void testArrays() {
+	public void testGetArrays() {
 		CategoryHierarchy hierarchy = CONFIG.getGroup("soilParams_pot_1",
 				DocumentCategoryNameGroup.class)
 				.getCategoryHierarchy();
 		hierarchy.useFlattenedCategories = true;
 
 		println(hierarchy.getArray("layerThickness", Integer[].class)[0]);
-		println(hierarchy.getArray("layerThickness", Integer[].class).length);
+	}
+
+	@Test
+	// @Ignore
+	public void testIncorrectArrayType() {
+		CategoryHierarchy hierarchy = CONFIG.getGroup("soilParams_pot_1",
+				DocumentCategoryNameGroup.class)
+				.getCategoryHierarchy();
+		hierarchy.useFlattenedCategories = true;
+
+		try {
+			println(hierarchy.getArray("layerThickness", Double[].class)[0]);
+		} catch (TypeNotFoundException e) {
+			return;
+		}
+		fail("Should have thrown TypeNotFoundException as layerThickness is an Integer[]");
 	}
 
 	private static void addGroups() {

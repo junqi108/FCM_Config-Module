@@ -1,16 +1,12 @@
 package fspm.config.params;
 
-import java.io.PrintWriter;
-import java.io.StringWriter;
 import java.rmi.UnexpectedException;
-import java.util.ArrayList;
-
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
-
 import fspm.util.KeyElement;
 import fspm.util.exceptions.KeyNotFoundException;
+import fspm.util.exceptions.TypeNotFoundException;
 
 /**
  * Parameter represents variables that can be stored using Java data types
@@ -100,27 +96,24 @@ public class Parameter extends KeyElement {
 
     public <T> T[] asArray(Class<T[]> type) {
         if (node.isArray()) {
-            ObjectMapper objectMapper = new ObjectMapper();
             try {
-                return objectMapper.treeToValue(node, type);
+                ObjectMapper objectMapper = new ObjectMapper();
+                JsonNode firstItem = node.get(0);
+
+                System.out.println(firstItem.getNodeType());
+
+                if (firstItem.isInt() && type.equals(Integer[].class)
+                        || firstItem.isDouble() && type.equals(Double[].class)
+                        || firstItem.isTextual() && type.equals(String[].class)
+                        || firstItem.isBoolean() && type.equals(Boolean[].class)) {
+                    return objectMapper.treeToValue(node, type);
+                } else {
+                    throw new TypeNotFoundException(getKey(), type.getSimpleName());
+                }
             } catch (JsonProcessingException | IllegalArgumentException e) {
                 e.printStackTrace();
             }
         }
         throw new KeyNotFoundException(super.getKey());
     }
-
-    // @Override
-    // public Integer[] getIntegerArray() {
-    // // TODO Auto-generated method stub
-    // throw new UnsupportedOperationException("Unimplemented method
-    // 'getIntegerArray'");
-    // }
-
-    // @Override
-    // public Double[] getDoubleArray() {
-    // // TODO Auto-generated method stub
-    // throw new UnsupportedOperationException("Unimplemented method
-    // 'getDoubleArray'");
-    // }
 }
