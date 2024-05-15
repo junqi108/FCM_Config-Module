@@ -144,4 +144,9 @@ public class Parameter extends KeyElement {
     public boolean isNull() {
         return node.isNull();
     }
+
+    @Override
+    public String toString() {
+        return super.getKey() + ": " + node.asText();
+    }
 }
