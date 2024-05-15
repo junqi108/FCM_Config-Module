@@ -58,51 +58,11 @@ public class ParamCategory extends KeyElement {
 	public void setParameter(String key, Parameter param) {
 		if (param.getType() != getParameter(key).getType()) {
 			// Prevent overriding parameters with a mismatching type.
+			// TODO: consider cases where arrays of different types are being replaced
 			throw new TypeNotFoundException(key, param.getType().toString());
 		}
 		params.put(key, param);
 	}
-
-	// @Override
-	// public void set(String key, String value) {
-	// StringParam param = (StringParam) getIfInstanceOf(key, StringParam.class);
-
-	// param.setValue(value);
-	// set(key, param);
-	// }
-
-	// @Override
-	// public void set(String key, double value) {
-	// DoubleParam param = (DoubleParam) getIfInstanceOf(key, DoubleParam.class);
-
-	// param.setValue(value);
-	// set(key, param);
-	// }
-
-	// @Override
-	// public void set(String key, boolean value) {
-	// BooleanParam param = (BooleanParam) getIfInstanceOf(key, BooleanParam.class);
-
-	// param.setValue(value);
-	// set(key, param);
-	// }
-
-	// @Override
-	// public void set(String key, int value) {
-	// IntegerParam param = (IntegerParam) getIfInstanceOf(key, IntegerParam.class);
-
-	// param.setValue(value);
-	// set(key, param);
-	// }
-
-	// @Override
-	// public void set(String key, Double[] value) {
-	// ArrayParam<Double> param = (ArrayParam<Double>) getIfInstanceOf(key,
-	// ArrayParam.class);
-
-	// param.setValue(value);
-	// set(key, param);
-	// }
 
 	// public <T> T getValue(String key) {
 	// return params.get(key).getValue();
@@ -128,19 +88,8 @@ public class ParamCategory extends KeyElement {
 		return getParameter(key).asArray(type);
 	}
 
-	/**
-	 * Check and return if is NullParam.
-	 * 
-	 * @param key The parameter key.
-	 * @return True if is NullParam, false otherwise.
-	 */
 	public boolean isNull(String key) {
-		// try {
-		// getIfInstanceOf(key, NullParam.class);
-		// } catch (TypeNotFoundException e) {
-		// return false;
-		// }
-		return true;
+		return getParameter(key).isNull();
 	}
 
 	/**

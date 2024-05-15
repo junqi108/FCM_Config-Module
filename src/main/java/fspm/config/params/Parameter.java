@@ -125,4 +125,8 @@ public class Parameter extends KeyElement {
         }
         throw new KeyNotFoundException(super.getKey());
     }
+
+    public boolean isNull() {
+        return node.isNull();
+    }
 }

@@ -102,11 +102,6 @@ public class TableHierarchy extends Hierarchy {
         return tables.get(key);
     }
 
-    // Table soilPhysicalProperties = CONFIG.getTable("soilPhysicalProperties")
-
-    // soilPhysicalProperties.getValue("layer_" + i, "layerThickness"); // indexing
-    // using row, col
-
     @Override
     public String toString() {
         StringBuilder string = new StringBuilder();

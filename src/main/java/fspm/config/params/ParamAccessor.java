@@ -2,6 +2,7 @@ package fspm.config.params;
 
 /**
  * Blueprint for all classes that handles getting and setting of parameters.
+ * FIXME: currently unused
  */
 public interface ParamAccessor {
 	Boolean getBoolean(String key);

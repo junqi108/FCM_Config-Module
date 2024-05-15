@@ -9,7 +9,6 @@ import java.util.Map;
 import com.fasterxml.jackson.databind.JsonNode;
 
 import fspm.config.adapters.JsonFileReader;
-import fspm.config.params.ParamAccessor;
 import fspm.config.params.ParamCategory;
 import fspm.config.params.ParamFactory;
 import fspm.config.params.Parameter;
