@@ -4,6 +4,7 @@ import fspm.config.params.Parameter;
 
 /**
  * Concrete {@link Parameter} implementation for Strings.
+ * 
  * @author Ou-An Chuang
  */
 public class StringParam extends Parameter {
@@ -17,6 +18,7 @@ public class StringParam extends Parameter {
     public String getValue() {
         return value;
     }
+
     public void setValue(String value) {
         this.value = value;
     }

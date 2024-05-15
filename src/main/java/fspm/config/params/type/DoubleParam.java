@@ -4,6 +4,7 @@ import fspm.config.params.Parameter;
 
 /**
  * Concrete {@link Parameter} implementation for doubles.
+ * 
  * @author Ou-An Chuang
  */
 public class DoubleParam extends Parameter {
@@ -17,10 +18,11 @@ public class DoubleParam extends Parameter {
     public double getValue() {
         return value;
     }
+
     public void setValue(double value) {
         this.value = value;
     }
-    
+
     @Override
     public String toString() {
         return super.getKey() + ": " + value;

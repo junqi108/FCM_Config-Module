@@ -14,6 +14,6 @@ public abstract class ParamGroup extends KeyElement {
      * All initialisations go here.
      */
     protected ParamGroup(String key) {
-    	super(key);
+        super(key);
     }
 }

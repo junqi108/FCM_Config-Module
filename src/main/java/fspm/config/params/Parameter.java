@@ -15,6 +15,7 @@ public abstract class Parameter extends KeyElement {
     /**
      * Protected constructor as Parameter is an abstract class and
      * should not be used for instantiation.
+     * 
      * @param key The parameter key.
      */
     protected Parameter(String key) {

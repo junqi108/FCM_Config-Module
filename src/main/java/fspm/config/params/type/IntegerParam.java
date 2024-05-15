@@ -4,6 +4,7 @@ import fspm.config.params.Parameter;
 
 /**
  * Concrete {@link Parameter} implementation for integers.
+ * 
  * @author Ou-An Chuang
  */
 public class IntegerParam extends Parameter {
@@ -17,6 +18,7 @@ public class IntegerParam extends Parameter {
     public int getValue() {
         return value;
     }
+
     public void setValue(int value) {
         this.value = value;
     }

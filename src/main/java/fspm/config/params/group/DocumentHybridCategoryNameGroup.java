@@ -8,7 +8,8 @@ public class DocumentHybridCategoryNameGroup extends ParamGroup {
 	private CategoryHierarchy categoryHierarchy;
 	private TableHierarchy tableHierarchy;
 
-	public DocumentHybridCategoryNameGroup(String key, CategoryHierarchy categoryHierarchy, TableHierarchy tableHierarchy) {
+	public DocumentHybridCategoryNameGroup(String key, CategoryHierarchy categoryHierarchy,
+			TableHierarchy tableHierarchy) {
 		super(key);
 		this.categoryHierarchy = categoryHierarchy;
 		this.tableHierarchy = tableHierarchy;
@@ -17,6 +18,7 @@ public class DocumentHybridCategoryNameGroup extends ParamGroup {
 	public CategoryHierarchy getCategoryHierarchy() {
 		return categoryHierarchy;
 	}
+
 	public TableHierarchy getTableHierarchy() {
 		return tableHierarchy;
 	}

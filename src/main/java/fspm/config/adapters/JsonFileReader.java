@@ -13,33 +13,35 @@ import fspm.config.params.group.ParamGroup;
 
 /**
  * File reader to parse JSON config files to {@link Config}.
+ * 
  * @author Ou-An Chuang
  */
 public class JsonFileReader extends ConfigAdapter {
-	
-    public JsonFileReader(String path) {
-		super(path);
-	}
 
-	@Override
+    public JsonFileReader(String path) {
+        super(path);
+    }
+
+    @Override
     public ParamGroup parse() throws FileNotFoundException {
-		// Get node structure from JSON file
+        // Get node structure from JSON file
         JsonNode tree = getTreeFromFile(path);
         String metaclass = tree.get("metaclass").asText();
-        
+
         switch (metaclass) {
-        	case "document-category-name":
-        		return new DocumentCategoryNameHandler().parse(path);
+            case "document-category-name":
+                return new DocumentCategoryNameHandler().parse(path);
             case "document-hybrid-category-name":
                 return new DocumentHybridCategoryNameHandler().parse(path);
-        	case "dictionary":
-        		return new DictionaryHandler().parse(path);
+            case "dictionary":
+                return new DictionaryHandler().parse(path);
         }
         throw new UnsupportedOperationException(metaclass);
     }
-	
-	/**
+
+    /**
      * Helper function for getting root/tree node from a JSON file.
+     * 
      * @param filePath Path to JSON file.
      * @return Root/tree node.
      * @throws FileNotFoundException
@@ -54,5 +56,5 @@ public class JsonFileReader extends ConfigAdapter {
             throw new FileNotFoundException(e.getMessage());
         }
     }
-    
+
 }

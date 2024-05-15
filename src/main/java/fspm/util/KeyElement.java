@@ -8,6 +8,6 @@ public class KeyElement {
     }
 
     public String getKey() {
-		return key;
-	}
+        return key;
+    }
 }

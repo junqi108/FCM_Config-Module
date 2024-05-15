@@ -8,7 +8,8 @@ import fspm.config.tests.DocumentReadingTest;
 import fspm.config.tests.ParamAccessTest;
 
 @RunWith(Suite.class)
-    @SuiteClasses({
-        DocumentReadingTest.class, ParamAccessTest.class })
+@SuiteClasses({
+                DocumentReadingTest.class, ParamAccessTest.class })
 
-public class ConfigTestSuite { }
+public class ConfigTestSuite {
+}

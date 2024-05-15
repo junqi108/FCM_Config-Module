@@ -4,6 +4,7 @@ import fspm.config.params.Parameter;
 
 /**
  * Concrete {@link Parameter} implementation for booleans.
+ * 
  * @author Ou-An Chuang
  */
 public class BooleanParam extends Parameter {
@@ -17,6 +18,7 @@ public class BooleanParam extends Parameter {
     public boolean getValue() {
         return value;
     }
+
     public void setValue(boolean value) {
         this.value = value;
     }
