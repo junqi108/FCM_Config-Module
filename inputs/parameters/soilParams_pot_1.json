@@ -1,0 +1,117 @@
+{
+  "name": "soilParams_pot_1",
+  "class": "parameter.file",
+  "metaclass": "document-category-name",
+  "category": {
+    "dateSpecification": "2023-03-20",
+    "soilName": "PotSoil",
+    "soilPhysicalProperties": {
+      "numofSoilLayers": 1,
+      "layerThickness": [
+        300,
+        300,
+        300,
+        300
+      ],
+      "bulkDensity": [
+        1.0,
+        1.1,
+        1.2,
+        1.2
+      ],
+      "cropLowerLimit": [
+        0.1,
+        0.12,
+        0.13,
+        0.15
+      ],
+      "drainageUpperLimit": [
+        0.2,
+        0.2,
+        0.2,
+        0.2
+      ],
+      "waterSaturation": [
+        0.352,
+        0.352,
+        0.352,
+        0.352
+      ],
+      "saturatedConductivity": [
+        1.0,
+        1.0,
+        1.0,
+        1.0
+      ],
+      "swCon": [
+        0.6,
+        0.5,
+        0.4,
+        0.2
+      ],
+      "thetaR": [
+        0.1,
+        0.1,
+        0.1,
+        0.1
+      ],
+      "airEntryCoef": [
+        3.2147354,
+        3.2147354,
+        3.2147354,
+        3.2147354
+      ],
+      "poreSizeCoef": [
+        1.209321,
+        1.209321,
+        1.209321,
+        1.209321
+      ],
+      "tortuosityCoef": [
+        0.5,
+        0.5,
+        0.5,
+        0.5
+      ]
+    },
+    "soilChemicalProperties": {
+      "absorptionCoefficient": [
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    "soilSurfaceProperties": {
+      "maximumPonding": 100.0,
+      "runoffCoefficient": 0.5
+    },
+    "treeModelVariables": {
+      "stRootProportion": [
+        1.0
+      ],
+      "fiRootProportion": [
+        1.0
+      ],
+      "SOIL_N_CONTENT": [
+        15.1,
+        15.1,
+        15.1,
+        15.1
+      ],
+      "FRACTION_NH4": [
+        0.2,
+        0.2,
+        0.2,
+        0.2
+      ],
+      "FRACTION_NO3": [
+        0.8,
+        0.8,
+        0.8,
+        0.8
+      ]
+    
+    }
+}
+}
