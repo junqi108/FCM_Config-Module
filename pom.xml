@@ -54,37 +54,7 @@
       <artifactId>snakeyaml</artifactId>
       <version>1.30</version>
     </dependency>
-    <dependency>
-      <groupId>cache.dhs</groupId>
-      <artifactId>dhs-cache</artifactId>
-      <version>0.0.2</version>
-    </dependency>
   </dependencies>
-
-  <reporting>
-    <plugins>
-      <plugin>
-        <groupId>org.codehaus.mojo</groupId>
-        <artifactId>cobertura-maven-plugin</artifactId>
-        <version>2.7</version>
-        <configuration>
-          <check>
-            <haltOnFailure>false</haltOnFailure>
-            <branchRate>75</branchRate>
-            <lineRate>75</lineRate>
-            <totalBranchRate>75</totalBranchRate>
-            <totalLineRate>75</totalLineRate>
-            <packageLineRate>75</packageLineRate>
-            <packageBranchRate>75</packageBranchRate>
-          </check>
-          <formats>
-            <format>html</format>
-            <format>xml</format>
-          </formats>
-        </configuration>
-      </plugin>
-    </plugins>
-  </reporting>
 
   <build>
 	  <!-- Need to define maven shade here so that execution occurs -->
