@@ -15,7 +15,7 @@ import fspm.config.params.Parameter;
 import fspm.util.exceptions.KeyConflictException;
 import fspm.util.exceptions.KeyNotFoundException;
 
-public class CategoryHierarchy extends Hierarchy implements ParamAccessor {
+public class CategoryHierarchy extends Hierarchy {
 
 	private ParamCategory categoryContext;
 
@@ -168,42 +168,47 @@ public class CategoryHierarchy extends Hierarchy implements ParamAccessor {
 		}
 	}
 
+	// public <T> T getValue(String key) {
+	// validateFlattenedAccess(key);
+	// return categoryContext.getValue(key);
+	// }
+
 	// TODO: replace with generic method <T extends Parameter>
 
-	@Override
 	public Boolean getBoolean(String key) {
 		validateFlattenedAccess(key);
 		return categoryContext.getBoolean(key);
 	}
 
-	@Override
 	public String getString(String key) {
 		validateFlattenedAccess(key);
 		return categoryContext.getString(key);
 	}
 
-	@Override
 	public Integer getInteger(String key) {
 		validateFlattenedAccess(key);
 		return categoryContext.getInteger(key);
 	}
 
-	@Override
 	public Double getDouble(String key) {
 		validateFlattenedAccess(key);
 		return categoryContext.getDouble(key);
 	}
 
-	@Override
-	public Integer[] getIntegerArray(String key) {
-		validateFlattenedAccess(key);
-		return categoryContext.getIntegerArray(key);
-	}
+	// @Override
+	// public Integer[] getIntegerArray(String key) {
+	// validateFlattenedAccess(key);
+	// return categoryContext.getIntegerArray(key);
+	// }
 
-	@Override
-	public Double[] getDoubleArray(String key) {
+	// @Override
+	// public Double[] getDoubleArray(String key) {
+	// validateFlattenedAccess(key);
+	// return categoryContext.getDoubleArray(key);
+	// }
+	public <T> T[] getArray(String key, Class<T[]> type) {
 		validateFlattenedAccess(key);
-		return categoryContext.getDoubleArray(key);
+		return categoryContext.getArray(key, type);
 	}
 
 	public boolean getBoolean(String key, boolean defaultValue) {
@@ -226,55 +231,48 @@ public class CategoryHierarchy extends Hierarchy implements ParamAccessor {
 		return value != null ? value : defaultValue;
 	}
 
-	public double[] getDoubleArray(String key, double[] defaultValue) {
-		Double[] storedValue = getDoubleArray(key);
+	// public double[] getDoubleArray(String key, double[] defaultValue) {
+	// Double[] storedValue = getDoubleArray(key);
 
-		// Convert from Double[] to double[]
-		double[] value = new double[storedValue.length];
-		for (int i = 0; i < storedValue.length; i++) {
-			value[i] = storedValue[i];
-		}
+	// // Convert from Double[] to double[]
+	// double[] value = new double[storedValue.length];
+	// for (int i = 0; i < storedValue.length; i++) {
+	// value[i] = storedValue[i];
+	// }
 
-		return value != null ? value : defaultValue;
-	}
+	// return value != null ? value : defaultValue;
+	// }
 
-	@Override
-	public void set(String key, boolean value) {
-		validateFlattenedAccess(key);
-		categoryContext.set(key, value);
-	}
+	// public void set(String key, boolean value) {
+	// validateFlattenedAccess(key);
+	// categoryContext.set(key, value);
+	// }
 
-	@Override
-	public void set(String key, String value) {
-		validateFlattenedAccess(key);
-		categoryContext.set(key, value);
-	}
+	// public void set(String key, String value) {
+	// validateFlattenedAccess(key);
+	// categoryContext.set(key, value);
+	// }
 
-	@Override
-	public void set(String key, int value) {
-		validateFlattenedAccess(key);
-		categoryContext.set(key, value);
-	}
+	// public void set(String key, int value) {
+	// validateFlattenedAccess(key);
+	// categoryContext.set(key, value);
+	// }
 
-	@Override
-	public void set(String key, double value) {
-		validateFlattenedAccess(key);
-		categoryContext.set(key, value);
-	}
+	// public void set(String key, double value) {
+	// validateFlattenedAccess(key);
+	// categoryContext.set(key, value);
+	// }
 
-	@Override
-	public void set(String key, Double[] value) {
-		validateFlattenedAccess(key);
-		categoryContext.set(key, value);
-	}
+	// public void set(String key, Double[] value) {
+	// validateFlattenedAccess(key);
+	// categoryContext.set(key, value);
+	// }
 
-	@Override
-	public boolean isNull(String key) {
-		validateFlattenedAccess(key);
-		return categoryContext.isNull(key);
-	}
+	// public boolean isNull(String key) {
+	// validateFlattenedAccess(key);
+	// return categoryContext.isNull(key);
+	// }
 
-	@Override
 	public String toString() {
 		StringBuilder string = new StringBuilder();
 		for (ParamCategory category : categories.values()) {

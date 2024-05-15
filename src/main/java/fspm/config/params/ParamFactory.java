@@ -5,8 +5,7 @@ import java.io.StringWriter;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
-
-import fspm.config.params.type.*;
+import com.fasterxml.jackson.databind.node.JsonNodeFactory;
 
 /**
  * ParamFactory creates instances of concrete {@link Parameter Parameter}
@@ -15,6 +14,8 @@ import fspm.config.params.type.*;
  * @author Ou-An Chuang
  */
 public class ParamFactory {
+
+	public static final String NULL_STRING = "NA";
 
 	/**
 	 * Returns a concrete {@link Parameter Parameter} instance depending on
@@ -30,25 +31,13 @@ public class ParamFactory {
 	 *                                       implementation.
 	 */
 	public Parameter getParam(String name, JsonNode node) {
+		JsonNodeFactory factory = new JsonNodeFactory(false);
+
 		try {
-			if (node.isNull() || node.toString().equals(NullParam.nullString)) {
-				return new NullParam(name);
-			} else if (node.isInt()) {
-				return new IntegerParam(name, node.intValue());
-			} else if (node.isDouble()) {
-				return new DoubleParam(name, node.doubleValue());
-			} else if (node.isBoolean()) {
-				return new BooleanParam(name, node.booleanValue());
-			} else if (node.isTextual()) {
-				return new StringParam(name, node.textValue());
-			} else if (node.isArray()) {
-				ObjectMapper objectMapper = new ObjectMapper();
-				// Check type of array. TODO: generalize ArrayParam for multiple types.
-				if (node.get(0).isInt()) {
-					return new ArrayParam<Integer>(name, objectMapper.treeToValue(node, Integer[].class));
-				} else if (node.get(0).isDouble()) {
-					return new ArrayParam<Double>(name, objectMapper.treeToValue(node, Double[].class));
-				}
+			if (node.isNull() || node.toString().equals(NULL_STRING)) {
+				return new Parameter(name, factory.nullNode());
+			} else {
+				return new Parameter(name, node);
 			}
 		} catch (Exception e) {
 			StringWriter sw = new StringWriter();
@@ -56,6 +45,6 @@ public class ParamFactory {
 			throw new RuntimeException(String.format("An error occurred while parsing parameter: %s.\n%s", name, sw));
 		}
 
-		throw new UnsupportedOperationException(name + " uses an unsupported type.");
+		// throw new UnsupportedOperationException(name + " uses an unsupported type.");
 	}
 }

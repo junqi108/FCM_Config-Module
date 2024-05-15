@@ -3,12 +3,6 @@ package fspm.config.params;
 import java.util.HashMap;
 import java.util.Map;
 
-import fspm.config.params.type.ArrayParam;
-import fspm.config.params.type.BooleanParam;
-import fspm.config.params.type.DoubleParam;
-import fspm.config.params.type.IntegerParam;
-import fspm.config.params.type.NullParam;
-import fspm.config.params.type.StringParam;
 import fspm.util.KeyElement;
 import fspm.util.exceptions.KeyConflictException;
 import fspm.util.exceptions.KeyNotFoundException;
@@ -21,7 +15,7 @@ import fspm.util.exceptions.TypeNotFoundException;
  * 
  * @author Ou-An Chuang
  */
-public class ParamCategory extends KeyElement implements ParamAccessor {
+public class ParamCategory extends KeyElement {
 	private Map<String, Parameter> params;
 
 	/**
@@ -67,115 +61,104 @@ public class ParamCategory extends KeyElement implements ParamAccessor {
 		params.put(key, param);
 	}
 
-	@Override
-	public void set(String key, String value) {
-		StringParam param = (StringParam) getIfInstanceOf(key, StringParam.class);
+	// @Override
+	// public void set(String key, String value) {
+	// StringParam param = (StringParam) getIfInstanceOf(key, StringParam.class);
 
-		param.setValue(value);
-		set(key, param);
-	}
+	// param.setValue(value);
+	// set(key, param);
+	// }
 
-	@Override
-	public void set(String key, double value) {
-		DoubleParam param = (DoubleParam) getIfInstanceOf(key, DoubleParam.class);
+	// @Override
+	// public void set(String key, double value) {
+	// DoubleParam param = (DoubleParam) getIfInstanceOf(key, DoubleParam.class);
 
-		param.setValue(value);
-		set(key, param);
-	}
+	// param.setValue(value);
+	// set(key, param);
+	// }
 
-	@Override
-	public void set(String key, boolean value) {
-		BooleanParam param = (BooleanParam) getIfInstanceOf(key, BooleanParam.class);
+	// @Override
+	// public void set(String key, boolean value) {
+	// BooleanParam param = (BooleanParam) getIfInstanceOf(key, BooleanParam.class);
 
-		param.setValue(value);
-		set(key, param);
-	}
+	// param.setValue(value);
+	// set(key, param);
+	// }
 
-	@Override
-	public void set(String key, int value) {
-		IntegerParam param = (IntegerParam) getIfInstanceOf(key, IntegerParam.class);
+	// @Override
+	// public void set(String key, int value) {
+	// IntegerParam param = (IntegerParam) getIfInstanceOf(key, IntegerParam.class);
 
-		param.setValue(value);
-		set(key, param);
-	}
+	// param.setValue(value);
+	// set(key, param);
+	// }
 
-	@Override
-	public void set(String key, Double[] value) {
-		ArrayParam<Double> param = (ArrayParam<Double>) getIfInstanceOf(key, ArrayParam.class);
+	// @Override
+	// public void set(String key, Double[] value) {
+	// ArrayParam<Double> param = (ArrayParam<Double>) getIfInstanceOf(key,
+	// ArrayParam.class);
 
-		param.setValue(value);
-		set(key, param);
-	}
+	// param.setValue(value);
+	// set(key, param);
+	// }
 
-	@Override
+	// public <T> T getValue(String key) {
+	// return params.get(key).getValue();
+	// }
+
 	public Boolean getBoolean(String key) {
-		if (isNull(key)) {
-			return null;
-		}
+		return get(key).asBoolean();
+		// if (isNull(key)) {
+		// return null;
+		// }
 
-		return ((BooleanParam) getIfInstanceOf(key, BooleanParam.class)).getValue();
+		// return ((BooleanParam) getIfInstanceOf(key, BooleanParam.class)).getValue();
 	}
 
-	@Override
 	public String getString(String key) {
-		if (isNull(key)) {
-			return null;
-		}
+		return get(key).asString();
+		// if (isNull(key)) {
+		// return null;
+		// }
 
-		return ((StringParam) getIfInstanceOf(key, StringParam.class)).getValue();
+		// return ((StringParam) getIfInstanceOf(key, StringParam.class)).getValue();
 	}
 
-	@Override
 	public Integer getInteger(String key) {
-		if (isNull(key)) {
-			return null;
-		}
+		return get(key).asInteger();
+		// if (isNull(key)) {
+		// return null;
+		// }
 
-		return ((IntegerParam) getIfInstanceOf(key, IntegerParam.class)).getValue();
+		// return ((IntegerParam) getIfInstanceOf(key, IntegerParam.class)).getValue();
 	}
 
-	@Override
 	public Double getDouble(String key) {
-		if (isNull(key)) {
-			return null;
-		}
+		return get(key).asDouble();
+		// if (isNull(key)) {
+		// return null;
+		// }
 
-		try {
-			return ((DoubleParam) getIfInstanceOf(key, DoubleParam.class)).getValue();
-		} catch (TypeNotFoundException e) {
-		}
+		// try {
+		// return ((DoubleParam) getIfInstanceOf(key, DoubleParam.class)).getValue();
+		// } catch (TypeNotFoundException e) {
+		// }
 
-		// Safeguard case where 1.0 (double) is formatted as 1 (integer)
-		try {
-			return Double.valueOf(((IntegerParam) getIfInstanceOf(key, IntegerParam.class)).getValue());
-		} catch (TypeNotFoundException e) {
-		}
+		// // Safeguard case where 1.0 (double) is formatted as 1 (integer)
+		// try {
+		// return Double.valueOf(((IntegerParam) getIfInstanceOf(key,
+		// IntegerParam.class)).getValue());
+		// } catch (TypeNotFoundException e) {
+		// }
 
-		// Safeguard case where 1.0 (float) is formatted as "1.0f" (float string)
-		String value = ((StringParam) getIfInstanceOf(key, StringParam.class)).getValue();
-		return Double.valueOf(value); // Convert "1.0f" to 1.0
+		// // Safeguard case where 1.0 (float) is formatted as "1.0f" (float string)
+		// String value = ((StringParam) getIfInstanceOf(key,
+		// StringParam.class)).getValue();
+		// return Double.valueOf(value); // Convert "1.0f" to 1.0
 	}
 
-	@Override
-	public Integer[] getIntegerArray(String key) {
-		if (isNull(key)) {
-			{
-				return null;
-			}
-		}
-
-		return ((ArrayParam<Integer>) getIfInstanceOf(key, ArrayParam.class)).getValue();
-	}
-
-	@Override
-	public Double[] getDoubleArray(String key) {
-		if (isNull(key)) {
-			{
-				return null;
-			}
-		}
-
-		return ((ArrayParam<Double>) getIfInstanceOf(key, ArrayParam.class)).getValue();
+	public <T> T[] getArray(String key, Class<T[]> type) {
+		return get(key).asArray(type);
 	}
 
 	/**
@@ -185,11 +168,11 @@ public class ParamCategory extends KeyElement implements ParamAccessor {
 	 * @return True if is NullParam, false otherwise.
 	 */
 	public boolean isNull(String key) {
-		try {
-			getIfInstanceOf(key, NullParam.class);
-		} catch (TypeNotFoundException e) {
-			return false;
-		}
+		// try {
+		// getIfInstanceOf(key, NullParam.class);
+		// } catch (TypeNotFoundException e) {
+		// return false;
+		// }
 		return true;
 	}
 

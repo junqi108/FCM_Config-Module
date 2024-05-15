@@ -1,6 +1,16 @@
 package fspm.config.params;
 
+import java.io.PrintWriter;
+import java.io.StringWriter;
+import java.rmi.UnexpectedException;
+import java.util.ArrayList;
+
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.ObjectMapper;
+
 import fspm.util.KeyElement;
+import fspm.util.exceptions.KeyNotFoundException;
 
 /**
  * Parameter represents variables that can be stored using Java data types
@@ -11,14 +21,106 @@ import fspm.util.KeyElement;
  * 
  * @author Ou-An Chuang
  */
-public abstract class Parameter extends KeyElement {
+public class Parameter extends KeyElement {
+
+    private JsonNode node;
+
     /**
-     * Protected constructor as Parameter is an abstract class and
-     * should not be used for instantiation.
-     * 
      * @param key The parameter key.
+     * @throws UnexpectedException
      */
-    protected Parameter(String key) {
+    public Parameter(String key, JsonNode node) throws UnexpectedException {
         super(key);
+
+        if (node.isObject()) {
+            throw new UnexpectedException("Cannot store an object as a parameter.");
+        } else {
+            this.node = node;
+        }
     }
+
+    // @SuppressWarnings("unchecked")
+    // public <T> T getValue() {
+    // System.out.println(node.getNodeType());
+    // try {
+    // if (node.isTextual()) {
+    // return (T) node.asText();
+    // } else if (node.isDouble()) {
+    // return (T) Double.valueOf(node.asDouble());
+    // } else if (node.isInt()) {
+    // return (T) Integer.valueOf(node.asInt());
+    // } else if (node.isBoolean()) {
+    // return (T) Boolean.valueOf(node.asBoolean());
+    // } else if (node.isArray()) {
+    // ObjectMapper objectMapper = new ObjectMapper();
+    // return (T) objectMapper.treeToValue(node, ArrayList.class);
+    // }
+    // } catch (Exception e) {
+    // StringWriter sw = new StringWriter();
+    // e.printStackTrace(new PrintWriter(sw));
+    // throw new RuntimeException(
+    // String.format("An error occurred while parsing parameter: %s.\n%s",
+    // super.getKey(), sw));
+    // }
+    // throw new UnsupportedOperationException(super.getKey() + " uses an
+    // unsupported type.");
+    // }
+
+    public Boolean asBoolean() {
+        if (node.isBoolean()) {
+            return node.asBoolean();
+        }
+        throw new KeyNotFoundException(super.getKey());
+    }
+
+    public String asString() {
+        if (node.isTextual()) {
+            return node.asText();
+        }
+        throw new KeyNotFoundException(super.getKey());
+    }
+
+    public Integer asInteger() {
+        if (node.isInt()) {
+            return node.asInt();
+        }
+        throw new KeyNotFoundException(super.getKey());
+    }
+
+    public Double asDouble() {
+        if (node.isDouble()) {
+            return node.asDouble();
+        } else if (node.isTextual()) {
+            // Handle case where floats are stored as strings, e.g: "10.5f"
+            String value = node.asText();
+            return (double) Float.parseFloat(value);
+        }
+        throw new KeyNotFoundException(super.getKey());
+    }
+
+    public <T> T[] asArray(Class<T[]> type) {
+        if (node.isArray()) {
+            ObjectMapper objectMapper = new ObjectMapper();
+            try {
+                return objectMapper.treeToValue(node, type);
+            } catch (JsonProcessingException | IllegalArgumentException e) {
+                e.printStackTrace();
+            }
+        }
+        throw new KeyNotFoundException(super.getKey());
+    }
+
+    // @Override
+    // public Integer[] getIntegerArray() {
+    // // TODO Auto-generated method stub
+    // throw new UnsupportedOperationException("Unimplemented method
+    // 'getIntegerArray'");
+    // }
+
+    // @Override
+    // public Double[] getDoubleArray() {
+    // // TODO Auto-generated method stub
+    // throw new UnsupportedOperationException("Unimplemented method
+    // 'getDoubleArray'");
+    // }
 }

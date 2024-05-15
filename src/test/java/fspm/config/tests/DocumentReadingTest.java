@@ -14,7 +14,6 @@ import fspm.config.params.ParamTable;
 import fspm.config.params.group.DocumentCategoryNameGroup;
 import fspm.config.params.group.DocumentHybridCategoryNameGroup;
 import fspm.config.params.hierarchy.CategoryHierarchy;
-import fspm.config.params.type.*;
 
 public class DocumentReadingTest {
 	static final Config CONFIG = Config.getInstance();
@@ -41,20 +40,21 @@ public class DocumentReadingTest {
 	}
 
 	private static void addGroups() {
-		// Manually add new group
-		ParamCategory category = new ParamCategory("category");
-		category.add(new IntegerParam("doubleParam", 1));
-		category.add(new StringParam("floatParam", "1.0f"));
-		category.add(new NullParam("nullParam"));
+		// // Manually add new group
+		// ParamCategory category = new ParamCategory("category");
+		// category.add(new IntegerParam("doubleParam", 1));
+		// category.add(new StringParam("floatParam", "1.0f"));
+		// category.add(new NullParam("nullParam"));
 
-		String groupKey = "group";
+		// String groupKey = "group";
 
-		CategoryHierarchy categoryHierarchy = new CategoryHierarchy(groupKey);
-		categoryHierarchy.addCategory(category);
+		// CategoryHierarchy categoryHierarchy = new CategoryHierarchy(groupKey);
+		// categoryHierarchy.addCategory(category);
 
-		DocumentCategoryNameGroup group = new DocumentCategoryNameGroup(groupKey, categoryHierarchy);
+		// DocumentCategoryNameGroup group = new DocumentCategoryNameGroup(groupKey,
+		// categoryHierarchy);
 
-		CONFIG.addGroup(group);
+		// CONFIG.addGroup(group);
 
 		// Read in JSON file and add as new group
 		try {

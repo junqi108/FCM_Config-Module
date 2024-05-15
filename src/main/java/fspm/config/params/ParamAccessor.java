@@ -12,9 +12,10 @@ public interface ParamAccessor {
 
 	Double getDouble(String key);
 
-	Integer[] getIntegerArray(String key);
+	// Integer[] getIntegerArray(String key);
 
-	Double[] getDoubleArray(String key);
+	// Double[] getDoubleArray(String key);
+	public <T> T[] getArray(String key, Class<T[]> type);
 
 	void set(String key, boolean value);
 
