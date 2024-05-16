@@ -39,7 +39,6 @@ public class Parameter extends KeyElement {
 
     // @SuppressWarnings("unchecked")
     // public <T> T getValue() {
-    // System.out.println(node.getNodeType());
     // try {
     // if (node.isTextual()) {
     // return (T) node.asText();
@@ -142,8 +141,6 @@ public class Parameter extends KeyElement {
             try {
                 ObjectMapper objectMapper = new ObjectMapper();
                 JsonNode firstItem = node.get(0);
-
-                System.out.println(firstItem.getNodeType());
 
                 if (firstItem.isInt() && type.equals(Integer[].class)
                         || firstItem.isDouble() && type.equals(Double[].class)
