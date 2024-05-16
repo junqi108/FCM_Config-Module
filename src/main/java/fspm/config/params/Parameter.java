@@ -104,8 +104,11 @@ public class Parameter extends KeyElement {
         }
         if (node.isDouble()) {
             return node.asDouble();
+        } else if (node.isInt()) {
+            // Case where double parameters are written as integers, e.g: "1.0" becomes "1"
+            return (double) node.asInt();
         } else if (node.isTextual()) {
-            // Handle case where floats are stored as strings, e.g: "10.5f"
+            // Case where floats are stored as strings, e.g: "10.5f"
             String value = node.asText();
             return (double) Float.parseFloat(value);
         }
