@@ -243,6 +243,30 @@ public class CategoryHierarchy extends Hierarchy {
 		return value != null ? value : defaultValue;
 	}
 
+	public Boolean[] getBooleanArray(String key, Boolean[] defaultValue) {
+		validateFlattenedAccess(key);
+		Boolean[] value = categoryContext.getBooleanArray(key);
+		return value != null ? value : defaultValue;
+	}
+
+	public String[] getStringArray(String key, String[] defaultValue) {
+		validateFlattenedAccess(key);
+		String[] value = categoryContext.getStringArray(key);
+		return value != null ? value : defaultValue;
+	}
+
+	public Integer[] getIntegerArray(String key, Integer[] defaultValue) {
+		validateFlattenedAccess(key);
+		Integer[] value = categoryContext.getIntegerArray(key);
+		return value != null ? value : defaultValue;
+	}
+
+	public Double[] getDoubleArray(String key, Double[] defaultValue) {
+		validateFlattenedAccess(key);
+		Double[] value = categoryContext.getDoubleArray(key);
+		return value != null ? value : defaultValue;
+	}
+
 	public <T> T[] getArray(String key, Class<T[]> type, T[] defaultValue) throws UnexpectedException {
 		T[] value = getArray(key, type);
 		return value != null ? value : defaultValue;
