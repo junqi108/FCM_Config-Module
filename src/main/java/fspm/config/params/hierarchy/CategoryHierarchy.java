@@ -243,10 +243,10 @@ public class CategoryHierarchy extends Hierarchy {
 		return value != null ? value : defaultValue;
 	}
 
-	public Boolean[] getBooleanArray(String key, Boolean[] defaultValue) {
+	public Boolean[] getBooleanArray(String key, boolean[] defaultValue) {
 		validateFlattenedAccess(key);
 		Boolean[] value = categoryContext.getBooleanArray(key);
-		return value != null ? value : defaultValue;
+		return (Boolean[]) (value != null ? value : defaultValue);
 	}
 
 	public String[] getStringArray(String key, String[] defaultValue) {
@@ -255,16 +255,16 @@ public class CategoryHierarchy extends Hierarchy {
 		return value != null ? value : defaultValue;
 	}
 
-	public Integer[] getIntegerArray(String key, Integer[] defaultValue) {
+	public Integer[] getIntegerArray(String key, int[] defaultValue) {
 		validateFlattenedAccess(key);
 		Integer[] value = categoryContext.getIntegerArray(key);
-		return value != null ? value : defaultValue;
+		return (Integer[]) (value != null ? value : defaultValue);
 	}
 
-	public Double[] getDoubleArray(String key, Double[] defaultValue) {
+	public Double[] getDoubleArray(String key, double[] defaultValue) {
 		validateFlattenedAccess(key);
 		Double[] value = categoryContext.getDoubleArray(key);
-		return value != null ? value : defaultValue;
+		return (Double[]) (value != null ? value : defaultValue);
 	}
 
 	public <T> T[] getArray(String key, Class<T[]> type, T[] defaultValue) throws UnexpectedException {
