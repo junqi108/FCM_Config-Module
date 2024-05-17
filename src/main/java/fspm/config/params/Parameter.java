@@ -11,11 +11,11 @@ import fspm.util.exceptions.KeyNotFoundException;
 import fspm.util.exceptions.TypeNotFoundException;
 
 /**
- * Parameter represents variables that can be stored using Java data types
- * or other user-defined types.
+ * Parameter represents variables that can be stored using Java data types or other user-defined
+ * types.
  * <p>
- * The value field should be implemented by extending members, as values require
- * specific primitive type declarations.
+ * The value field should be implemented by extending members, as values require specific primitive
+ * type declarations.
  * 
  * @author Ou-An Chuang
  */
@@ -31,7 +31,8 @@ public class Parameter extends KeyElement {
         super(key);
 
         if (node.isObject()) {
-            throw new UnexpectedException("Cannot store an object as a parameter.");
+            throw new UnexpectedException(
+                    "Cannot store an object as a parameter.");
         } else {
             this.node = node;
         }
@@ -146,10 +147,12 @@ public class Parameter extends KeyElement {
                 if (firstItem.isInt() && type.equals(Integer[].class)
                         || firstItem.isDouble() && type.equals(Double[].class)
                         || firstItem.isTextual() && type.equals(String[].class)
-                        || firstItem.isBoolean() && type.equals(Boolean[].class)) {
+                        || firstItem.isBoolean()
+                                && type.equals(Boolean[].class)) {
                     return objectMapper.treeToValue(node, type);
                 } else {
-                    throw new TypeNotFoundException(getKey(), type.getSimpleName());
+                    throw new TypeNotFoundException(getKey(),
+                            type.getSimpleName());
                 }
             } catch (JsonProcessingException | IllegalArgumentException e) {
                 e.printStackTrace();

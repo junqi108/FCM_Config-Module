@@ -66,7 +66,8 @@ public class TableStore extends ParamStructure {
                     for (JsonNode paramNode : layerNode) {
                         String paramKey = paramKeys.next().toString();
 
-                        Parameter param = paramFactory.parseParameter(paramKey, paramNode);
+                        Parameter param = paramFactory.parseParameter(paramKey,
+                                paramNode);
 
                         // null if paramNode type is unsupported
                         // TODO: use checked exception for UnsupportedOperationException
@@ -82,9 +83,9 @@ public class TableStore extends ParamStructure {
             StringWriter sw = new StringWriter();
             e.printStackTrace(new PrintWriter(sw));
 
-            throw new RuntimeException(
-                    String.format("An error occurred while parsing table hierarchies in: %s.\n%s", path,
-                            sw));
+            throw new RuntimeException(String.format(
+                    "An error occurred while parsing table hierarchies in: %s.\n%s",
+                    path, sw));
         }
         return store;
     }

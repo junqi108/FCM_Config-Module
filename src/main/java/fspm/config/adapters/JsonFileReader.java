@@ -30,10 +30,10 @@ public class JsonFileReader extends ConfigAdapter {
         String metaclass = tree.get(METACLASS_HEADER).asText();
 
         switch (metaclass) {
-            case "document-category-name":
-                return DocumentCategoryNameGroup.parse(path);
-            case "document-hybrid-category-name":
-                return DocumentHybridCategoryNameGroup.parse(path);
+        case "document-category-name":
+            return DocumentCategoryNameGroup.parse(path);
+        case "document-hybrid-category-name":
+            return DocumentHybridCategoryNameGroup.parse(path);
         }
         throw new UnsupportedOperationException(metaclass);
     }
@@ -45,7 +45,8 @@ public class JsonFileReader extends ConfigAdapter {
      * @return Root/tree node.
      * @throws FileNotFoundException
      */
-    public static JsonNode getTreeFromFile(String filePath) throws FileNotFoundException {
+    public static JsonNode getTreeFromFile(String filePath)
+            throws FileNotFoundException {
         File file = new File(filePath);
 
         ObjectMapper mapper = new ObjectMapper();

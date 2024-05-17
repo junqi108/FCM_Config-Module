@@ -7,41 +7,42 @@ import fspm.config.params.structures.TableStore;
 
 public class DocumentHybridCategoryNameGroup extends ParamGroup {
 
-	private CategoryStore categoryStore;
-	private TableStore tableStore;
+    private CategoryStore categoryStore;
+    private TableStore tableStore;
 
-	public DocumentHybridCategoryNameGroup(String key, CategoryStore categoryStore,
-			TableStore tableStore) {
-		super(key);
-		this.categoryStore = categoryStore;
-		this.tableStore = tableStore;
-	}
+    public DocumentHybridCategoryNameGroup(String key,
+            CategoryStore categoryStore, TableStore tableStore) {
+        super(key);
+        this.categoryStore = categoryStore;
+        this.tableStore = tableStore;
+    }
 
-	public static DocumentHybridCategoryNameGroup parse(String path) throws FileNotFoundException {
+    public static DocumentHybridCategoryNameGroup parse(String path)
+            throws FileNotFoundException {
 
-		CategoryStore categoryStore = CategoryStore.parse(path);
-		TableStore tableStore = TableStore.parse(path);
+        CategoryStore categoryStore = CategoryStore.parse(path);
+        TableStore tableStore = TableStore.parse(path);
 
-		DocumentHybridCategoryNameGroup group = new DocumentHybridCategoryNameGroup(path, categoryStore,
-				tableStore);
-		return group;
-	}
+        DocumentHybridCategoryNameGroup group = new DocumentHybridCategoryNameGroup(
+                path, categoryStore, tableStore);
+        return group;
+    }
 
-	public CategoryStore getCategoryStore() {
-		return categoryStore;
-	}
+    public CategoryStore getCategoryStore() {
+        return categoryStore;
+    }
 
-	public TableStore getTableStore() {
-		return tableStore;
-	}
+    public TableStore getTableStore() {
+        return tableStore;
+    }
 
-	@Override
-	public String toString() {
-		StringBuilder string = new StringBuilder();
-		string.append("Group: " + getKey() + "\n");
-		string.append("Categories: " + categoryStore);
-		string.append("Tables: " + tableStore);
+    @Override
+    public String toString() {
+        StringBuilder string = new StringBuilder();
+        string.append("Group: " + getKey() + "\n");
+        string.append("Categories: " + categoryStore);
+        string.append("Tables: " + tableStore);
 
-		return string.toString();
-	}
+        return string.toString();
+    }
 }

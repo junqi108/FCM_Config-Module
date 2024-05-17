@@ -10,16 +10,14 @@ import fspm.util.exceptions.KeyConflictException;
 import fspm.util.exceptions.KeyNotFoundException;
 
 /**
- * Configuration class for storing input configurations to be used in
- * simulations.
+ * Configuration class for storing input configurations to be used in simulations.
  * 
  * @author Ou-An Chuang
  */
 public class Config {
     /**
-     * Singleton instance for the global config.
-     * Set to null by default until instance is first retrieved with
-     * {@link #getInstance()}.
+     * Singleton instance for the global config. Set to null by default until instance is first
+     * retrieved with {@link #getInstance()}.
      */
     private static Config instance = null;
 
@@ -29,16 +27,15 @@ public class Config {
     private Map<String, ParamGroup> paramGroups;
 
     /**
-     * Class constructor.
-     * Private access as creation should be controlled to enforce singleton pattern
+     * Class constructor. Private access as creation should be controlled to enforce singleton pattern
      */
     private Config() {
         reset();
     }
 
     /**
-     * Gets the singleton instance of the simulation {@link Config}.
-     * Creates a new Config if there was no existing instance.
+     * Gets the singleton instance of the simulation {@link Config}. Creates a new Config if there was
+     * no existing instance.
      * 
      * @return Singleton instance of {@link Config}.
      */
@@ -61,7 +58,8 @@ public class Config {
         addGroup(adapter.parse());
     }
 
-    public void addGroup(String key, ConfigAdapter adapter) throws FileNotFoundException {
+    public void addGroup(String key, ConfigAdapter adapter)
+            throws FileNotFoundException {
         addGroup(key, adapter.parse());
     }
 
@@ -94,7 +92,9 @@ public class Config {
             throw new KeyNotFoundException(key);
         }
         if (!groupClass.isInstance(group)) {
-            throw new IllegalArgumentException("Group is not of the expected type: " + groupClass.getSimpleName());
+            throw new IllegalArgumentException(
+                    "Group is not of the expected type: "
+                            + groupClass.getSimpleName());
         }
 
         return groupClass.cast(group);

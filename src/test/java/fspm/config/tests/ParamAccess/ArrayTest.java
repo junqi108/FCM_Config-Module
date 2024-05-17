@@ -24,8 +24,8 @@ public class ArrayTest {
     @Test
     // @Ignore
     public void testGetArrays() {
-        CategoryStore store = CONFIG.getGroup("soilParams_pot_1",
-                DocumentCategoryNameGroup.class)
+        CategoryStore store = CONFIG
+                .getGroup("soilParams_pot_1", DocumentCategoryNameGroup.class)
                 .getCategoryHierarchy();
         store.useFlattenedCategories = true;
 
@@ -36,8 +36,8 @@ public class ArrayTest {
     @Test
     // @Ignore
     public void testIncorrectArrayType() {
-        CategoryStore store = CONFIG.getGroup("soilParams_pot_1",
-                DocumentCategoryNameGroup.class)
+        CategoryStore store = CONFIG
+                .getGroup("soilParams_pot_1", DocumentCategoryNameGroup.class)
                 .getCategoryHierarchy();
         store.useFlattenedCategories = true;
 
@@ -62,9 +62,9 @@ public class ArrayTest {
         CategoryStore store = CONFIG
                 .getGroup("phenology.parameters.SauvignonBlanc",
                         DocumentCategoryNameGroup.class)
-                .getCategoryHierarchy()
-                .setCategoryContext("parameters");
+                .getCategoryHierarchy().setCategoryContext("parameters");
 
-        println(Arrays.toString(store.getArray("BUDBURST_CANE_DIFF", Double[].class)));
+        println(Arrays.toString(
+                store.getArray("BUDBURST_CANE_DIFF", Double[].class)));
     }
 }

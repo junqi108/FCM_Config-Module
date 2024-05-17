@@ -8,8 +8,7 @@ import fspm.config.tests.Structure.GroupTypeTest;
 import fspm.config.tests.Structure.TableStoreTest;
 
 @RunWith(Suite.class)
-@SuiteClasses({
-		GroupTypeTest.class, TableStoreTest.class })
+@SuiteClasses({ GroupTypeTest.class, TableStoreTest.class })
 
 public class StructureTestSuite {
 }

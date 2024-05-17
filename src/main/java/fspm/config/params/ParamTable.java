@@ -11,8 +11,8 @@ import fspm.util.exceptions.KeyNotFoundException;
 
 public class ParamTable extends KeyElement {
     /**
-     * A map of tabular rows stored with <row name, list of parameters>.
-     * For example, [layer_1, layerThickness].
+     * A map of tabular rows stored with <row name, list of parameters>. For example, [layer_1,
+     * layerThickness].
      */
     private Map<String, List<Parameter>> rows;
 
@@ -75,8 +75,8 @@ public class ParamTable extends KeyElement {
             }
         }
         // Did not find parameter.
-        throw new KeyNotFoundException(column,
-                String.format("Could not find parameter '%s' in row '%s'", column, row));
+        throw new KeyNotFoundException(column, String.format(
+                "Could not find parameter '%s' in row '%s'", column, row));
     }
 
     @Override

@@ -8,8 +8,7 @@ import fspm.config.tests.StructureTestSuite;
 import fspm.config.tests.ParamAccessTestSuite;
 
 @RunWith(Suite.class)
-@SuiteClasses({
-        ParamAccessTestSuite.class, StructureTestSuite.class })
+@SuiteClasses({ ParamAccessTestSuite.class, StructureTestSuite.class })
 
 public class ConfigTestSuite {
     public static final Config CONFIG = Config.getInstance();

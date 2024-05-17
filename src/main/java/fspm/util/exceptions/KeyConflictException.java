@@ -6,6 +6,7 @@ public class KeyConflictException extends RuntimeException {
     }
 
     public KeyConflictException(String name, String location) {
-        super("An entry already exists with unique key: " + name + " in " + location);
+        super("An entry already exists with unique key: " + name + " in "
+                + location);
     }
 }
