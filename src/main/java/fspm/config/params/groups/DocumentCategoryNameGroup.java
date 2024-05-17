@@ -1,5 +1,7 @@
 package fspm.config.params.groups;
 
+import java.io.FileNotFoundException;
+
 import fspm.config.params.structures.CategoryStore;
 
 public class DocumentCategoryNameGroup extends ParamGroup {
@@ -8,6 +10,13 @@ public class DocumentCategoryNameGroup extends ParamGroup {
 	public DocumentCategoryNameGroup(String key, CategoryStore categoryStore) {
 		super(key);
 		this.categoryStore = categoryStore;
+	}
+
+	public static DocumentCategoryNameGroup parse(String path) throws FileNotFoundException {
+		CategoryStore store = CategoryStore.parse(path);
+
+		DocumentCategoryNameGroup group = new DocumentCategoryNameGroup(path, store);
+		return group;
 	}
 
 	public CategoryStore getCategoryHierarchy() {

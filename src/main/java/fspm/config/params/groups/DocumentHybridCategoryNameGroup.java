@@ -1,5 +1,7 @@
 package fspm.config.params.groups;
 
+import java.io.FileNotFoundException;
+
 import fspm.config.params.structures.CategoryStore;
 import fspm.config.params.structures.TableStore;
 
@@ -13,6 +15,16 @@ public class DocumentHybridCategoryNameGroup extends ParamGroup {
 		super(key);
 		this.categoryStore = categoryStore;
 		this.tableStore = tableStore;
+	}
+
+	public static DocumentHybridCategoryNameGroup parse(String path) throws FileNotFoundException {
+
+		CategoryStore categoryStore = CategoryStore.parse(path);
+		TableStore tableStore = TableStore.parse(path);
+
+		DocumentHybridCategoryNameGroup group = new DocumentHybridCategoryNameGroup(path, categoryStore,
+				tableStore);
+		return group;
 	}
 
 	public CategoryStore getCategoryStore() {

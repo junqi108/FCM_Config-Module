@@ -1,6 +1,7 @@
 package fspm.config.tests;
 
 import java.io.FileNotFoundException;
+import java.io.FileReader;
 
 import org.junit.runner.RunWith;
 import org.junit.runners.Suite;

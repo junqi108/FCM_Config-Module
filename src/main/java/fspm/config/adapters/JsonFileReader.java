@@ -6,9 +6,8 @@ import java.io.IOException;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
-import fspm.config.adapters.handlers.DictionaryHandler;
-import fspm.config.adapters.handlers.DocumentCategoryNameHandler;
-import fspm.config.adapters.handlers.DocumentHybridCategoryNameHandler;
+import fspm.config.params.groups.DocumentCategoryNameGroup;
+import fspm.config.params.groups.DocumentHybridCategoryNameGroup;
 import fspm.config.params.groups.ParamGroup;
 
 /**
@@ -18,6 +17,8 @@ import fspm.config.params.groups.ParamGroup;
  */
 public class JsonFileReader extends ConfigAdapter {
 
+    public static final String METACLASS_HEADER = "metaclass";
+
     public JsonFileReader(String path) {
         super(path);
     }
@@ -26,15 +27,13 @@ public class JsonFileReader extends ConfigAdapter {
     public ParamGroup parse() throws FileNotFoundException {
         // Get node structure from JSON file
         JsonNode tree = getTreeFromFile(path);
-        String metaclass = tree.get("metaclass").asText();
+        String metaclass = tree.get(METACLASS_HEADER).asText();
 
         switch (metaclass) {
             case "document-category-name":
-                return new DocumentCategoryNameHandler().parse(path);
+                return DocumentCategoryNameGroup.parse(path);
             case "document-hybrid-category-name":
-                return new DocumentHybridCategoryNameHandler().parse(path);
-            case "dictionary":
-                return new DictionaryHandler().parse(path);
+                return DocumentHybridCategoryNameGroup.parse(path);
         }
         throw new UnsupportedOperationException(metaclass);
     }

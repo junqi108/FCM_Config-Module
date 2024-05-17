@@ -25,6 +25,9 @@ public abstract class ConfigAdapter {
      * Parses and returns a {@link ParamGroup} with the parameter contents of the
      * provided file.
      * 
+     * For code clarity, the file path cannot be passed in directly, enforcing
+     * explicit instantiation of adapters for each file.
+     * 
      * @return Parsed {@link ParamGroup} for {@link Config}.
      */
     public abstract ParamGroup parse() throws FileNotFoundException;
