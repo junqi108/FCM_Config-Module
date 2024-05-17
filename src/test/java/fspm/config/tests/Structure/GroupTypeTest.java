@@ -1,9 +1,10 @@
-package fspm.config.tests.Hierarchy;
+package fspm.config.tests.Structure;
 
 import org.junit.Test;
 
-import fspm.config.params.group.DocumentCategoryNameGroup;
-import fspm.config.params.group.DocumentHybridCategoryNameGroup;
+import fspm.config.params.groups.DocumentCategoryNameGroup;
+import fspm.config.params.groups.DocumentHybridCategoryNameGroup;
+
 import static fspm.config.ConfigTestSuite.*;
 
 public class GroupTypeTest {

@@ -4,12 +4,12 @@ import org.junit.runner.RunWith;
 import org.junit.runners.Suite;
 import org.junit.runners.Suite.SuiteClasses;
 
-import fspm.config.tests.HierarchyTestSuite;
+import fspm.config.tests.StructureTestSuite;
 import fspm.config.tests.ParamAccessTestSuite;
 
 @RunWith(Suite.class)
 @SuiteClasses({
-        ParamAccessTestSuite.class, HierarchyTestSuite.class })
+        ParamAccessTestSuite.class, StructureTestSuite.class })
 
 public class ConfigTestSuite {
     public static final Config CONFIG = Config.getInstance();

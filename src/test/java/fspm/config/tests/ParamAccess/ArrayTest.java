@@ -7,8 +7,8 @@ import java.util.Arrays;
 import org.junit.Before;
 import org.junit.Test;
 
-import fspm.config.params.group.DocumentCategoryNameGroup;
-import fspm.config.params.hierarchy.CategoryHierarchy;
+import fspm.config.params.groups.DocumentCategoryNameGroup;
+import fspm.config.params.structures.CategoryStore;
 import fspm.config.tests.ParamAccessTestSuite;
 import fspm.util.exceptions.TypeNotFoundException;
 import static fspm.config.ConfigTestSuite.*;
@@ -24,32 +24,32 @@ public class ArrayTest {
     @Test
     // @Ignore
     public void testGetArrays() {
-        CategoryHierarchy hierarchy = CONFIG.getGroup("soilParams_pot_1",
+        CategoryStore store = CONFIG.getGroup("soilParams_pot_1",
                 DocumentCategoryNameGroup.class)
                 .getCategoryHierarchy();
-        hierarchy.useFlattenedCategories = true;
+        store.useFlattenedCategories = true;
 
-        println(hierarchy.getArray("layerThickness", Integer[].class)[0]);
-        println(hierarchy.getIntegerArray("layerThickness")[0]);
+        println(store.getArray("layerThickness", Integer[].class)[0]);
+        println(store.getIntegerArray("layerThickness")[0]);
     }
 
     @Test
     // @Ignore
     public void testIncorrectArrayType() {
-        CategoryHierarchy hierarchy = CONFIG.getGroup("soilParams_pot_1",
+        CategoryStore store = CONFIG.getGroup("soilParams_pot_1",
                 DocumentCategoryNameGroup.class)
                 .getCategoryHierarchy();
-        hierarchy.useFlattenedCategories = true;
+        store.useFlattenedCategories = true;
 
         try {
-            println(hierarchy.getArray("layerThickness", Double[].class)[0]);
+            println(store.getArray("layerThickness", Double[].class)[0]);
         } catch (TypeNotFoundException e) {
             return;
         }
         fail("Should have thrown TypeNotFoundException as layerThickness is an Integer[]");
 
         try {
-            println(hierarchy.getDoubleArray("layerThickness")[0]);
+            println(store.getDoubleArray("layerThickness")[0]);
         } catch (TypeNotFoundException e) {
             return;
         }
@@ -59,12 +59,12 @@ public class ArrayTest {
     @Test
     // @Ignore
     public void testPhenology() {
-        CategoryHierarchy hierarchy = CONFIG
+        CategoryStore store = CONFIG
                 .getGroup("phenology.parameters.SauvignonBlanc",
                         DocumentCategoryNameGroup.class)
                 .getCategoryHierarchy()
                 .setCategoryContext("parameters");
 
-        println(Arrays.toString(hierarchy.getArray("BUDBURST_CANE_DIFF", Double[].class)));
+        println(Arrays.toString(store.getArray("BUDBURST_CANE_DIFF", Double[].class)));
     }
 }

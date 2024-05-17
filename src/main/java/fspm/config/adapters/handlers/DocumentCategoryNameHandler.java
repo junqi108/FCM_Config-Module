@@ -1,14 +1,15 @@
 package fspm.config.adapters.handlers;
 
 import java.io.FileNotFoundException;
-import fspm.config.params.group.DocumentCategoryNameGroup;
-import fspm.config.params.hierarchy.CategoryHierarchy;
+
+import fspm.config.params.groups.DocumentCategoryNameGroup;
+import fspm.config.params.structures.CategoryStore;
 
 public class DocumentCategoryNameHandler extends MetaclassHandler {
 	public DocumentCategoryNameGroup parse(String path) throws FileNotFoundException {
-		CategoryHierarchy hierarchy = CategoryHierarchy.parse(path);
+		CategoryStore store = CategoryStore.parse(path);
 
-		DocumentCategoryNameGroup group = new DocumentCategoryNameGroup(path, hierarchy);
+		DocumentCategoryNameGroup group = new DocumentCategoryNameGroup(path, store);
 		return group;
 	}
 }

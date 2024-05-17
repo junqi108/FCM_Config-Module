@@ -4,7 +4,7 @@ import java.io.FileNotFoundException;
 import com.fasterxml.jackson.databind.JsonNode;
 
 import fspm.config.adapters.JsonFileReader;
-import fspm.config.params.group.ParamGroup;
+import fspm.config.params.groups.ParamGroup;
 
 public class DictionaryHandler extends MetaclassHandler {
 	public ParamGroup parse(String path) throws FileNotFoundException {

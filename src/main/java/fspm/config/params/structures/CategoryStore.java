@@ -1,4 +1,4 @@
-package fspm.config.params.hierarchy;
+package fspm.config.params.structures;
 
 import java.io.FileNotFoundException;
 import java.rmi.UnexpectedException;
@@ -15,7 +15,7 @@ import fspm.config.params.Parameter;
 import fspm.util.exceptions.KeyConflictException;
 import fspm.util.exceptions.KeyNotFoundException;
 
-public class CategoryHierarchy extends Hierarchy {
+public class CategoryStore extends ParamStructure {
 
 	private ParamCategory categoryContext;
 
@@ -34,16 +34,16 @@ public class CategoryHierarchy extends Hierarchy {
 	 */
 	public boolean useFlattenedCategories;
 
-	public CategoryHierarchy(String groupKey) {
+	public CategoryStore(String groupKey) {
 		super(groupKey);
 		categories = new HashMap<>();
 		useFlattenedCategories = false;
 	}
 
-	public static CategoryHierarchy parse(String path) throws FileNotFoundException {
+	public static CategoryStore parse(String path) throws FileNotFoundException {
 		JsonNode tree = JsonFileReader.getTreeFromFile(path);
 
-		CategoryHierarchy hierarchy = new CategoryHierarchy(path);
+		CategoryStore store = new CategoryStore(path);
 
 		ParamFactory paramFactory = new ParamFactory();
 
@@ -67,9 +67,9 @@ public class CategoryHierarchy extends Hierarchy {
 					category.addParameter(param);
 				}
 			}
-			hierarchy.addCategory(category);
+			store.addCategory(category);
 		}
-		return hierarchy;
+		return store;
 	}
 
 	/**
@@ -123,7 +123,7 @@ public class CategoryHierarchy extends Hierarchy {
 						super.getGroupKey()));
 	}
 
-	public CategoryHierarchy setCategoryContext(String key) {
+	public CategoryStore setCategoryContext(String key) {
 		try {
 			categoryContext = getCategory(key);
 		} catch (KeyNotFoundException e) {

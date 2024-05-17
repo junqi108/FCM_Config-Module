@@ -1,4 +1,4 @@
-package fspm.config.params.hierarchy;
+package fspm.config.params.structures;
 
 import java.io.FileNotFoundException;
 import java.io.PrintWriter;
@@ -18,21 +18,21 @@ import fspm.config.params.ParamTable;
 import fspm.config.params.Parameter;
 import fspm.util.exceptions.KeyConflictException;
 
-public class TableHierarchy extends Hierarchy {
+public class TableStore extends ParamStructure {
 
     public static final String ROW_PREFIX_FIELD = "_row_prefix";
 
     private Map<String, ParamTable> tables;
 
-    public TableHierarchy(String groupKey) {
+    public TableStore(String groupKey) {
         super(groupKey);
         tables = new HashMap<>();
     }
 
-    public static TableHierarchy parse(String path) throws FileNotFoundException {
+    public static TableStore parse(String path) throws FileNotFoundException {
         JsonNode tree = JsonFileReader.getTreeFromFile(path);
 
-        TableHierarchy hierarchy = new TableHierarchy(path);
+        TableStore store = new TableStore(path);
 
         ObjectMapper mapper = new ObjectMapper();
         ParamFactory paramFactory = new ParamFactory();
@@ -76,7 +76,7 @@ public class TableHierarchy extends Hierarchy {
                     }
                     table.add(layerKey, row);
                 }
-                hierarchy.addTable(table);
+                store.addTable(table);
             }
         } catch (Exception e) {
             StringWriter sw = new StringWriter();
@@ -86,7 +86,7 @@ public class TableHierarchy extends Hierarchy {
                     String.format("An error occurred while parsing table hierarchies in: %s.\n%s", path,
                             sw));
         }
-        return hierarchy;
+        return store;
     }
 
     public void addTable(ParamTable table) {

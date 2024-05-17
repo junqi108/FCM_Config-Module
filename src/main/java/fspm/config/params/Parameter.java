@@ -127,6 +127,7 @@ public class Parameter extends KeyElement {
     }
 
     public Double[] asDoubleArray() {
+        // TODO: update this to include asDouble cases
         return asArray(Double[].class);
     }
 

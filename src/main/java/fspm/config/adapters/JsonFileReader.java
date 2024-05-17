@@ -9,7 +9,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import fspm.config.adapters.handlers.DictionaryHandler;
 import fspm.config.adapters.handlers.DocumentCategoryNameHandler;
 import fspm.config.adapters.handlers.DocumentHybridCategoryNameHandler;
-import fspm.config.params.group.ParamGroup;
+import fspm.config.params.groups.ParamGroup;
 
 /**
  * File reader to parse JSON config files to {@link Config}.
