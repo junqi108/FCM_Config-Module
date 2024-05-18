@@ -150,9 +150,9 @@ public class CategoryStore extends ParamStructure {
             }
 
             /**
-             * Directly set category context, as no need to search again with
-             * {@link #setCategoryContext(String)}. FIXME: getCategoryWithParam(key) may be acting as a
-             * middle-man
+             * Directly set category context, as no need to search again with setCategoryContext.
+             * 
+             * FIXME: getCategoryWithParam(key) may be acting as a middle-man
              * 
              * Purpose: to find the category containing the key and set as the categoryContext, such that
              * getters can utilise type specific getBoolean (etc) methods to get the parameter.

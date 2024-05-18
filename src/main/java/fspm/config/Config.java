@@ -34,10 +34,10 @@ public class Config {
     }
 
     /**
-     * Gets the singleton instance of the simulation {@link Config}. Creates a new Config if there was
-     * no existing instance.
+     * Gets the singleton instance of the simulation {@link fspm.config.Config}. Creates a new Config if
+     * there was no existing instance.
      * 
-     * @return Singleton instance of {@link Config}.
+     * @return Singleton instance of {@link fspm.config.Config}.
      */
     public static Config getInstance() {
         if (instance == null) {

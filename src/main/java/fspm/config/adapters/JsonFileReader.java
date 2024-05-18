@@ -11,7 +11,7 @@ import fspm.config.params.groups.DocumentHybridCategoryNameGroup;
 import fspm.config.params.groups.ParamGroup;
 
 /**
- * File reader to parse JSON config files to {@link Config}.
+ * File reader to parse JSON config files to {@link fspm.config.Config}.
  * 
  * @author Ou-An Chuang
  */

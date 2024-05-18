@@ -9,8 +9,8 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.JsonNodeFactory;
 
 /**
- * ParamFactory creates instances of concrete {@link Parameter Parameter} implementations depending
- * on the data type received.
+ * ParamFactory creates instances of concrete {@link fspm.config.params.Parameter Parameter}
+ * implementations depending on the data type received.
  * 
  * @author Ou-An Chuang
  */

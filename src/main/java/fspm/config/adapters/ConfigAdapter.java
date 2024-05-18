@@ -6,7 +6,8 @@ import fspm.config.Config;
 import fspm.config.params.groups.ParamGroup;
 
 /**
- * Defines the required methods adapters must implement to be compatible with {@link Config}.
+ * Defines the required methods adapters must implement to be compatible with
+ * {@link fspm.config.Config}.
  * 
  * @author Ou-An Chuang
  */
@@ -26,7 +27,7 @@ public abstract class ConfigAdapter {
      * For code clarity, the file path cannot be passed in directly, enforcing explicit instantiation of
      * adapters for each file.
      * 
-     * @return Parsed {@link ParamGroup} for {@link Config}.
+     * @return Parsed {@link ParamGroup} for {@link fspm.config.Config}.
      */
     public abstract ParamGroup parse() throws FileNotFoundException;
 }

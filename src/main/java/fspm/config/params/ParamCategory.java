@@ -9,9 +9,9 @@ import fspm.util.exceptions.KeyNotFoundException;
 import fspm.util.exceptions.TypeNotFoundException;
 
 /**
- * A ParamCategory stores {@link Parameter Parameters} that belong to a common category. Multiple
- * ParamCategory classes may be created. These parameters can be accessed to get or set their
- * values.
+ * A ParamCategory stores {@link fspm.config.params.Parameter Parameters} that belong to a common
+ * category. Multiple ParamCategory classes may be created. These parameters can be accessed to get
+ * or set their values.
  * 
  * @author Ou-An Chuang
  */
