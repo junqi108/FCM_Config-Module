@@ -48,6 +48,9 @@ public class ParamAccessTestSuite {
                     new JsonFileReader(
                             "./inputs/parameters/phenology.parameters.SauvignonBlanc.json"));
 
+            CONFIG.addGroup("paramSetTest", new JsonFileReader(
+                    "./inputs/parameters/paramSetTest.json"));
+
             CONFIG.addGroup("soilParams_pot_1", new JsonFileReader(
                     "./inputs/parameters/soilParams_pot_1.json"));
 

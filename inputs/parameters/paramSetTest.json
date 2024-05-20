@@ -1,7 +1,15 @@
 {
-    "params": {
-        "param1": true,
-        "param2": 1,
-        "param3": "yes"
+  "name": "paramSetTest",
+  "class": "model.input.data",
+  "metaclass": "document-category-name",
+  "category": {
+    "arrays": {
+      "intArray": [1, 2, 3, 4],
+      "doubleArray": [1.0, 2.0, 3.0, 4.0],
+      "floatArray": ["1.0f", "2.0f", "3.0f", "4.0f"],
+      "mixedArray": [1, 2.0, "3.0f", 4],
+      "invalidArray": ["test1", "test2"],
+      "invalidMixedArray": [1, "test"]
     }
+  }
 }

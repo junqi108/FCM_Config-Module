@@ -7,6 +7,7 @@ import java.util.Arrays;
 import org.junit.Before;
 import org.junit.Test;
 
+import fspm.config.params.ParamCategory;
 import fspm.config.params.groups.DocumentCategoryNameGroup;
 import fspm.config.params.structures.CategoryStore;
 import fspm.config.tests.ParamAccessTestSuite;
@@ -35,6 +36,34 @@ public class ArrayTest {
 
     @Test
     // @Ignore
+    public void testGetDoubleArrayCases() {
+        CategoryStore store = CONFIG
+                .getGroup("paramSetTest", DocumentCategoryNameGroup.class)
+                .getCategoryHierarchy();
+
+        ParamCategory arrays = store.getCategory("arrays");
+        println(Arrays.toString(arrays.getDoubleArray("doubleArray")));
+        println(Arrays.toString(arrays.getDoubleArray("intArray")));
+        println(Arrays.toString(arrays.getDoubleArray("floatArray")));
+        println(Arrays.toString(arrays.getDoubleArray("mixedArray")));
+
+        try {
+            println(Arrays.toString(arrays.getDoubleArray("invalidArray")));
+            fail("Should have failed as invalidArray contains a non-double value at index 0");
+        } catch (TypeNotFoundException e) {
+        }
+
+        try {
+            println(Arrays
+                    .toString(arrays.getDoubleArray("invalidMixedArray")));
+            fail("Should have failed as invalidMixedArray contains non-double value(s)");
+        } catch (UnsupportedOperationException e) {
+        }
+
+    }
+
+    @Test
+    // @Ignore
     public void testIncorrectArrayType() {
         CategoryStore store = CONFIG
                 .getGroup("soilParams_pot_1", DocumentCategoryNameGroup.class)
@@ -42,15 +71,9 @@ public class ArrayTest {
         store.useFlattenedCategories = true;
 
         try {
-            println(store.getArray("layerThickness", Double[].class)[0]);
+            println(store.getBooleanArray("layerThickness")[0]);
         } catch (TypeNotFoundException e) {
-            return;
-        }
-        fail("Should have thrown TypeNotFoundException as layerThickness is an Integer[]");
-
-        try {
-            println(store.getDoubleArray("layerThickness")[0]);
-        } catch (TypeNotFoundException e) {
+            println(e);
             return;
         }
         fail("Should have thrown TypeNotFoundException as layerThickness is an Integer[]");

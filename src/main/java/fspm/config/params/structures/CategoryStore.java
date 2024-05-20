@@ -17,6 +17,8 @@ import fspm.util.exceptions.KeyNotFoundException;
 
 public class CategoryStore extends ParamStructure {
 
+    public static final String CATEGORIES_HEADER = "category";
+
     private ParamCategory categoryContext;
 
     /**
@@ -47,7 +49,7 @@ public class CategoryStore extends ParamStructure {
 
         ParamFactory paramFactory = new ParamFactory();
 
-        JsonNode categoriesNode = tree.get("category");
+        JsonNode categoriesNode = tree.get(CATEGORIES_HEADER);
         Iterator categoryNames = categoriesNode.fieldNames();
 
         // Parse each category node

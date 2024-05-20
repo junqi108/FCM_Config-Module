@@ -6,7 +6,7 @@ public class KeyNotFoundException extends RuntimeException {
                 + "'. Check if the correct type is given.");
     }
 
-    public KeyNotFoundException(String name, String msg) {
-        super("'" + name + "', " + msg);
+    public KeyNotFoundException(String name, String message) {
+        super("'" + name + "', " + message);
     }
 }
