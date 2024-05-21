@@ -21,7 +21,7 @@ public class DocumentCategoryNameGroup extends ParamGroup {
         return group;
     }
 
-    public CategoryStore getCategoryHierarchy() {
+    public CategoryStore getCategoryStore() {
         return categoryStore;
     }
 

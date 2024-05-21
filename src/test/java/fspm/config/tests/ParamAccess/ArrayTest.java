@@ -26,7 +26,7 @@ public class ArrayTest {
     public void testGetArrays() {
         CategoryStore store = CONFIG
                 .getGroup("soilParams_pot_1", DocumentCategoryNameGroup.class)
-                .getCategoryHierarchy();
+                .getCategoryStore();
         store.useFlattenedCategories = true;
 
         println(store.getArray("layerThickness", Integer[].class)[0]);
@@ -38,7 +38,7 @@ public class ArrayTest {
     public void testGetDoubleArrayCases() {
         CategoryStore store = CONFIG
                 .getGroup("paramSetTest", DocumentCategoryNameGroup.class)
-                .getCategoryHierarchy();
+                .getCategoryStore();
 
         ParamCategory arrays = store.getCategory("arrays");
         println(Arrays.toString(arrays.getDoubleArray("doubleArray")));
@@ -66,7 +66,7 @@ public class ArrayTest {
     public void testIncorrectArrayType() {
         CategoryStore store = CONFIG
                 .getGroup("soilParams_pot_1", DocumentCategoryNameGroup.class)
-                .getCategoryHierarchy();
+                .getCategoryStore();
         store.useFlattenedCategories = true;
 
         try {
@@ -84,7 +84,7 @@ public class ArrayTest {
         CategoryStore store = CONFIG
                 .getGroup("phenology.parameters.SauvignonBlanc",
                         DocumentCategoryNameGroup.class)
-                .getCategoryHierarchy().setCategoryContext("parameters");
+                .getCategoryStore().setCategoryContext("parameters");
 
         println(Arrays.toString(
                 store.getArray("BUDBURST_CANE_DIFF", Double[].class)));
