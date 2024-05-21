@@ -6,23 +6,23 @@
   <modelVersion>4.0.0</modelVersion>
 
   <groupId>fspm</groupId>
-  <artifactId>modules</artifactId>
+  <artifactId>fspm-config</artifactId>
   <version>0.0.1-SNAPSHOT</version>
   <packaging>jar</packaging>
 
-  <name>modules</name>
+  <name>config</name>
   <url>http://maven.apache.org</url>
 
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-    <maven.compiler.source>1.7</maven.compiler.source>
-    <maven.compiler.target>1.7</maven.compiler.target>
+    <maven.compiler.source>1.8</maven.compiler.source>
+    <maven.compiler.target>1.8</maven.compiler.target>
   </properties>
 
   <repositories>
     <repository>
-      <id>fspm-modules.local</id>
-      <!-- <name>fspm-modules</name> -->
+      <id>fspm-config.local</id>
+      <!-- <name>fspm-config</name> -->
       <url>file:${project.basedir}/repo</url>
     </repository>
   </repositories>
@@ -80,7 +80,6 @@
               </goals>
               <configuration>
                 <shadedArtifactAttached>true</shadedArtifactAttached>
-                <finalName>fspm-modules</finalName>
               </configuration>
             </execution>
           </executions>
@@ -110,8 +109,6 @@
             <includes>
               <include>**/*.java</include>
             </includes>
-            <parallel>methods</parallel>
-            <threadCount>8</threadCount>
           </configuration>
           <dependencies>
             <dependency>

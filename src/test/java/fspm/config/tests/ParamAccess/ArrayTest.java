@@ -10,7 +10,6 @@ import org.junit.Test;
 import fspm.config.params.ParamCategory;
 import fspm.config.params.groups.DocumentCategoryNameGroup;
 import fspm.config.params.structures.CategoryStore;
-import fspm.config.tests.ParamAccessTestSuite;
 import fspm.util.exceptions.TypeNotFoundException;
 import static fspm.config.ConfigTestSuite.*;
 
@@ -19,7 +18,7 @@ public class ArrayTest {
     @Before
     public void reset() {
         CONFIG.reset();
-        ParamAccessTestSuite.addGroups(CONFIG);
+        addGroups(CONFIG);
     }
 
     @Test

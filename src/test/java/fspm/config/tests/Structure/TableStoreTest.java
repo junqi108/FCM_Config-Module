@@ -7,14 +7,13 @@ import org.junit.Test;
 import fspm.config.params.ParamTable;
 import fspm.config.params.groups.DocumentHybridCategoryNameGroup;
 import fspm.config.params.structures.TableStore;
-import fspm.config.tests.ParamAccessTestSuite;
 import static fspm.config.ConfigTestSuite.*;
 
 public class TableStoreTest {
     @Before
     public void reset() {
         CONFIG.reset();
-        ParamAccessTestSuite.addGroups(CONFIG);
+        addGroups(CONFIG);
     }
 
     @Test

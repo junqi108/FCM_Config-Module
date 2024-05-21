@@ -3,6 +3,7 @@ target/**
 *.war
 *.ear
 *.
+dependency-reduced-pom.xml
 
 # VS Code
 .vscode/*

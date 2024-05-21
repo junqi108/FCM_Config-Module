@@ -1,13 +1,19 @@
 package fspm.config.tests.Structure;
 
+import org.junit.Before;
 import org.junit.Test;
 
 import fspm.config.params.groups.DocumentCategoryNameGroup;
 import fspm.config.params.groups.DocumentHybridCategoryNameGroup;
-
 import static fspm.config.ConfigTestSuite.*;
 
 public class GroupTypeTest {
+    @Before
+    public void reset() {
+        CONFIG.reset();
+        addGroups(CONFIG);
+    }
+
     @Test
     // @Ignore
     public void testGroupTypes() {
