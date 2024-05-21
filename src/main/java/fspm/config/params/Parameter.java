@@ -11,11 +11,11 @@ import fspm.util.exceptions.KeyNotFoundException;
 import fspm.util.exceptions.TypeNotFoundException;
 
 /**
- * Parameter represents variables that can be stored using Java data types
- * or other user-defined types.
+ * Parameter represents variables that can be stored using Java data types or other user-defined
+ * types.
  * <p>
- * The value field should be implemented by extending members, as values require
- * specific primitive type declarations.
+ * The value field should be implemented by extending members, as values require specific primitive
+ * type declarations.
  * 
  * @author Ou-An Chuang
  */
@@ -31,7 +31,8 @@ public class Parameter extends KeyElement {
         super(key);
 
         if (node.isObject()) {
-            throw new UnexpectedException("Cannot store an object as a parameter.");
+            throw new UnexpectedException(
+                    "Cannot store an object as a parameter.");
         } else {
             this.node = node;
         }
@@ -101,13 +102,13 @@ public class Parameter extends KeyElement {
         if (isNull()) {
             return null;
         }
-        if (node.isDouble()) {
+        Class<?> type = getDoubleType(node);
+
+        if (type.equals(Double.class)) {
             return node.asDouble();
-        } else if (node.isInt()) {
-            // Case where double parameters are written as integers, e.g: "1.0" becomes "1"
+        } else if (type.equals(Integer.class)) {
             return (double) node.asInt();
-        } else if (node.isTextual()) {
-            // Case where floats are stored as strings, e.g: "10.5f"
+        } else if (type.equals(Float.class)) {
             String value = node.asText();
             return (double) Float.parseFloat(value);
         }
@@ -135,26 +136,50 @@ public class Parameter extends KeyElement {
             return null;
         }
         if (type == null) {
-            throw new RuntimeException("Array type should not be null");
+            throw new RuntimeException("Array type should not be null.");
         }
-        if (node.isArray()) {
-            try {
-                ObjectMapper objectMapper = new ObjectMapper();
-                JsonNode firstItem = node.get(0);
+        if (!node.isArray()) {
+            throw new RuntimeException(getKey() + " is not an array.");
+        }
+        try {
+            ObjectMapper objectMapper = new ObjectMapper();
+            JsonNode firstItem = node.get(0);
 
-                if (firstItem.isInt() && type.equals(Integer[].class)
-                        || firstItem.isDouble() && type.equals(Double[].class)
-                        || firstItem.isTextual() && type.equals(String[].class)
-                        || firstItem.isBoolean() && type.equals(Boolean[].class)) {
-                    return objectMapper.treeToValue(node, type);
-                } else {
-                    throw new TypeNotFoundException(getKey(), type.getSimpleName());
-                }
-            } catch (JsonProcessingException | IllegalArgumentException e) {
-                e.printStackTrace();
+            // Check if first item is the given type
+            // Note: only checks first item as arrays with multiple types will be considered as invalid JSON
+            if (type.equals(Boolean[].class) && firstItem.isBoolean()
+                    || type.equals(String[].class) && firstItem.isTextual()
+                    || type.equals(Integer[].class) && firstItem.isInt()
+                    || type.equals(Double[].class)
+                            && getDoubleType(firstItem) != null) {
+                // Note: treeToValue also converts integer and string items to double.
+                return objectMapper.treeToValue(node, type);
+            } else {
+                // Does not correspond to any valid type
+                throw new TypeNotFoundException(getKey(), type.getSimpleName(),
+                        "Array should consist of booleans, strings, integers or doubles.");
             }
+        } catch (JsonProcessingException | IllegalArgumentException e) {
+            e.printStackTrace();
+            throw new UnsupportedOperationException(String.format(
+                    "Error in converting '%s' to an array of type '%s'."
+                            + " Note that an array containing multiple types is invalid.\n"
+                            + e.toString(),
+                    super.getKey(), type.getSimpleName()));
         }
-        throw new KeyNotFoundException(super.getKey());
+    }
+
+    private Class<?> getDoubleType(JsonNode node) {
+        if (node.isDouble()) {
+            return Double.class;
+        } else if (node.isInt()) {
+            // Case where double parameters are written as integers, e.g: "1.0" becomes "1"
+            return Integer.class;
+        } else if (node.isTextual() && node.asText().endsWith("f")) {
+            // Case where floats are stored as strings, e.g: "10.5f"
+            return Float.class;
+        }
+        return null;
     }
 
     public boolean isNull() {

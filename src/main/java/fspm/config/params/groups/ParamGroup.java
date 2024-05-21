@@ -1,4 +1,4 @@
-package fspm.config.params.group;
+package fspm.config.params.groups;
 
 import fspm.util.KeyElement;
 

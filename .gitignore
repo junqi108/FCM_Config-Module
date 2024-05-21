@@ -3,9 +3,12 @@ target/**
 *.war
 *.ear
 *.
+dependency-reduced-pom.xml
 
 # VS Code
-.vscode
+.vscode/*
+!.vscode/settings.json
+!.vscode/java-formatter.xml
 
 # eclipse specific
 *.pydevproject
