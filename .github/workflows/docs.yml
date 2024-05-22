@@ -2,11 +2,11 @@ name: Documentation
 
 on:
   workflow_dispatch: {}
-  push:
-    branches:
-      - main
-    paths:
-      - src/**
+  # push:
+  #   branches:
+  #     - main
+  #   paths:
+  #     - src/**
 
 permissions:
   actions: write
