@@ -26,7 +26,7 @@ public class GroupTypeTest {
         println(hybridGroup);
 
         // ParamTable soilPhysicalProperties =
-        // hybridGroup.getTableHierarchy().getTable("soilPhysicalProperties");
+        // hybridGroup.getTableStore().getTable("soilPhysicalProperties");
         // println(soilPhysicalProperties.getValue("layer_1",
         // "layerThickness"));
     }

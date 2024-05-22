@@ -31,18 +31,18 @@ public class SimpleTest {
         println(CONFIG
                 .getGroup("model.input.data.name",
                         DocumentCategoryNameGroup.class)
-                .getCategoryHierarchy().getCategory("Boolean_variables")
+                .getCategoryStore().getCategory("Boolean_variables")
                 .getBoolean("useStaticArc"));
         println(CONFIG
                 .getGroup("model.input.data.name",
                         DocumentCategoryNameGroup.class)
-                .getCategoryHierarchy().getCategory("Boolean_variables")
+                .getCategoryStore().getCategory("Boolean_variables")
                 .getBoolean("inputLeafN"));
 
         println(CONFIG
                 .getGroup("model.input.data.name",
                         DocumentCategoryNameGroup.class)
-                .getCategoryHierarchy().getCategory("simulation_location")
+                .getCategoryStore().getCategory("simulation_location")
                 .getString("location_name"));
 
         /**
@@ -56,7 +56,7 @@ public class SimpleTest {
         CategoryStore store = CONFIG
                 .getGroup("model.input.data.name",
                         DocumentCategoryNameGroup.class)
-                .getCategoryHierarchy().setCategoryContext("Boolean_variables");
+                .getCategoryStore().setCategoryContext("Boolean_variables");
 
         println(store.getBoolean("useStaticArc"));
         println(store.getBoolean("inputLeafN"));
@@ -72,7 +72,7 @@ public class SimpleTest {
         ParamCategory booleans = CONFIG
                 .getGroup("model.input.data.name",
                         DocumentCategoryNameGroup.class)
-                .getCategoryHierarchy().getCategory("Boolean_variables");
+                .getCategoryStore().getCategory("Boolean_variables");
 
         println(booleans.getBoolean("useStaticArc"));
         println(booleans.getBoolean("inputLeafN"));
@@ -80,7 +80,7 @@ public class SimpleTest {
         ParamCategory simulationLocation = CONFIG
                 .getGroup("model.input.data.name",
                         DocumentCategoryNameGroup.class)
-                .getCategoryHierarchy().getCategory("simulation_location");
+                .getCategoryStore().getCategory("simulation_location");
 
         println(simulationLocation.getString("location_name"));
     }
@@ -91,7 +91,7 @@ public class SimpleTest {
         CategoryStore store = CONFIG
                 .getGroup("model.input.data.default",
                         DocumentCategoryNameGroup.class)
-                .getCategoryHierarchy()
+                .getCategoryStore()
                 .setCategoryContext("initial_condition_biomass");
 
         Assert.assertEquals(null, store.getDouble("BIOMASS_BERRY"));
@@ -104,7 +104,7 @@ public class SimpleTest {
         CategoryStore store = CONFIG
                 .getGroup("model.input.data.default",
                         DocumentCategoryNameGroup.class)
-                .getCategoryHierarchy()
+                .getCategoryStore()
                 .setCategoryContext("initial_condition_biomass");
 
         Assert.assertEquals(1, store.getDouble("BIOMASS_BERRY", 1), 0);
@@ -115,7 +115,7 @@ public class SimpleTest {
     public void testTypes() {
         CategoryStore store = CONFIG
                 .getGroup("group", DocumentCategoryNameGroup.class)
-                .getCategoryHierarchy().setCategoryContext("category");
+                .getCategoryStore().setCategoryContext("category");
 
         println(store.getDouble("doubleParam"));
         println(store.getDouble("floatParam"));
@@ -137,7 +137,7 @@ public class SimpleTest {
         CategoryStore store = CONFIG
                 .getGroup("model.input.data.default",
                         DocumentCategoryNameGroup.class)
-                .getCategoryHierarchy()
+                .getCategoryStore()
                 .setCategoryContext("initial_condition_biomass");
 
         println(store.getDouble("BIOMASS_LEAF") == null);
@@ -147,7 +147,7 @@ public class SimpleTest {
     // @Ignore
     public void testCrossCategoryAccess() {
         CategoryStore store = CONFIG.getGroup("model.input.data.default",
-                DocumentCategoryNameGroup.class).getCategoryHierarchy();
+                DocumentCategoryNameGroup.class).getCategoryStore();
 
         store.setCategoryContext("module_configuration");
 
@@ -170,7 +170,7 @@ public class SimpleTest {
     // @Ignore
     public void testFlatCategories() {
         CategoryStore store = CONFIG.getGroup("model.input.data.default",
-                DocumentCategoryNameGroup.class).getCategoryHierarchy();
+                DocumentCategoryNameGroup.class).getCategoryStore();
         store.useFlattenedCategories = true;
 
         println(store.getBoolean("useStaticArc"));
