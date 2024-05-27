@@ -5,6 +5,10 @@ import java.io.FileNotFoundException;
 import fspm.config.params.structures.CategoryStore;
 import fspm.config.params.structures.TableStore;
 
+/**
+ * Represents and encapsulates access for the document-hybrid-category-name format. This format
+ * contains a Category and Table structure.
+ */
 public class DocumentHybridCategoryNameGroup extends ParamGroup {
 
     private CategoryStore categoryStore;

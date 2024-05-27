@@ -15,6 +15,9 @@ import fspm.config.params.Parameter;
 import fspm.util.exceptions.KeyConflictException;
 import fspm.util.exceptions.KeyNotFoundException;
 
+/**
+ * Represents the collection of categories in a document.
+ */
 public class CategoryStore extends ParamStructure {
 
     public static final String CATEGORIES_HEADER = "category";

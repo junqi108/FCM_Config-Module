@@ -4,6 +4,10 @@ import java.io.FileNotFoundException;
 
 import fspm.config.params.structures.CategoryStore;
 
+/**
+ * Represents and encapsulates access for the document-category-name format. This format contains a
+ * Category structure.
+ */
 public class DocumentCategoryNameGroup extends ParamGroup {
     private CategoryStore categoryStore;
 

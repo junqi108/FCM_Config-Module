@@ -2,12 +2,10 @@ package fspm.config.adapters;
 
 import java.io.FileNotFoundException;
 
-import fspm.config.Config;
 import fspm.config.params.groups.ParamGroup;
 
 /**
- * Defines the required methods adapters must implement to be compatible with
- * {@link fspm.config.Config}.
+ * ConfigAdapter implementations are responsible for parsing different file types into ParamGroups.
  * 
  * @author Ou-An Chuang
  */
@@ -15,6 +13,9 @@ public abstract class ConfigAdapter {
     protected final String path;
 
     /**
+     * Specify the file path to be read here. Each adapter instance is responsible for reading only one
+     * file, similar to {@link java.io.FileReader}.
+     * 
      * @param filePath File path to parameter configuration.
      */
     protected ConfigAdapter(String path) {
@@ -23,9 +24,6 @@ public abstract class ConfigAdapter {
 
     /**
      * Parses and returns a {@link ParamGroup} with the parameter contents of the provided file.
-     * 
-     * For code clarity, the file path cannot be passed in directly, enforcing explicit instantiation of
-     * adapters for each file.
      * 
      * @return Parsed {@link ParamGroup} for {@link fspm.config.Config}.
      */
