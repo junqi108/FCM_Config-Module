@@ -6,11 +6,17 @@ The Configuration (Config) Module is a library for encapsulating the parsing and
 
 - [Fruit Crop Model - Config Module](#fruit-crop-model---config-module)
   - [Table of Contents](#table-of-contents)
+  - [Other Pages](#other-pages)
   - [Glossary](#glossary)
   - [Features](#features)
   - [Installation](#installation)
     - [Exporting JAR](#exporting-jar)
   - [Usage](#usage)
+
+## Other Pages
+
+- [Auto-generated Documentation](https://aomedium.github.io/FCM_Config-Module/)
+- [Usage in code](docs/usage.md)
 
 ## Glossary
 

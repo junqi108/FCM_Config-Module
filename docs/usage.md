@@ -1,6 +1,21 @@
 # Usage Documentation
 
-## Initialise CONFIG singleton
+## Table of Contents
+
+- [Usage Documentation](#usage-documentation)
+  - [Table of Contents](#table-of-contents)
+  - [Initialise CONFIG Singleton](#initialise-config-singleton)
+  - [Reading Files](#reading-files)
+    - [Using FileReaders](#using-filereaders)
+  - [Retrieving Data](#retrieving-data)
+    - [Overview](#overview)
+    - [Document Types](#document-types)
+    - [Categories](#categories)
+      - [Nested Access Calls](#nested-access-calls)
+      - [CategoryStores Context \& Flattened Categories](#categorystores-context--flattened-categories)
+    - [Tables](#tables)
+
+## Initialise CONFIG Singleton
 
 Declare and instantiate a CONFIG global variable to be accessed throughout the system.
 
@@ -8,7 +23,7 @@ Declare and instantiate a CONFIG global variable to be accessed throughout the s
 public static final Config CONFIG = Config.getInstance();
 ```
 
-## Reading files
+## Reading Files
 
 Suppose we want to read the following JSON file (truncated for brevity) located at the path `./inputs/parameters/model.input.data.name.json`:
 
@@ -42,7 +57,7 @@ try {
 }
 ```
 
-### Explanation
+### Using FileReaders
 
 Given this file is located at `./inputs/parameters/model.input.data.name.json`, we first:
 
@@ -161,14 +176,71 @@ The parameters stored within these categories can then be accessed according to 
 
 ```java
 ParamCategory category1 = store.getCategory("category1");
-Integer int1 = category.getInteger("int1");
+Integer int1 = category1.getInteger("int1");
 ```
 
-We can simplify this approach by
+#### Nested Access Calls
 
-#### Setting context for categories
+We can simplify retrieving this integer in a number of ways depending on whether it is necessary to declare a local variable reference for a group, store, category, etc.
 
-We often want to
+```java
+// Original method
+DocumentCategoryNameGroup document1 = CONFIG.getGroup("document1",
+    DocumentCategoryNameGroup.class);
+CategoryStore store = document2.getCategoryStore();
+ParamCategory category1 = store.getCategory("category1");
+Integer int1 = category1.getInteger("int1");
+
+// Omit group declaration
+CategoryStore document1 = CONFIG.getGroup("document1",
+    DocumentCategoryNameGroup.class).getCategoryStore();
+ParamCategory category1 = store.getCategory("category1");
+Integer int1 = category1.getInteger("int1");
+
+// Omit group and store declarations
+ParamCategory category1 = CONFIG.getGroup("document1",
+    DocumentCategoryNameGroup.class).getCategoryStore()
+    .getCategory("category1");
+Integer int1 = category1.getInteger("int1");
+```
+
+#### CategoryStores Context & Flattened Categories
+
+We often want to retrieve parameters from different categories in a local scope. This can be done with the following:
+
+```java
+CategoryStore store = document.getCategoryStore();
+
+ParamCategory integers = store.getCategory("integers");
+Integer int1 = integers.getInteger("int1");
+
+ParamCategory doubles = store.getCategory("doubles");
+Double double1 = doubles.getDouble("double1");
+
+ParamCategory strings = store.getCategory("strings");
+String string1 = strings.getString("string1");
+```
+
+However, it may be cumbersome needing to specify the category each time, especially when we know the parameters in the group **all have unique keys**.
+
+Rather than needing to explicitly specify each category, we can opt to enable _Flattened Categories_. This allows us to access all parameters within this `CategoryStore` without their categories.
+
+```java
+CategoryStore store = document1.getCategoryStore();
+store.useFlattenedCategories = true;
+
+Integer int1 = integers.getInteger("int1");
+Double double1 = doubles.getDouble("double1");
+String string1 = strings.getString("string1");
+
+store.useFlattenedCategories = false;
+```
+
+Note: **Flattened categories should be used sparingly with caution due to the following:**
+
+- Only works if we are certain the group does not contain duplicate keys, i.e: each parameter has a unique key in the document.
+- Remember to set `useFlattenedCategories` back to `false` immediately after the parameters have been accessed.
+  - This reenforces the rule that parameters must be accessed through categories.
 
 ### Tables
 
@@ -188,9 +260,10 @@ ParamTable table1 = store.getTable("table1");
 Integer int1 = table.getInteger("row1", "int1");
 ```
 
-Similarly, we can simplify this access:
+Similar to categories, we can also simplify this access:
 
 ```java
+// Omit group and store declarations
 ParamTable table1 = CONFIG.getGroup("document2",
     DocumentHybridCategoryNameGroup.class).getTableStore();
 
