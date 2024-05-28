@@ -18,6 +18,9 @@ import fspm.config.params.ParamTable;
 import fspm.config.params.Parameter;
 import fspm.util.exceptions.KeyConflictException;
 
+/**
+ * Represents the collection of tables in a document.
+ */
 public class TableStore extends ParamStructure {
 
     public static final String ROW_PREFIX_FIELD = "_row_prefix";
@@ -75,7 +78,7 @@ public class TableStore extends ParamStructure {
                             row.add(param);
                         }
                     }
-                    table.add(layerKey, row);
+                    table.addRow(layerKey, row);
                 }
                 store.addTable(table);
             }

@@ -6,6 +6,9 @@ package fspm.config.params.structures;
 public abstract class ParamStructure {
     private String groupKey;
 
+    /**
+     * @param groupKey The key of the group this structure belongs to.
+     */
     public ParamStructure(String groupKey) {
         this.groupKey = groupKey;
     }

@@ -11,16 +11,15 @@ import fspm.util.exceptions.KeyNotFoundException;
 import fspm.util.exceptions.TypeNotFoundException;
 
 /**
- * Parameter represents variables that can be stored using Java data types or other user-defined
- * types.
- * <p>
- * The value field should be implemented by extending members, as values require specific primitive
- * type declarations.
+ * Parameter represents variables that can be stored as Java data types.
  * 
  * @author Ou-An Chuang
  */
 public class Parameter extends KeyElement {
 
+    /**
+     * The value of the parameter is stored in a JsonNode to accommodate for different data types.
+     */
     private JsonNode node;
 
     /**
@@ -64,6 +63,10 @@ public class Parameter extends KeyElement {
     // unsupported type.");
     // }
 
+    /**
+     * 
+     * @return Data type of the JsonNode value.
+     */
     public JsonNodeType getType() {
         return node.getNodeType();
     }
@@ -131,6 +134,12 @@ public class Parameter extends KeyElement {
         return asArray(Double[].class);
     }
 
+    /**
+     * Generic method for getting arrays of a given type.
+     * 
+     * @param type Data type of array to return, e.g: Integer[]
+     * @return Array of the given type if applicable.
+     */
     public <T> T[] asArray(Class<T[]> type) {
         if (isNull()) {
             return null;
