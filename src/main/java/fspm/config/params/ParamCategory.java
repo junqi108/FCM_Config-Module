@@ -9,22 +9,14 @@ import fspm.util.exceptions.KeyNotFoundException;
 import fspm.util.exceptions.TypeNotFoundException;
 
 /**
- * A ParamCategory stores {@link fspm.config.params.Parameter Parameters} that belong to a common
- * category. Multiple ParamCategory classes may be created. These parameters can be accessed to get
- * or set their values.
+ * Stores {@link fspm.config.params.Parameter Parameters} that belong to a common category. These
+ * parameters can be accessed to get or set their values.
  * 
  * @author Ou-An Chuang
  */
 public class ParamCategory extends KeyElement {
     private Map<String, Parameter> params;
 
-    /**
-     * Class constructor.
-     * <p>
-     * All initialisations go here.
-     * 
-     * @param key Unique key for the category; for example, its name.
-     */
     public ParamCategory(String key) {
         super(key);
         this.params = new HashMap<>();

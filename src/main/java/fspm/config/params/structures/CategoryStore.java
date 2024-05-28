@@ -127,6 +127,15 @@ public class CategoryStore extends ParamStructure {
                 paramKey, super.getGroupKey()));
     }
 
+    /**
+     * Sets the category context for the CategoryStore. Category context refers to selecting a category
+     * when accessing parameters without needing to retrieve them through
+     * {@link fspm.config.params.ParamCategory}. Note that this only works when useFlattenedCategories
+     * is true.
+     * 
+     * @param key The key if the category to set as the context.
+     * @return This CategoryStore with the given category context set.
+     */
     public CategoryStore setCategoryContext(String key) {
         try {
             categoryContext = getCategory(key);

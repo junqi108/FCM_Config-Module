@@ -9,6 +9,10 @@ import fspm.util.KeyElement;
 import fspm.util.exceptions.KeyConflictException;
 import fspm.util.exceptions.KeyNotFoundException;
 
+/**
+ * Stores {@link fspm.config.params.Parameter Parameters} in a tabular format as rows and columns
+ * (parameter key).
+ */
 public class ParamTable extends KeyElement {
     /**
      * A map of tabular rows stored with <row name, list of parameters>. For example, [layer_1,
@@ -21,16 +25,22 @@ public class ParamTable extends KeyElement {
         rows = new HashMap<>();
     }
 
-    public void add(String key, List<Parameter> row) {
+    /**
+     * Add a row of parameters to the table.
+     * 
+     * @param key Row key
+     * @param row Row containing parameters.
+     */
+    public void addRow(String key, List<Parameter> row) {
         // Use parameter key as unique identifier
         if (rows.containsKey(key)) {
             throw new KeyConflictException(key);
         } else {
-            set(key, row);
+            setRow(key, row);
         }
     }
 
-    private void set(String key, List<Parameter> row) {
+    private void setRow(String key, List<Parameter> row) {
         rows.put(key, row);
     }
 

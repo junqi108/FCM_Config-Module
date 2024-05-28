@@ -36,16 +36,22 @@ public class Config {
     /**
      * Gets the singleton instance of the simulation {@link fspm.config.Config}. Creates a new Config if
      * there was no existing instance.
+     * <p>
+     * Note: this is NOT thread safe.
      * 
      * @return Singleton instance of {@link fspm.config.Config}.
      */
     public static Config getInstance() {
+        // TODO: add thread safe compatibility
         if (instance == null) {
             instance = new Config();
         }
         return instance;
     }
 
+    /**
+     * Reset the Config Module by clearing all groups.
+     */
     public void reset() {
         if (paramGroups == null) {
             paramGroups = new HashMap<>();

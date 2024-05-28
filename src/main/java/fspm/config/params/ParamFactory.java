@@ -9,24 +9,24 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.JsonNodeFactory;
 
 /**
- * ParamFactory creates instances of concrete {@link fspm.config.params.Parameter Parameter}
- * implementations depending on the data type received.
+ * ParamFactory creates instances of {@link fspm.config.params.Parameter Parameters} depending on
+ * the data type of the field being read.
  * 
  * @author Ou-An Chuang
  */
 public class ParamFactory {
 
+    /**
+     * Special case where "NA" represents null in .txt property files.
+     */
     public static final String NULL_STRING = "NA";
 
     /**
-     * Returns a concrete {@link Parameter Parameter} instance depending on the data type of the
-     * JsonNode passed in.
+     * Returns a {@link Parameter} instance which can be used to retrieve the parsed value.
      * 
      * @param name The parameter name.
      * @param node The JsonNode containing the parameter value and data type.
-     * @return Concrete {@link Parameter Parameter} instance of the corresponding data type.
-     * @throws UnsupportedOperationException If the JsonNode data type does not correspond to any
-     *                                       concrete {@link Parameter} implementation.
+     * @return {@link Parameter} instance with the parsed value.
      */
     public Parameter parseParameter(String name, JsonNode node) {
         JsonNodeFactory factory = new JsonNodeFactory(false);
@@ -48,12 +48,21 @@ public class ParamFactory {
         // throw new UnsupportedOperationException(name + " uses an unsupported type.");
     }
 
+    /**
+     * Generic method for creating a new {@link Parameter} instance from a Java data type.
+     * 
+     * @param <T>
+     * @param name
+     * @param value Parameter value (must be a Java data type, e.g: int, String, double[]).
+     * @return {@link Parameter} instance
+     */
     public <T> Parameter createParameter(String name, T value) {
         ObjectMapper mapper = new ObjectMapper();
-        JsonNode node = mapper.convertValue(value, JsonNode.class);
+
         try {
+            JsonNode node = mapper.convertValue(value, JsonNode.class);
             return new Parameter(name, node);
-        } catch (UnexpectedException e) {
+        } catch (UnexpectedException | IllegalArgumentException e) {
             e.printStackTrace();
         }
         return null;
