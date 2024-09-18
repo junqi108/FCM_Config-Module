@@ -2,6 +2,7 @@ package fspm.config.tests.Serialization;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.fail;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -31,57 +32,61 @@ public class SerializationTest {
         addGroups(CONFIG);
     }
 
-    // @Test
-    // public void testCategory() {
-    // assertTrue(isSerializable(
-    // CONFIG.getGroup("group", DocumentCategoryNameGroup.class)
-    // .getCategoryStore().getCategory("category"),
-    // ParamCategory.class));
-    // }
+    @Test
+    public void testCategory() {
+        try {
+            File file = serialize(
+                    CONFIG.getGroup("group", DocumentCategoryNameGroup.class)
+                            .getCategoryStore().getCategory("category"));
+
+            deserialize(file, ParamCategory.class);
+        } catch (Exception e) {
+            e.printStackTrace();
+            fail(e.getMessage());
+        }
+    }
 
     @Test
     public void testParameter() {
-        assertTrue(isSerializable(
-                CONFIG.getGroup("group", DocumentCategoryNameGroup.class)
-                        .getCategoryStore().getCategory("category")
-                        .getDouble("doubleParam"),
-                Double.class));
+        try {
+            File file = serialize(
+                    CONFIG.getGroup("group", DocumentCategoryNameGroup.class)
+                            .getCategoryStore().getCategory("category")
+                            .getDouble("doubleParam"));
+            deserialize(file, Double.class);
+        } catch (Exception e) {
+            e.printStackTrace();
+            fail(e.getMessage());
+        }
     }
 
-    private <T> boolean isSerializable(Object o, Class<T> clazz) {
+    private <T> File serialize(Object o) throws IOException {
         final String outFilePath = "serialized.txt";
         File outFile = new File(outFilePath);
 
-        try {
-            FileOutputStream fileOutputStream = new FileOutputStream(outFile,
-                    false);
+        FileOutputStream fileOutputStream = new FileOutputStream(outFile,
+                false);
 
-            try (ObjectOutputStream objectOutputStream = new ObjectOutputStream(
-                    fileOutputStream)) {
-                objectOutputStream.writeObject(o);
-            } catch (NotSerializableException e) {
-                return false;
-            }
-
-            FileInputStream fileInputStream = new FileInputStream(outFile);
-
-            try (ObjectInputStream objectInputStream = new ObjectInputStream(
-                    fileInputStream)) {
-                T serializedConfig = clazz.cast(objectInputStream.readObject());
-
-                println(serializedConfig);
-
-                // TODO: tests to determine if return false
-            } catch (ClassNotFoundException | IOException e) {
-                e.printStackTrace();
-            }
-            return true;
-
-        } catch (Exception e) {
-            e.printStackTrace();
-            return false;
-        } finally {
-            // outFile.delete();
+        try (ObjectOutputStream objectOutputStream = new ObjectOutputStream(
+                fileOutputStream)) {
+            objectOutputStream.writeObject(o);
         }
+        return outFile;
+    }
+
+    private <T> boolean deserialize(File file, Class<T> clazz)
+            throws IOException, ClassNotFoundException {
+        FileInputStream fileInputStream = new FileInputStream(file);
+
+        try (ObjectInputStream objectInputStream = new ObjectInputStream(
+                fileInputStream)) {
+            T serializedConfig = clazz.cast(objectInputStream.readObject());
+
+            println(serializedConfig);
+
+            // TODO: tests to determine if return false
+        }
+        file.delete();
+        return true;
     }
 }
