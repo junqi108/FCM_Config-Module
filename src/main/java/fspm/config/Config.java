@@ -1,6 +1,7 @@
 package fspm.config;
 
 import java.io.FileNotFoundException;
+import java.io.Serializable;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -14,7 +15,7 @@ import fspm.util.exceptions.KeyNotFoundException;
  * 
  * @author Ou-An Chuang
  */
-public class Config {
+public class Config implements Serializable {
     /**
      * Singleton instance for the global config. Set to null by default until instance is first
      * retrieved with {@link #getInstance()}.

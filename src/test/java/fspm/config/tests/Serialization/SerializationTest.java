@@ -1,7 +1,5 @@
 package fspm.config.tests.Serialization;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 
 import org.junit.Before;
@@ -17,12 +15,8 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.io.NotSerializableException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
-import java.lang.reflect.Parameter;
-import java.nio.file.Files;
-import java.nio.file.Path;
 
 // https://www.baeldung.com/java-validate-serializable
 public class SerializationTest {
@@ -30,6 +24,17 @@ public class SerializationTest {
     public void reset() {
         CONFIG.reset();
         addGroups(CONFIG);
+    }
+
+    @Test
+    public void testConfig() {
+        try {
+            File file = serialize(CONFIG);
+            deserialize(file, Config.class);
+        } catch (Exception e) {
+            e.printStackTrace();
+            fail(e.getMessage());
+        }
     }
 
     @Test
@@ -88,7 +93,12 @@ public class SerializationTest {
     }
 
     private <T> boolean deserialize(File file, Class<T> clazz)
-            throws IOException, ClassNotFoundException {
+            throws ClassNotFoundException, IOException {
+        return deserialize(file, clazz, true);
+    }
+
+    private <T> boolean deserialize(File file, Class<T> clazz,
+            boolean deleteFile) throws IOException, ClassNotFoundException {
         FileInputStream fileInputStream = new FileInputStream(file);
 
         try (ObjectInputStream objectInputStream = new ObjectInputStream(
@@ -99,7 +109,10 @@ public class SerializationTest {
 
             // TODO: tests to determine if return false
         }
-        file.delete();
+
+        if (deleteFile) {
+            file.delete();
+        }
         return true;
     }
 }
