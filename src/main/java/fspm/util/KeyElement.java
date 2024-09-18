@@ -1,9 +1,11 @@
 package fspm.util;
 
+import java.io.Serializable;
+
 /**
  * Represents an element which contains a key.
  */
-public abstract class KeyElement {
+public abstract class KeyElement implements Serializable {
     private String key;
 
     public KeyElement(String key) {

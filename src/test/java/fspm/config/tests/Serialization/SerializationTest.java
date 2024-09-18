@@ -33,6 +33,19 @@ public class SerializationTest {
     }
 
     @Test
+    public void testGroup() {
+        try {
+            File file = serialize(
+                    CONFIG.getGroup("group", DocumentCategoryNameGroup.class));
+
+            deserialize(file, DocumentCategoryNameGroup.class);
+        } catch (Exception e) {
+            e.printStackTrace();
+            fail(e.getMessage());
+        }
+    }
+
+    @Test
     public void testCategory() {
         try {
             File file = serialize(
