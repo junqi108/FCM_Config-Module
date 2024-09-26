@@ -1,5 +1,6 @@
 package fspm.config.params;
 
+import java.io.Serializable;
 import java.rmi.UnexpectedException;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonNode;
@@ -15,7 +16,7 @@ import fspm.util.exceptions.TypeNotFoundException;
  * 
  * @author Ou-An Chuang
  */
-public class Parameter extends KeyElement {
+public class Parameter extends KeyElement implements Serializable {
 
     /**
      * The value of the parameter is stored in a JsonNode to accommodate for different data types.

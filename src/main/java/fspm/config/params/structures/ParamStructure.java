@@ -1,9 +1,11 @@
 package fspm.config.params.structures;
 
+import java.io.Serializable;
+
 /**
  * Represents a structure found in ParamGroups that store parameters.
  */
-public abstract class ParamStructure {
+public abstract class ParamStructure implements Serializable {
     private String groupKey;
 
     /**

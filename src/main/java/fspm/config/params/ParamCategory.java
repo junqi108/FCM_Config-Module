@@ -1,5 +1,6 @@
 package fspm.config.params;
 
+import java.io.Serializable;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -14,7 +15,7 @@ import fspm.util.exceptions.TypeNotFoundException;
  * 
  * @author Ou-An Chuang
  */
-public class ParamCategory extends KeyElement {
+public class ParamCategory extends KeyElement implements Serializable {
     private Map<String, Parameter> params;
 
     public ParamCategory(String key) {
