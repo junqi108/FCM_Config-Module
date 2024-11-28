@@ -15,7 +15,7 @@ import io.github.fruitcropxl.config.util.exceptions.KeyNotFoundException;
  */
 public class ParamTable extends KeyElement {
     /**
-     * A map of tabular rows stored with <row name, list of parameters>. For example, [layer_1,
+     * A map of tabular rows stored with (row name, list of parameters). For example, [layer_1,
      * layerThickness].
      */
     private Map<String, List<Parameter>> rows;

@@ -16,7 +16,7 @@ public abstract class ConfigAdapter {
      * Specify the file path to be read here. Each adapter instance is responsible for reading only one
      * file, similar to {@link java.io.FileReader}.
      * 
-     * @param filePath File path to parameter configuration.
+     * @param path File path to parameter configuration.
      */
     protected ConfigAdapter(String path) {
         this.path = path;
