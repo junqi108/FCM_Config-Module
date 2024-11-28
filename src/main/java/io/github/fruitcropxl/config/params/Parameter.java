@@ -1,6 +1,5 @@
 package io.github.fruitcropxl.config.params;
 
-import java.io.Serializable;
 import java.rmi.UnexpectedException;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonNode;
@@ -16,7 +15,7 @@ import io.github.fruitcropxl.config.util.exceptions.TypeNotFoundException;
  * 
  * @author Ou-An Chuang
  */
-public class Parameter extends KeyElement implements Serializable {
+public class Parameter extends KeyElement {
 
     /**
      * The value of the parameter is stored in a JsonNode to accommodate for different data types.
