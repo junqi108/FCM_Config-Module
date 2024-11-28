@@ -53,14 +53,14 @@ public class CategoryStore extends ParamStructure {
         ParamFactory paramFactory = new ParamFactory();
 
         JsonNode categoriesNode = tree.get(CATEGORIES_HEADER);
-        Iterator categoryNames = categoriesNode.fieldNames();
+        Iterator<String> categoryNames = categoriesNode.fieldNames();
 
         // Parse each category node
         for (JsonNode categoryNode : categoriesNode) {
             String categoryName = categoryNames.next().toString();
             ParamCategory category = new ParamCategory(categoryName);
 
-            Iterator paramKeys = categoryNode.fieldNames();
+            Iterator<String> paramKeys = categoryNode.fieldNames();
 
             // Parse each parameter node
             for (JsonNode paramNode : categoryNode) {

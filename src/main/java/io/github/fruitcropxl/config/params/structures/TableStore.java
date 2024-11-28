@@ -50,7 +50,7 @@ public class TableStore extends ParamStructure {
                 JsonNode tableNode = tree.get(tableKey);
                 ParamTable table = new ParamTable(tableKey);
 
-                Iterator layerKeys = tableNode.fieldNames();
+                Iterator<String> layerKeys = tableNode.fieldNames();
                 String rowPrefix = tableNode.get(ROW_PREFIX_FIELD).asText();
 
                 // Parse each layer
@@ -63,7 +63,7 @@ public class TableStore extends ParamStructure {
 
                     List<Parameter> row = new ArrayList<>();
 
-                    Iterator paramKeys = layerNode.fieldNames();
+                    Iterator<String> paramKeys = layerNode.fieldNames();
 
                     // Parse each layer
                     for (JsonNode paramNode : layerNode) {

@@ -1,6 +1,5 @@
 package io.github.fruitcropxl.config.params;
 
-import java.io.Serializable;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -15,7 +14,7 @@ import io.github.fruitcropxl.config.util.exceptions.TypeNotFoundException;
  * 
  * @author Ou-An Chuang
  */
-public class ParamCategory extends KeyElement implements Serializable {
+public class ParamCategory extends KeyElement {
     private Map<String, Parameter> params;
 
     public ParamCategory(String key) {

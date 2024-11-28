@@ -6,7 +6,6 @@ import org.junit.runner.RunWith;
 import org.junit.runners.Suite;
 import org.junit.runners.Suite.SuiteClasses;
 
-import io.github.fruitcropxl.config.Config;
 import io.github.fruitcropxl.config.adapters.JsonFileReader;
 import io.github.fruitcropxl.config.params.ParamCategory;
 import io.github.fruitcropxl.config.params.ParamFactory;
