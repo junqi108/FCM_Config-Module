@@ -36,7 +36,7 @@ Run the following in the root directory of the repository to export the Maven pr
 bash build-jar.sh
 ```
 
-Navigate to the created `target` directory. You should find the generated JAR `fspm-config-0.0.1-SNAPSHOT.jar` (and its shade for Uber JAR development).
+Navigate to the created `target` directory. You should find the generated JAR `fruitcropxl-config-0.0.1-SNAPSHOT.jar` (and its shade for Uber JAR development).
 
 ## Usage
 
