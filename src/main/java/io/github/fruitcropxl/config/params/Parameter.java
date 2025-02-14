@@ -1,5 +1,7 @@
 package io.github.fruitcropxl.config.params;
 
+import java.io.PrintWriter;
+import java.io.StringWriter;
 import java.rmi.UnexpectedException;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonNode;
@@ -37,31 +39,34 @@ public class Parameter extends KeyElement {
         }
     }
 
-    // @SuppressWarnings("unchecked")
-    // public <T> T getValue() {
-    // try {
-    // if (node.isTextual()) {
-    // return (T) node.asText();
-    // } else if (node.isDouble()) {
-    // return (T) Double.valueOf(node.asDouble());
-    // } else if (node.isInt()) {
-    // return (T) Integer.valueOf(node.asInt());
-    // } else if (node.isBoolean()) {
-    // return (T) Boolean.valueOf(node.asBoolean());
-    // } else if (node.isArray()) {
-    // ObjectMapper objectMapper = new ObjectMapper();
-    // return (T) objectMapper.treeToValue(node, ArrayList.class);
-    // }
-    // } catch (Exception e) {
-    // StringWriter sw = new StringWriter();
-    // e.printStackTrace(new PrintWriter(sw));
-    // throw new RuntimeException(
-    // String.format("An error occurred while parsing parameter: %s.\n%s",
-    // super.getKey(), sw));
-    // }
-    // throw new UnsupportedOperationException(super.getKey() + " uses an
-    // unsupported type.");
-    // }
+    @SuppressWarnings("unchecked")
+    public <T> T getValue() {
+        try {
+            if (node.isNull()) {
+                return null;
+            } else if (node.isTextual()) {
+                return (T) node.asText();
+            } else if (node.isDouble()) {
+                return (T) Double.valueOf(node.asDouble());
+            } else if (node.isInt()) {
+                return (T) Integer.valueOf(node.asInt());
+            } else if (node.isBoolean()) {
+                return (T) Boolean.valueOf(node.asBoolean());
+            } else if (node.isArray()) {
+                throw new RuntimeException(String.format(
+                        "Cannot get array '%s' with getValue. Please use getArray instead.",
+                        super.getKey()));
+            }
+        } catch (Exception e) {
+            StringWriter sw = new StringWriter();
+            e.printStackTrace(new PrintWriter(sw));
+            throw new RuntimeException(String.format(
+                    "An error occurred while parsing parameter: %s.\n%s",
+                    super.getKey(), sw));
+        }
+        throw new UnsupportedOperationException(
+                super.getKey() + " uses an unsupported type.");
+    }
 
     /**
      * 

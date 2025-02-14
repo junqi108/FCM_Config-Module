@@ -14,7 +14,7 @@ import io.github.fruitcropxl.config.util.exceptions.TypeNotFoundException;
  * 
  * @author Ou-An Chuang
  */
-public class ParamCategory extends KeyElement {
+public class ParamCategory extends KeyElement implements KeyParamAccessor {
     private Map<String, Parameter> params;
 
     public ParamCategory(String key) {
@@ -54,44 +54,26 @@ public class ParamCategory extends KeyElement {
         params.put(key, param);
     }
 
-    // public <T> T getValue(String key) {
-    // return params.get(key).getValue();
-    // }
-
-    public Boolean getBoolean(String key) {
-        return getParameter(key).asBoolean();
+    @Override
+    public <T> T get(String key, Class<T> type) {
+        return getParameter(key).getValue();
     }
 
-    public String getString(String key) {
-        return getParameter(key).asString();
+    @Override
+    public <T> T get(String key, Class<T> type, T defaultValue) {
+        T value = get(key, type);
+        return value == null ? defaultValue : value; // Check for null this way rather than isNull to avoid retrieving twice.
     }
 
-    public Integer getInteger(String key) {
-        return getParameter(key).asInteger();
-    }
-
-    public Double getDouble(String key) {
-        return getParameter(key).asDouble();
-    }
-
-    public Boolean[] getBooleanArray(String key) {
-        return getParameter(key).asBooleanArray();
-    }
-
-    public String[] getStringArray(String key) {
-        return getParameter(key).asStringArray();
-    }
-
-    public Integer[] getIntegerArray(String key) {
-        return getParameter(key).asIntegerArray();
-    }
-
-    public Double[] getDoubleArray(String key) {
-        return getParameter(key).asDoubleArray();
-    }
-
+    @Override
     public <T> T[] getArray(String key, Class<T[]> type) {
         return getParameter(key).asArray(type);
+    }
+
+    @Override
+    public <T> T[] getArray(String key, Class<T[]> type, T[] defaultValue) {
+        T[] value = getArray(key, type);
+        return value == null ? defaultValue : value; // Check for null this way rather than isNull to avoid retrieving twice.
     }
 
     public boolean isNull(String key) {

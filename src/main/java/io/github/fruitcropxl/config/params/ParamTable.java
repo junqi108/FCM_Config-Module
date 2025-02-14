@@ -13,7 +13,7 @@ import io.github.fruitcropxl.config.util.exceptions.KeyNotFoundException;
  * Stores {@link io.github.fruitcropxl.config.params.Parameter Parameters} in a tabular format as
  * rows and columns (parameter key).
  */
-public class ParamTable extends KeyElement {
+public class ParamTable extends KeyElement implements CellParamAccessor {
     /**
      * A map of tabular rows stored with (row name, list of parameters). For example, [layer_1,
      * layerThickness].
@@ -44,37 +44,7 @@ public class ParamTable extends KeyElement {
         rows.put(key, row);
     }
 
-    // public <T> T getValue(String row, String column) {
-    // Parameter param = getParameter(row, column);
-
-    // }
-
-    // FIXME: duplicate code with ParamCategory
     // TODO: consider setter for table
-
-    public Boolean getBoolean(String row, String column) {
-        return getParameter(row, column).asBoolean();
-    }
-
-    public String getString(String row, String column) {
-        return getParameter(row, column).asString();
-    }
-
-    public Integer getInteger(String row, String column) {
-        return getParameter(row, column).asInteger();
-    }
-
-    public Double getDouble(String row, String column) {
-        return getParameter(row, column).asDouble();
-    }
-
-    public <T> T[] getArray(String row, String column, Class<T[]> type) {
-        return getParameter(row, column).asArray(type);
-    }
-
-    public boolean isNull(String row, String column) {
-        return getParameter(row, column).isNull();
-    }
 
     private Parameter getParameter(String row, String column) {
         List<Parameter> paramRow = rows.get(row);
@@ -87,6 +57,34 @@ public class ParamTable extends KeyElement {
         // Did not find parameter.
         throw new KeyNotFoundException(column, String.format(
                 "Could not find parameter '%s' in row '%s'", column, row));
+    }
+
+    @Override
+    public <T> T get(String row, String column, Class<T> type) {
+        return getParameter(row, column).getValue();
+    }
+
+    @Override
+    public <T> T get(String row, String column, Class<T> type, T defaultValue) {
+        T value = get(row, column, type);
+        return value == null ? defaultValue : value;
+    }
+
+    @Override
+    public <T> T[] getArray(String row, String column, Class<T[]> type) {
+        return getParameter(row, column).asArray(type);
+    }
+
+    @Override
+    public <T> T[] getArray(String row, String column, Class<T[]> type,
+            T[] defaultValue) {
+        T[] value = getParameter(row, column).asArray(type);
+        return value == null ? defaultValue : value; // Check for null this way rather than isNull to avoid retrieving twice.
+    }
+
+    @Override
+    public boolean isNull(String row, String column) {
+        return getParameter(row, column).isNull();
     }
 
     @Override

@@ -29,10 +29,10 @@ public class TableStoreTest {
                 .getTable("soilChemicalProperties");
 
         for (int i = 1; i <= 4; i++) {
-            println(soilPhysicalProperties.getInteger("layer_" + i,
-                    "layerThickness")); // indexing using row, col
+            println(soilPhysicalProperties.get("layer_" + i, "layerThickness",
+                    Integer.class)); // indexing using row, col
         }
-        Assert.assertEquals(0.0, soilChemicalProperties.getDouble("layer_1",
-                "absorptionCoefficient"), 0);
+        Assert.assertEquals(0.0, soilChemicalProperties.get("layer_1",
+                "absorptionCoefficient", Double.class), 0);
     }
 }

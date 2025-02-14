@@ -69,7 +69,7 @@ public class SerializationTest {
             File file = serialize(
                     CONFIG.getGroup("group", DocumentCategoryNameGroup.class)
                             .getCategoryStore().getCategory("category")
-                            .getDouble("doubleParam"));
+                            .get("doubleParam", Double.class));
             deserialize(file, Double.class);
         } catch (Exception e) {
             e.printStackTrace();

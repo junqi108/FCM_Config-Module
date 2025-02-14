@@ -9,6 +9,7 @@ import java.util.Map;
 import com.fasterxml.jackson.databind.JsonNode;
 
 import io.github.fruitcropxl.config.adapters.JsonFileReader;
+import io.github.fruitcropxl.config.params.KeyParamAccessor;
 import io.github.fruitcropxl.config.params.ParamCategory;
 import io.github.fruitcropxl.config.params.ParamFactory;
 import io.github.fruitcropxl.config.params.Parameter;
@@ -18,7 +19,7 @@ import io.github.fruitcropxl.config.util.exceptions.KeyNotFoundException;
 /**
  * Represents the collection of categories in a document.
  */
-public class CategoryStore extends ParamStructure {
+public class CategoryStore extends ParamStructure implements KeyParamAccessor {
 
     public static final String CATEGORIES_HEADER = "category";
 
@@ -182,109 +183,30 @@ public class CategoryStore extends ParamStructure {
         }
     }
 
-    // public <T> T getValue(String key) {
-    // validateFlattenedAccess(key);
-    // return categoryContext.getValue(key);
-    // }
+    // Access methods for when flattened categories is enabled.
 
-    // public <T> T getValue(String key, T defaultValue) {
-    // T value = getValue(key);
-    // return value != null ? value : defaultValue;
-    // }
-
-    public Boolean getBoolean(String key) {
+    @Override
+    public <T> T get(String key, Class<T> type) {
         validateFlattenedAccess(key);
-        return categoryContext.getBoolean(key);
+        return categoryContext.get(key, type);
     }
 
-    public String getString(String key) {
+    @Override
+    public <T> T get(String key, Class<T> type, T defaultValue) {
         validateFlattenedAccess(key);
-        return categoryContext.getString(key);
+        return categoryContext.get(key, type, defaultValue);
     }
 
-    public Integer getInteger(String key) {
-        validateFlattenedAccess(key);
-        return categoryContext.getInteger(key);
-    }
-
-    public Double getDouble(String key) {
-        validateFlattenedAccess(key);
-        return categoryContext.getDouble(key);
-    }
-
-    public Boolean[] getBooleanArray(String key) {
-        validateFlattenedAccess(key);
-        return categoryContext.getBooleanArray(key);
-    }
-
-    public String[] getStringArray(String key) {
-        validateFlattenedAccess(key);
-        return categoryContext.getStringArray(key);
-    }
-
-    public Integer[] getIntegerArray(String key) {
-        validateFlattenedAccess(key);
-        return categoryContext.getIntegerArray(key);
-    }
-
-    public Double[] getDoubleArray(String key) {
-        validateFlattenedAccess(key);
-        return categoryContext.getDoubleArray(key);
-    }
-
+    @Override
     public <T> T[] getArray(String key, Class<T[]> type) {
         validateFlattenedAccess(key);
         return categoryContext.getArray(key, type);
     }
 
-    public boolean getBoolean(String key, boolean defaultValue) {
-        Boolean value = getBoolean(key);
-        return value != null ? value : defaultValue;
-    }
-
-    public String getString(String key, String defaultValue) {
-        String value = getString(key);
-        return value != null ? value : defaultValue;
-    }
-
-    public int getInteger(String key, int defaultValue) {
-        Integer value = getInteger(key);
-        return value != null ? value : defaultValue;
-    }
-
-    public double getDouble(String key, double defaultValue) {
-        Double value = getDouble(key);
-        return value != null ? value : defaultValue;
-    }
-
-    public Boolean[] getBooleanArray(String key, boolean[] defaultValue) {
+    @Override
+    public <T> T[] getArray(String key, Class<T[]> type, T[] defaultValue) {
         validateFlattenedAccess(key);
-        Boolean[] value = categoryContext.getBooleanArray(key);
-        return (Boolean[]) (value != null ? value : defaultValue);
-    }
-
-    public String[] getStringArray(String key, String[] defaultValue) {
-        validateFlattenedAccess(key);
-        String[] value = categoryContext.getStringArray(key);
-        return value != null ? value : defaultValue;
-    }
-
-    public Integer[] getIntegerArray(String key, int[] defaultValue) {
-        validateFlattenedAccess(key);
-        Integer[] value = categoryContext.getIntegerArray(key);
-        return (Integer[]) (value != null ? value : defaultValue);
-    }
-
-    public Double[] getDoubleArray(String key, double[] defaultValue) {
-        validateFlattenedAccess(key);
-        Double[] value = categoryContext.getDoubleArray(key);
-        return (Double[]) (value != null ? value : defaultValue);
-    }
-
-    public <T> T[] getArray(String key, Class<T[]> type, T[] defaultValue)
-            throws UnexpectedException {
-        T[] value = getArray(key, type);
-        return value != null ? value : defaultValue;
+        return categoryContext.getArray(key, type, defaultValue);
     }
 
     public void set(String key, boolean value) {
