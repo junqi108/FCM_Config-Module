@@ -43,13 +43,13 @@ Navigate to the created `target` directory. You should find the generated JAR `f
 
 Ensure you have write access to the `io.github.fruitcropxl` Maven Central Repository namespace by configuring your `settings.xml` (see [Publishing By Using the Maven Plugin](https://central.sonatype.org/publish/publish-portal-maven/)).
 
+You may be prompted for a GPG key to sign the files. Please see how to [configure and distribute a public GPG key](https://central.sonatype.org/publish/requirements/gpg/).
+
 Run the following:
 
 ```sh
 mvn clean deploy
 ```
-
-You may be prompted for a GPG key to sign the files. Please see how to [configure and distribute a public GPG key](https://central.sonatype.org/publish/requirements/gpg/).
 
 Navigate to [Publishing Settings](https://central.sonatype.com/publishing/deployments) on the Maven Central Repository web interface. The deployment should be visible as either Pending or Validating.
 
