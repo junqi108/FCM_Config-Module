@@ -1,7 +1,6 @@
 package io.github.fruitcropxl.config.params.structures;
 
 import java.io.FileNotFoundException;
-import java.rmi.UnexpectedException;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
@@ -9,10 +8,10 @@ import java.util.Map;
 import com.fasterxml.jackson.databind.JsonNode;
 
 import io.github.fruitcropxl.config.adapters.JsonFileReader;
-import io.github.fruitcropxl.config.params.KeyParamAccessor;
 import io.github.fruitcropxl.config.params.ParamCategory;
 import io.github.fruitcropxl.config.params.ParamFactory;
 import io.github.fruitcropxl.config.params.Parameter;
+import io.github.fruitcropxl.config.params.accessors.KeyParamAccessor;
 import io.github.fruitcropxl.config.util.exceptions.KeyConflictException;
 import io.github.fruitcropxl.config.util.exceptions.KeyNotFoundException;
 
@@ -31,13 +30,9 @@ public class CategoryStore extends ParamStructure implements KeyParamAccessor {
     private Map<String, ParamCategory> categories;
 
     /**
-     * If parameters are stored in a flat structure, get and set parameter methods will seek out the
-     * first occurrence of the given parameter key.
-     * <p>
-     * Warning: this means duplicate parameter keys may result in either parameter being chosen
-     * unpredictably.
+     * Whether parameters can be accessed without needing to specify a category.
      */
-    public boolean useFlattenedCategories;
+    private boolean useFlattenedCategories;
 
     public CategoryStore(String groupKey) {
         super(groupKey);
@@ -147,6 +142,19 @@ public class CategoryStore extends ParamStructure implements KeyParamAccessor {
         return this;
     }
 
+    /**
+     * Set whether parameters can be accessed without needing to specify a category. Get and set
+     * parameter methods will seek out the first occurrence of the given parameter key.
+     * <p>
+     * Warning: this means duplicate parameter keys may result in either parameter being chosen
+     * unpredictably.
+     * 
+     * @param useFlattenedCategories
+     */
+    public void setFlattenedAccess(boolean useFlattenedCategories) {
+        this.useFlattenedCategories = useFlattenedCategories;
+    }
+
     private void validateFlattenedAccess(String key) {
         // Check: if using flattened categories, then check if key exists in current
         // category. Else, find category and set as context
@@ -209,35 +217,35 @@ public class CategoryStore extends ParamStructure implements KeyParamAccessor {
         return categoryContext.getArray(key, type, defaultValue);
     }
 
-    public void set(String key, boolean value) {
-        validateFlattenedAccess(key);
-        categoryContext.setParameter(key,
-                new ParamFactory().createParameter(key, value));
-    }
+    // public void set(String key, boolean value) {
+    // validateFlattenedAccess(key);
+    // categoryContext.setParameter(key,
+    // new ParamFactory().createParameter(key, value));
+    // }
 
-    public void set(String key, String value) {
-        validateFlattenedAccess(key);
-        categoryContext.setParameter(key,
-                new ParamFactory().createParameter(key, value));
-    }
+    // public void set(String key, String value) {
+    // validateFlattenedAccess(key);
+    // categoryContext.setParameter(key,
+    // new ParamFactory().createParameter(key, value));
+    // }
 
-    public void set(String key, int value) {
-        validateFlattenedAccess(key);
-        categoryContext.setParameter(key,
-                new ParamFactory().createParameter(key, value));
-    }
+    // public void set(String key, int value) {
+    // validateFlattenedAccess(key);
+    // categoryContext.setParameter(key,
+    // new ParamFactory().createParameter(key, value));
+    // }
 
-    public void set(String key, double value) {
-        validateFlattenedAccess(key);
-        categoryContext.setParameter(key,
-                new ParamFactory().createParameter(key, value));
-    }
+    // public void set(String key, double value) {
+    // validateFlattenedAccess(key);
+    // categoryContext.setParameter(key,
+    // new ParamFactory().createParameter(key, value));
+    // }
 
-    public void set(String key, Double[] value) {
-        validateFlattenedAccess(key);
-        categoryContext.setParameter(key,
-                new ParamFactory().createParameter(key, value));
-    }
+    // public void set(String key, Double[] value) {
+    // validateFlattenedAccess(key);
+    // categoryContext.setParameter(key,
+    // new ParamFactory().createParameter(key, value));
+    // }
 
     // public <T> void set(String key, T value) {
     // validateFlattenedAccess(key);
@@ -256,5 +264,85 @@ public class CategoryStore extends ParamStructure implements KeyParamAccessor {
             string.append(category);
         }
         return string.toString();
+    }
+
+    @Override
+    public Boolean getBoolean(String key) {
+        return get(key, Boolean.class);
+    }
+
+    @Override
+    public Boolean getBoolean(String key, Boolean defaultValue) {
+        return get(key, Boolean.class, defaultValue);
+    }
+
+    @Override
+    public String getString(String key) {
+        return get(key, String.class);
+    }
+
+    @Override
+    public String getString(String key, String defaultValue) {
+        return get(key, String.class, defaultValue);
+    }
+
+    @Override
+    public Integer getInteger(String key) {
+        return get(key, Integer.class);
+    }
+
+    @Override
+    public Integer getInteger(String key, Integer defaultValue) {
+        return get(key, Integer.class, defaultValue);
+    }
+
+    @Override
+    public Double getDouble(String key) {
+        return get(key, Double.class);
+    }
+
+    @Override
+    public Double getDouble(String key, Double defaultValue) {
+        return get(key, Double.class, defaultValue);
+    }
+
+    @Override
+    public Boolean[] getBooleanArray(String key) {
+        return getArray(key, Boolean[].class);
+    }
+
+    @Override
+    public Boolean[] getBooleanArray(String key, Boolean[] defaultValue) {
+        return getArray(key, Boolean[].class, defaultValue);
+    }
+
+    @Override
+    public String[] getStringArray(String key) {
+        return getArray(key, String[].class);
+    }
+
+    @Override
+    public String[] getStringArray(String key, String[] defaultValue) {
+        return getArray(key, String[].class, defaultValue);
+    }
+
+    @Override
+    public Integer[] getIntegerArray(String key) {
+        return getArray(key, Integer[].class);
+    }
+
+    @Override
+    public Integer[] getIntegerArray(String key, Integer[] defaultValue) {
+        return getArray(key, Integer[].class, defaultValue);
+    }
+
+    @Override
+    public Double[] getDoubleArray(String key) {
+        return getArray(key, Double[].class);
+    }
+
+    @Override
+    public Double[] getDoubleArray(String key, Double[] defaultValue) {
+        return getArray(key, Double[].class, defaultValue);
     }
 }

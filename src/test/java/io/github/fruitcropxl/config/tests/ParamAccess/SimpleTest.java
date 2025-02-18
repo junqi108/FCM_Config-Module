@@ -172,7 +172,7 @@ public class SimpleTest {
     public void testFlatCategories() {
         CategoryStore store = CONFIG.getGroup("model.input.data.default",
                 DocumentCategoryNameGroup.class).getCategoryStore();
-        store.useFlattenedCategories = true;
+        store.setFlattenedAccess(true);
 
         println(store.get("useStaticArc", Boolean.class));
         println(store.get("FractionDiffuseLightDaily", Double.class));

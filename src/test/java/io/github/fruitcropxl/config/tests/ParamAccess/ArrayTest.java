@@ -27,7 +27,7 @@ public class ArrayTest {
         CategoryStore store = CONFIG
                 .getGroup("soilParams_pot_1", DocumentCategoryNameGroup.class)
                 .getCategoryStore();
-        store.useFlattenedCategories = true;
+        store.setFlattenedAccess(true);
 
         println(store.getArray("layerThickness", Integer[].class)[0]);
     }
@@ -68,7 +68,7 @@ public class ArrayTest {
         CategoryStore store = CONFIG
                 .getGroup("soilParams_pot_1", DocumentCategoryNameGroup.class)
                 .getCategoryStore();
-        store.useFlattenedCategories = true;
+        store.setFlattenedAccess(true);
 
         try {
             println(store.getArray("layerThickness", Boolean[].class)[0]);

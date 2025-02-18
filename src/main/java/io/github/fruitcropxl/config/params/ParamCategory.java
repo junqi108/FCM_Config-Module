@@ -3,6 +3,7 @@ package io.github.fruitcropxl.config.params;
 import java.util.HashMap;
 import java.util.Map;
 
+import io.github.fruitcropxl.config.params.accessors.KeyParamAccessor;
 import io.github.fruitcropxl.config.util.KeyElement;
 import io.github.fruitcropxl.config.util.exceptions.KeyConflictException;
 import io.github.fruitcropxl.config.util.exceptions.KeyNotFoundException;
@@ -54,32 +55,6 @@ public class ParamCategory extends KeyElement implements KeyParamAccessor {
         params.put(key, param);
     }
 
-    @Override
-    public <T> T get(String key, Class<T> type) {
-        return getParameter(key).getValue();
-    }
-
-    @Override
-    public <T> T get(String key, Class<T> type, T defaultValue) {
-        T value = get(key, type);
-        return value == null ? defaultValue : value; // Check for null this way rather than isNull to avoid retrieving twice.
-    }
-
-    @Override
-    public <T> T[] getArray(String key, Class<T[]> type) {
-        return getParameter(key).asArray(type);
-    }
-
-    @Override
-    public <T> T[] getArray(String key, Class<T[]> type, T[] defaultValue) {
-        T[] value = getArray(key, type);
-        return value == null ? defaultValue : value; // Check for null this way rather than isNull to avoid retrieving twice.
-    }
-
-    public boolean isNull(String key) {
-        return getParameter(key).isNull();
-    }
-
     /**
      * Get generic {@link Parameter} with the given key. Use this method to check whether a parameter
      * exists in this category.
@@ -109,5 +84,111 @@ public class ParamCategory extends KeyElement implements KeyParamAccessor {
             format += "- " + param + "\n";
         }
         return format;
+    }
+
+    public boolean isNull(String key) {
+        return getParameter(key).isNull();
+    }
+
+    @Override
+    public <T> T get(String key, Class<T> type) {
+        return getParameter(key).getValue();
+    }
+
+    @Override
+    public <T> T get(String key, Class<T> type, T defaultValue) {
+        T value = get(key, type);
+        return value == null ? defaultValue : value; // Check for null this way rather than isNull to avoid retrieving twice.
+    }
+
+    @Override
+    public <T> T[] getArray(String key, Class<T[]> type) {
+        return getParameter(key).asArray(type);
+    }
+
+    @Override
+    public <T> T[] getArray(String key, Class<T[]> type, T[] defaultValue) {
+        T[] value = getArray(key, type);
+        return value == null ? defaultValue : value; // Check for null this way rather than isNull to avoid retrieving twice.
+    }
+
+    @Override
+    public Boolean getBoolean(String key) {
+        return get(key, Boolean.class);
+    }
+
+    @Override
+    public Boolean getBoolean(String key, Boolean defaultValue) {
+        return get(key, Boolean.class, defaultValue);
+    }
+
+    @Override
+    public String getString(String key) {
+        return get(key, String.class);
+    }
+
+    @Override
+    public String getString(String key, String defaultValue) {
+        return get(key, String.class, defaultValue);
+    }
+
+    @Override
+    public Integer getInteger(String key) {
+        return get(key, Integer.class);
+    }
+
+    @Override
+    public Integer getInteger(String key, Integer defaultValue) {
+        return get(key, Integer.class, defaultValue);
+    }
+
+    @Override
+    public Double getDouble(String key) {
+        return get(key, Double.class);
+    }
+
+    @Override
+    public Double getDouble(String key, Double defaultValue) {
+        return get(key, Double.class, defaultValue);
+    }
+
+    @Override
+    public Boolean[] getBooleanArray(String key) {
+        return getArray(key, Boolean[].class);
+    }
+
+    @Override
+    public Boolean[] getBooleanArray(String key, Boolean[] defaultValue) {
+        return getArray(key, Boolean[].class, defaultValue);
+    }
+
+    @Override
+    public String[] getStringArray(String key) {
+        return getArray(key, String[].class);
+    }
+
+    @Override
+    public String[] getStringArray(String key, String[] defaultValue) {
+        return getArray(key, String[].class, defaultValue);
+    }
+
+    @Override
+    public Integer[] getIntegerArray(String key) {
+        return getArray(key, Integer[].class);
+    }
+
+    @Override
+    public Integer[] getIntegerArray(String key, Integer[] defaultValue) {
+        return getArray(key, Integer[].class, defaultValue);
+    }
+
+    @Override
+    public Double[] getDoubleArray(String key) {
+        return getArray(key, Double[].class);
+    }
+
+    @Override
+    public Double[] getDoubleArray(String key, Double[] defaultValue) {
+        return getArray(key, Double[].class, defaultValue);
     }
 }
