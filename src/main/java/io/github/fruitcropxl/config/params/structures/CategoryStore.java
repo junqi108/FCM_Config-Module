@@ -217,41 +217,41 @@ public class CategoryStore extends ParamStructure implements KeyParamAccessor {
         return categoryContext.getArray(key, type, defaultValue);
     }
 
-    // public void set(String key, boolean value) {
-    // validateFlattenedAccess(key);
-    // categoryContext.setParameter(key,
-    // new ParamFactory().createParameter(key, value));
-    // }
+    public void set(String key, boolean value) {
+        validateFlattenedAccess(key);
+        categoryContext.setParameter(key,
+                new ParamFactory().createParameter(key, value));
+    }
 
-    // public void set(String key, String value) {
-    // validateFlattenedAccess(key);
-    // categoryContext.setParameter(key,
-    // new ParamFactory().createParameter(key, value));
-    // }
+    public void set(String key, String value) {
+        validateFlattenedAccess(key);
+        categoryContext.setParameter(key,
+                new ParamFactory().createParameter(key, value));
+    }
 
-    // public void set(String key, int value) {
-    // validateFlattenedAccess(key);
-    // categoryContext.setParameter(key,
-    // new ParamFactory().createParameter(key, value));
-    // }
+    public void set(String key, int value) {
+        validateFlattenedAccess(key);
+        categoryContext.setParameter(key,
+                new ParamFactory().createParameter(key, value));
+    }
 
-    // public void set(String key, double value) {
-    // validateFlattenedAccess(key);
-    // categoryContext.setParameter(key,
-    // new ParamFactory().createParameter(key, value));
-    // }
+    public void set(String key, double value) {
+        validateFlattenedAccess(key);
+        categoryContext.setParameter(key,
+                new ParamFactory().createParameter(key, value));
+    }
 
-    // public void set(String key, Double[] value) {
-    // validateFlattenedAccess(key);
-    // categoryContext.setParameter(key,
-    // new ParamFactory().createParameter(key, value));
-    // }
+    public void set(String key, Double[] value) {
+        validateFlattenedAccess(key);
+        categoryContext.setParameter(key,
+                new ParamFactory().createParameter(key, value));
+    }
 
-    // public <T> void set(String key, T value) {
-    // validateFlattenedAccess(key);
-    // categoryContext.setParameter(key, new ParamFactory().createParameter(key,
-    // value));
-    // }
+    public <T> void set(String key, T value) {
+        validateFlattenedAccess(key);
+        categoryContext.setParameter(key,
+                new ParamFactory().createParameter(key, value));
+    }
 
     public boolean isNull(String key) {
         validateFlattenedAccess(key);
