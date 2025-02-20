@@ -27,10 +27,9 @@ public class ArrayTest {
         CategoryStore store = CONFIG
                 .getGroup("soilParams_pot_1", DocumentCategoryNameGroup.class)
                 .getCategoryStore();
-        store.useFlattenedCategories = true;
+        store.setFlattenedAccess(true);
 
         println(store.getArray("layerThickness", Integer[].class)[0]);
-        println(store.getIntegerArray("layerThickness")[0]);
     }
 
     @Test
@@ -41,20 +40,22 @@ public class ArrayTest {
                 .getCategoryStore();
 
         ParamCategory arrays = store.getCategory("arrays");
-        println(Arrays.toString(arrays.getDoubleArray("doubleArray")));
-        println(Arrays.toString(arrays.getDoubleArray("intArray")));
-        println(Arrays.toString(arrays.getDoubleArray("floatArray")));
-        println(Arrays.toString(arrays.getDoubleArray("mixedArray")));
+        println(Arrays
+                .toString(arrays.getArray("doubleArray", Double[].class)));
+        println(Arrays.toString(arrays.getArray("intArray", Double[].class)));
+        println(Arrays.toString(arrays.getArray("floatArray", Double[].class)));
+        println(Arrays.toString(arrays.getArray("mixedArray", Double[].class)));
 
         try {
-            println(Arrays.toString(arrays.getDoubleArray("invalidArray")));
+            println(Arrays
+                    .toString(arrays.getArray("invalidArray", Double[].class)));
             fail("Should have failed as invalidArray contains a non-double value at index 0");
         } catch (TypeNotFoundException e) {
         }
 
         try {
-            println(Arrays
-                    .toString(arrays.getDoubleArray("invalidMixedArray")));
+            println(Arrays.toString(
+                    arrays.getArray("invalidMixedArray", Double[].class)));
             fail("Should have failed as invalidMixedArray contains non-double value(s)");
         } catch (UnsupportedOperationException e) {
         }
@@ -67,10 +68,10 @@ public class ArrayTest {
         CategoryStore store = CONFIG
                 .getGroup("soilParams_pot_1", DocumentCategoryNameGroup.class)
                 .getCategoryStore();
-        store.useFlattenedCategories = true;
+        store.setFlattenedAccess(true);
 
         try {
-            println(store.getBooleanArray("layerThickness")[0]);
+            println(store.getArray("layerThickness", Boolean[].class)[0]);
         } catch (TypeNotFoundException e) {
             println(e);
             return;

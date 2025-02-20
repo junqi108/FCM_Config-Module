@@ -32,18 +32,18 @@ public class SimpleTest {
                 .getGroup("model.input.data.name",
                         DocumentCategoryNameGroup.class)
                 .getCategoryStore().getCategory("Boolean_variables")
-                .getBoolean("useStaticArc"));
+                .get("useStaticArc", Boolean.class));
         println(CONFIG
                 .getGroup("model.input.data.name",
                         DocumentCategoryNameGroup.class)
                 .getCategoryStore().getCategory("Boolean_variables")
-                .getBoolean("inputLeafN"));
+                .get("inputLeafN", Boolean.class));
 
         println(CONFIG
                 .getGroup("model.input.data.name",
                         DocumentCategoryNameGroup.class)
                 .getCategoryStore().getCategory("simulation_location")
-                .getString("location_name"));
+                .get("location_name", String.class));
 
         /**
          * Contextual access
@@ -58,12 +58,12 @@ public class SimpleTest {
                         DocumentCategoryNameGroup.class)
                 .getCategoryStore().setCategoryContext("Boolean_variables");
 
-        println(store.getBoolean("useStaticArc"));
-        println(store.getBoolean("inputLeafN"));
+        println(store.get("useStaticArc", Boolean.class));
+        println(store.get("inputLeafN", Boolean.class));
 
         store.setCategoryContext("simulation_location");
 
-        println(store.getString("location_name"));
+        println(store.get("location_name", String.class));
 
         // Access via aliasing
 
@@ -74,15 +74,15 @@ public class SimpleTest {
                         DocumentCategoryNameGroup.class)
                 .getCategoryStore().getCategory("Boolean_variables");
 
-        println(booleans.getBoolean("useStaticArc"));
-        println(booleans.getBoolean("inputLeafN"));
+        println(booleans.get("useStaticArc", Boolean.class));
+        println(booleans.get("inputLeafN", Boolean.class));
 
         ParamCategory simulationLocation = CONFIG
                 .getGroup("model.input.data.name",
                         DocumentCategoryNameGroup.class)
                 .getCategoryStore().getCategory("simulation_location");
 
-        println(simulationLocation.getString("location_name"));
+        println(simulationLocation.get("location_name", String.class));
     }
 
     @Test
@@ -94,8 +94,8 @@ public class SimpleTest {
                 .getCategoryStore()
                 .setCategoryContext("initial_condition_biomass");
 
-        Assert.assertEquals(null, store.getDouble("BIOMASS_BERRY"));
-        Assert.assertEquals(null, store.getString("BIOMASS_WOOD"));
+        Assert.assertEquals(null, store.get("BIOMASS_BERRY", Double.class));
+        Assert.assertEquals(null, store.get("BIOMASS_WOOD", String.class));
     }
 
     @Test
@@ -107,7 +107,8 @@ public class SimpleTest {
                 .getCategoryStore()
                 .setCategoryContext("initial_condition_biomass");
 
-        Assert.assertEquals(1, store.getDouble("BIOMASS_BERRY", 1), 0);
+        Assert.assertEquals(1, store.get("BIOMASS_BERRY", Double.class, 1.0),
+                0);
     }
 
     @Test
@@ -117,13 +118,13 @@ public class SimpleTest {
                 .getGroup("group", DocumentCategoryNameGroup.class)
                 .getCategoryStore().setCategoryContext("category");
 
-        println(store.getDouble("doubleParam"));
-        println(store.getDouble("floatParam"));
+        println(store.get("doubleParam", Double.class));
+        println(store.get("floatParam", Double.class));
 
-        println(store.getDouble("nullParam") == null);
-        println(store.getString("nullParam") == null);
-        println(store.getInteger("nullParam") == null);
-        println(store.getDouble("nullParam") == null);
+        println(store.get("nullParam", Double.class) == null);
+        println(store.get("nullParam", String.class) == null);
+        println(store.get("nullParam", Integer.class) == null);
+        println(store.get("nullParam", Double.class) == null);
 
         println(store.isNull("nullParam"));
     }
@@ -140,7 +141,7 @@ public class SimpleTest {
                 .getCategoryStore()
                 .setCategoryContext("initial_condition_biomass");
 
-        println(store.getDouble("BIOMASS_LEAF") == null);
+        println(store.get("BIOMASS_LEAF", Double.class) == null);
     }
 
     @Test
@@ -151,15 +152,15 @@ public class SimpleTest {
 
         store.setCategoryContext("module_configuration");
 
-        Assert.assertEquals(null, store.getBoolean("special_scenario"));
+        Assert.assertEquals(null, store.get("special_scenario", Boolean.class));
 
         store.setCategoryContext("model_functionality");
 
-        Assert.assertTrue(store.getBoolean("calcLightInterception"));
+        Assert.assertTrue(store.get("calcLightInterception", Boolean.class));
 
         try {
             Assert.assertEquals(0,
-                    store.getInteger("trainingSystem").intValue());
+                    store.get("trainingSystem", Integer.class).intValue());
             Assert.fail(
                     "Should have thrown KeyNotFoundException as trainingSystem is not in the model_functionality category");
         } catch (KeyNotFoundException e) {
@@ -171,14 +172,14 @@ public class SimpleTest {
     public void testFlatCategories() {
         CategoryStore store = CONFIG.getGroup("model.input.data.default",
                 DocumentCategoryNameGroup.class).getCategoryStore();
-        store.useFlattenedCategories = true;
+        store.setFlattenedAccess(true);
 
-        println(store.getBoolean("useStaticArc"));
-        println(store.getDouble("FractionDiffuseLightDaily"));
+        println(store.get("useStaticArc", Boolean.class));
+        println(store.get("FractionDiffuseLightDaily", Double.class));
 
-        println(store.getInteger("radiationControl"));
-        println(store.getDouble("REFTMP"));
+        println(store.get("radiationControl", Integer.class));
+        println(store.get("REFTMP", Double.class));
 
-        println(store.getString("rootArchitecture_file"));
+        println(store.get("rootArchitecture_file", String.class));
     }
 }

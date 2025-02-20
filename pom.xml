@@ -7,7 +7,7 @@
 
   <groupId>io.github.fruitcropxl</groupId>
   <artifactId>fruitcropxl-config</artifactId>
-  <version>0.0.3</version>
+  <version>0.0.4</version>
 
   <name>${project.groupId}:${project.artifactId}</name>
   <description>The FruitCropXL configuration module.</description>

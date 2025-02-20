@@ -1,5 +1,7 @@
 package io.github.fruitcropxl.config.params;
 
+import java.io.PrintWriter;
+import java.io.StringWriter;
 import java.rmi.UnexpectedException;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonNode;
@@ -37,31 +39,46 @@ public class Parameter extends KeyElement {
         }
     }
 
-    // @SuppressWarnings("unchecked")
-    // public <T> T getValue() {
-    // try {
-    // if (node.isTextual()) {
-    // return (T) node.asText();
-    // } else if (node.isDouble()) {
-    // return (T) Double.valueOf(node.asDouble());
-    // } else if (node.isInt()) {
-    // return (T) Integer.valueOf(node.asInt());
-    // } else if (node.isBoolean()) {
-    // return (T) Boolean.valueOf(node.asBoolean());
-    // } else if (node.isArray()) {
-    // ObjectMapper objectMapper = new ObjectMapper();
-    // return (T) objectMapper.treeToValue(node, ArrayList.class);
-    // }
-    // } catch (Exception e) {
-    // StringWriter sw = new StringWriter();
-    // e.printStackTrace(new PrintWriter(sw));
-    // throw new RuntimeException(
-    // String.format("An error occurred while parsing parameter: %s.\n%s",
-    // super.getKey(), sw));
-    // }
-    // throw new UnsupportedOperationException(super.getKey() + " uses an
-    // unsupported type.");
-    // }
+    /**
+     * Get the value of the parameter as the given type.
+     * 
+     * @param <T>
+     * @param type The data type to retrieve
+     * @return Value of the parameter as the given type
+     */
+    @SuppressWarnings("unchecked")
+    public <T> T getValue(Class<T> type) {
+        // Short circuit null or invalid cases here
+        if (node.isNull()) {
+            return null;
+        }
+        if (node.isArray()) {
+            throw new RuntimeException(String.format(
+                    "Cannot get array '%s' with getValue. Please use getArray instead.",
+                    super.getKey()));
+        }
+
+        try {
+            // Parse the value and return as the given type.
+            if (type.equals(String.class)) {
+                return (T) node.asText();
+            } else if (type.equals(Double.class)) {
+                return (T) Double.valueOf(node.asDouble());
+            } else if (type.equals(Integer.class)) {
+                return (T) Integer.valueOf(node.asInt());
+            } else if (type.equals(Boolean.class)) {
+                return (T) Boolean.valueOf(node.asBoolean());
+            }
+        } catch (Exception e) {
+            StringWriter sw = new StringWriter();
+            e.printStackTrace(new PrintWriter(sw));
+            throw new RuntimeException(String.format(
+                    "An error occurred while parsing parameter: %s.\n%s",
+                    super.getKey(), sw));
+        }
+        throw new UnsupportedOperationException(
+                super.getKey() + " uses an unsupported type.");
+    }
 
     /**
      * 
@@ -105,6 +122,7 @@ public class Parameter extends KeyElement {
         if (isNull()) {
             return null;
         }
+
         Class<?> type = getDoubleType(node);
 
         if (type.equals(Double.class)) {
@@ -112,6 +130,7 @@ public class Parameter extends KeyElement {
         } else if (type.equals(Integer.class)) {
             return (double) node.asInt();
         } else if (type.equals(Float.class)) {
+            // TODO: Currently returns floats as double, consider adding support for float types
             String value = node.asText();
             return (double) Float.parseFloat(value);
         }
@@ -178,6 +197,12 @@ public class Parameter extends KeyElement {
         }
     }
 
+    /**
+     * Check which type the double value has been parsed as.
+     * 
+     * @param node
+     * @return
+     */
     private Class<?> getDoubleType(JsonNode node) {
         if (node.isDouble()) {
             return Double.class;
