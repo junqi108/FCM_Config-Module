@@ -4,6 +4,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import io.github.fruitcropxl.config.params.accessors.KeyParamAccessor;
+import io.github.fruitcropxl.config.params.accessors.TypedKeyParamAccessor;
 import io.github.fruitcropxl.config.util.KeyElement;
 import io.github.fruitcropxl.config.util.exceptions.KeyConflictException;
 import io.github.fruitcropxl.config.util.exceptions.KeyNotFoundException;
@@ -15,7 +16,8 @@ import io.github.fruitcropxl.config.util.exceptions.TypeNotFoundException;
  * 
  * @author Ou-An Chuang
  */
-public class ParamCategory extends KeyElement implements KeyParamAccessor {
+public class ParamCategory extends KeyElement
+        implements KeyParamAccessor, TypedKeyParamAccessor {
     private Map<String, Parameter> params;
 
     public ParamCategory(String key) {
@@ -92,7 +94,7 @@ public class ParamCategory extends KeyElement implements KeyParamAccessor {
 
     @Override
     public <T> T get(String key, Class<T> type) {
-        return getParameter(key).getValue();
+        return getParameter(key).getValue(type);
     }
 
     @Override
@@ -191,4 +193,92 @@ public class ParamCategory extends KeyElement implements KeyParamAccessor {
     public Double[] getDoubleArray(String key, Double[] defaultValue) {
         return getArray(key, Double[].class, defaultValue);
     }
+
+    // @Override
+    // public Boolean getBoolean(String key) {
+    // return getParameter(key).asBoolean();
+    // }
+
+    // @Override
+    // public Boolean getBoolean(String key, Boolean defaultValue) {
+    // Boolean value = getParameter(key).asBoolean();
+    // return value == null ? defaultValue : value;
+    // }
+
+    // @Override
+    // public String getString(String key) {
+    // return getParameter(key).asString();
+    // }
+
+    // @Override
+    // public String getString(String key, String defaultValue) {
+    // String value = getParameter(key).asString();
+    // return value == null ? defaultValue : value;
+    // }
+
+    // @Override
+    // public Integer getInteger(String key) {
+    // return getParameter(key).asInteger();
+    // }
+
+    // @Override
+    // public Integer getInteger(String key, Integer defaultValue) {
+    // Integer value = getParameter(key).asInteger();
+    // return value == null ? defaultValue : value;
+    // }
+
+    // @Override
+    // public Double getDouble(String key) {
+    // return getParameter(key).asDouble();
+    // }
+
+    // @Override
+    // public Double getDouble(String key, Double defaultValue) {
+    // Double value = getParameter(key).asDouble();
+    // return value == null ? defaultValue : value;
+    // }
+
+    // @Override
+    // public Boolean[] getBooleanArray(String key) {
+    // return getParameter(key).asBooleanArray();
+    // }
+
+    // @Override
+    // public Boolean[] getBooleanArray(String key, Boolean[] defaultValue) {
+    // Boolean[] value = getParameter(key).asBooleanArray();
+    // return value == null ? defaultValue : value;
+    // }
+
+    // @Override
+    // public String[] getStringArray(String key) {
+    // return getParameter(key).asStringArray();
+    // }
+
+    // @Override
+    // public String[] getStringArray(String key, String[] defaultValue) {
+    // String[] value = getParameter(key).asStringArray();
+    // return value == null ? defaultValue : value;
+    // }
+
+    // @Override
+    // public Integer[] getIntegerArray(String key) {
+    // return getParameter(key).asIntegerArray();
+    // }
+
+    // @Override
+    // public Integer[] getIntegerArray(String key, Integer[] defaultValue) {
+    // Integer[] value = getParameter(key).asIntegerArray();
+    // return value == null ? defaultValue : value;
+    // }
+
+    // @Override
+    // public Double[] getDoubleArray(String key) {
+    // return getParameter(key).asDoubleArray();
+    // }
+
+    // @Override
+    // public Double[] getDoubleArray(String key, Double[] defaultValue) {
+    // Double[] value = getParameter(key).asDoubleArray();
+    // return value == null ? defaultValue : value;
+    // }
 }

@@ -6,6 +6,7 @@ import java.util.Map;
 import java.util.Map.Entry;
 
 import io.github.fruitcropxl.config.params.accessors.CellParamAccessor;
+import io.github.fruitcropxl.config.params.accessors.TypedCellParamAccessor;
 import io.github.fruitcropxl.config.util.KeyElement;
 import io.github.fruitcropxl.config.util.exceptions.KeyConflictException;
 import io.github.fruitcropxl.config.util.exceptions.KeyNotFoundException;
@@ -14,7 +15,8 @@ import io.github.fruitcropxl.config.util.exceptions.KeyNotFoundException;
  * Stores {@link io.github.fruitcropxl.config.params.Parameter Parameters} in a tabular format as
  * rows and columns (parameter key).
  */
-public class ParamTable extends KeyElement implements CellParamAccessor {
+public class ParamTable extends KeyElement
+        implements CellParamAccessor, TypedCellParamAccessor {
     /**
      * A map of tabular rows stored with (row name, list of parameters). For example, [layer_1,
      * layerThickness].
@@ -62,7 +64,7 @@ public class ParamTable extends KeyElement implements CellParamAccessor {
 
     @Override
     public <T> T get(String row, String column, Class<T> type) {
-        return getParameter(row, column).getValue();
+        return getParameter(row, column).getValue(type);
     }
 
     @Override

@@ -12,13 +12,15 @@ import io.github.fruitcropxl.config.params.ParamCategory;
 import io.github.fruitcropxl.config.params.ParamFactory;
 import io.github.fruitcropxl.config.params.Parameter;
 import io.github.fruitcropxl.config.params.accessors.KeyParamAccessor;
+import io.github.fruitcropxl.config.params.accessors.TypedKeyParamAccessor;
 import io.github.fruitcropxl.config.util.exceptions.KeyConflictException;
 import io.github.fruitcropxl.config.util.exceptions.KeyNotFoundException;
 
 /**
  * Represents the collection of categories in a document.
  */
-public class CategoryStore extends ParamStructure implements KeyParamAccessor {
+public class CategoryStore extends ParamStructure
+        implements KeyParamAccessor, TypedKeyParamAccessor {
 
     public static final String CATEGORIES_HEADER = "category";
 
@@ -217,58 +219,15 @@ public class CategoryStore extends ParamStructure implements KeyParamAccessor {
         return categoryContext.getArray(key, type, defaultValue);
     }
 
-    public void set(String key, boolean value) {
-        validateFlattenedAccess(key);
-        categoryContext.setParameter(key,
-                new ParamFactory().createParameter(key, value));
-    }
-
-    public void set(String key, String value) {
-        validateFlattenedAccess(key);
-        categoryContext.setParameter(key,
-                new ParamFactory().createParameter(key, value));
-    }
-
-    public void set(String key, int value) {
-        validateFlattenedAccess(key);
-        categoryContext.setParameter(key,
-                new ParamFactory().createParameter(key, value));
-    }
-
-    public void set(String key, double value) {
-        validateFlattenedAccess(key);
-        categoryContext.setParameter(key,
-                new ParamFactory().createParameter(key, value));
-    }
-
-    public void set(String key, Double[] value) {
-        validateFlattenedAccess(key);
-        categoryContext.setParameter(key,
-                new ParamFactory().createParameter(key, value));
-    }
-
-    public <T> void set(String key, T value) {
-        validateFlattenedAccess(key);
-        categoryContext.setParameter(key,
-                new ParamFactory().createParameter(key, value));
-    }
-
-    public boolean isNull(String key) {
-        validateFlattenedAccess(key);
-        return categoryContext.isNull(key);
-    }
-
-    public String toString() {
-        StringBuilder string = new StringBuilder();
-        for (ParamCategory category : categories.values()) {
-            string.append(category);
-        }
-        return string.toString();
-    }
+    // FIXME:
+    // Typed access methods cannot use generic get(String key, Class<T> type) method
+    // This is because the generic getters do not consider different parsing edge cases.
+    // For example, a stored integer cannot be retrieved as a double.
 
     @Override
     public Boolean getBoolean(String key) {
-        return get(key, Boolean.class);
+        validateFlattenedAccess(key);
+        return categoryContext.getBoolean(key);
     }
 
     @Override
@@ -344,5 +303,54 @@ public class CategoryStore extends ParamStructure implements KeyParamAccessor {
     @Override
     public Double[] getDoubleArray(String key, Double[] defaultValue) {
         return getArray(key, Double[].class, defaultValue);
+    }
+
+    public void set(String key, boolean value) {
+        validateFlattenedAccess(key);
+        categoryContext.setParameter(key,
+                new ParamFactory().createParameter(key, value));
+    }
+
+    public void set(String key, String value) {
+        validateFlattenedAccess(key);
+        categoryContext.setParameter(key,
+                new ParamFactory().createParameter(key, value));
+    }
+
+    public void set(String key, int value) {
+        validateFlattenedAccess(key);
+        categoryContext.setParameter(key,
+                new ParamFactory().createParameter(key, value));
+    }
+
+    public void set(String key, double value) {
+        validateFlattenedAccess(key);
+        categoryContext.setParameter(key,
+                new ParamFactory().createParameter(key, value));
+    }
+
+    public void set(String key, Double[] value) {
+        validateFlattenedAccess(key);
+        categoryContext.setParameter(key,
+                new ParamFactory().createParameter(key, value));
+    }
+
+    public <T> void set(String key, T value) {
+        validateFlattenedAccess(key);
+        categoryContext.setParameter(key,
+                new ParamFactory().createParameter(key, value));
+    }
+
+    public boolean isNull(String key) {
+        validateFlattenedAccess(key);
+        return categoryContext.isNull(key);
+    }
+
+    public String toString() {
+        StringBuilder string = new StringBuilder();
+        for (ParamCategory category : categories.values()) {
+            string.append(category);
+        }
+        return string.toString();
     }
 }

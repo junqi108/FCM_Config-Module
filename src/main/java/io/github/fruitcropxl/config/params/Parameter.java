@@ -40,17 +40,17 @@ public class Parameter extends KeyElement {
     }
 
     @SuppressWarnings("unchecked")
-    public <T> T getValue() {
+    public <T> T getValue(Class<T> type) {
         try {
             if (node.isNull()) {
                 return null;
-            } else if (node.isTextual()) {
+            } else if (type.equals(String.class)) {
                 return (T) node.asText();
-            } else if (node.isDouble()) {
+            } else if (type.equals(Double.class)) {
                 return (T) Double.valueOf(node.asDouble());
-            } else if (node.isInt()) {
+            } else if (type.equals(Integer.class)) {
                 return (T) Integer.valueOf(node.asInt());
-            } else if (node.isBoolean()) {
+            } else if (type.equals(Boolean.class)) {
                 return (T) Boolean.valueOf(node.asBoolean());
             } else if (node.isArray()) {
                 throw new RuntimeException(String.format(
