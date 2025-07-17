@@ -41,9 +41,9 @@ Navigate to the created `target` directory. You should find the generated JAR `f
 
 ### Deploying to Maven Central Repository
 
-Ensure you have write access to the `io.github.fruitcropxl` Maven Central Repository namespace by configuring your `settings.xml` (see [Publishing By Using the Maven Plugin](https://central.sonatype.org/publish/publish-portal-maven/)).
+Ensure you have write access to the `io.github.fruitcropxl` Maven Central Repository namespace by configuring your `settings.xml` (located in `/home/<username/.m2/` on Linux) (see [Publishing By Using the Maven Plugin](https://central.sonatype.org/publish/publish-portal-maven/)).
 
-You may be prompted for a GPG key to sign the files. Please see how to [configure and distribute a public GPG key](https://central.sonatype.org/publish/requirements/gpg/).
+You may be prompted for a GPG key to sign the files. Please see how to [configure and distribute a public GPG key](https://central.sonatype.org/publish/requirements/gpg/). Remember to send your GPG key to `keyserver.ubuntu.com` to distribute it before use.
 
 Run the following:
 
